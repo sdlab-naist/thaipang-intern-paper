@@ -96,3 +96,5 @@ Icon
 # xindy
 *.xdy
 
+# the resulting pdf
+*.pdf
