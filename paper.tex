@@ -1,0 +1,88 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{microtype,mathtools,amsmath,multibib,amsfonts,multicol,array,multirow,place ins,cite,makecell,algorithm,algorithmic,subfigure,paralist,graphicx}
+%\usepackage{flushend}
+
+\usepackage[font=small,labelfont=bf]{caption}
+
+\usepackage{xspace}
+\usepackage{color}
+\usepackage{ifthen}
+\usepackage{url}
+\usepackage{fancybox}
+
+
+\graphicspath{{figures/}}
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+\title{Title}
+
+\maketitle
+\newboolean{showcomments}
+\setboolean{showcomments}{true} % toggle to show or hide comments
+\ifthenelse{\boolean{showcomments}}
+{\newcommand{\nbnote}[2]{
+  % \fbox{\bfseries\sffamily\scriptsize#1}
+  \fcolorbox{blue}{yellow}{\bfseries\sffamily\scriptsize#1}
+  {\sf\small\textit{#2}}
+  % \marginpar{\fbox{\bfseries\sffamily#1}}
+ }
+}
+{\newcommand{\nbnote}[2]{}
+ \newcommand{\version}{}
+}
+\newcommand\pick[1]{\nbnote{Pick}{\textcolor{magenta}{#1}}}
+\newcommand\thai[1]{\nbnote{Yoshida}{\textcolor{blue}{#1}}}
+
+
+\begin{abstract}
+
+
+\begin{IEEEkeywords}
+Peer Code Review, Software Inspection, Reviewer Recommendation, Reviewer Assignment
+\end{IEEEkeywords}
+\end{abstract}
+
+\section{Introduction}
+Motivation Example.
+\begin{description}
+\item[RQ1:] Can we identify useful and useless discussions in code review?
+\item[RQ2:] How impact of useless discussion impact to the software quality?
+\end{description}
+\section{Background}
+\subsection{Modern Code Review}
+\subsection{Text Mining Techniques}
+\subsubsection{TF-IDF}
+\subsubsection{Euclidian Distance}
+\subsection{Evaluation Techniques}
+\subsubsection{Precision and Recall}
+\subsubsection{F-measure}
+\section{Classification Method}
+%— Overview (No need for subsection)
+%\subsection{Data Preparation}
+%\subsection{Classifying useful discussion using text similarity and dissimilarity}
+%Need a better section name - -.
+%\subsection{Validation}
+% (10-fold cross validation)
+\section{Results}
+\subsection{Studied Project and Data set}
+\subsection{RQ1: Can we identify useful and useless discussion in code review?}
+\subsection{RQ2: How impact of useless discussion impact to the software quality?}
+\section{Threat to Validity}
+\section{Conclusion and Future Work}
+
+
+\IEEEpeerreviewmaketitle
+
+\bibliographystyle{IEEEtran}
+
+%\bibliography{references}
+
+
+
+% that's all folks
+\end{document}
+
+
