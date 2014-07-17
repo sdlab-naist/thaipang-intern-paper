@@ -93,9 +93,38 @@ Finally, we used tf--idf to convert each document into a vector.
 
 \subsection{Training Data}
 
-We sampled 320 comments from the historical data of code reviews in the Qt project.
-We then classified the samples as either useful (that is, technically contributing to the code) or not useful.
+We sampled 320 comments from the data set.
+These samples are then classified as either useful (that is, technically contributing to the software) or not useful.
 This task is carried out by three people who worked independently.
+
+Each comment is then scored based on the number of positive answers.
+For example, a comment with a score of 3 means that all three people said that it is useful,
+while a comment with a score of 0 means that none of us marked it as useful.
+
+%The score of a comment can be defined as:
+
+%\begin{align*}
+%Score_i & = \sum_{\text{reviewer } r} Review(r, i). \\
+%Review(r, i) & = \begin{cases}
+%	1 & \text{if } r \text{ says that the comment } i \text{ is useful,} \\
+%	0 & \text{otherwise.}
+%\end{cases}
+%\end{align*}
+
+\subsection{Model Generation}
+
+% the metrics
+For each comment, we computed a similarity and dissimilarity metrics
+between the comment text and the corresponding commit message.
+We chose cosine similarity and euclidean distance as the metrics to use in model generation.
+
+% assumptions in categorization
+The model is based on two assumptions: that useful comments will have a $similarity \geq A \text{ and } distance \leq B$,
+and that comments that are not useful will have a $ similarity \leq C \text{ and } distance \geq D$,
+where $A$, $B$, $C$, and $D$ are some constant.\footnote{We also have tried using the `or' operator. We found that using `and' produces better result.}
+
+% finding parameters
+To find these parameters, we used a brute-force approach.
 
 
 %€” Overview (No need for subsection)
