@@ -39,6 +39,10 @@
 
 \begin{abstract}
 
+% the freeform style of modern code review
+
+% some comments are not technically contributing
+
 
 \begin{IEEEkeywords}
 Peer Code Review, Software Inspection, Reviewer Recommendation, Reviewer Assignment
@@ -51,17 +55,50 @@ Motivation Example.\thai{Wow}
 \item[RQ1:] Can we identify useful and useless discussions in code review?
 \item[RQ2:] How impact of useless discussion impact to the software quality?
 \end{description}
+
 \section{Background}
 \subsection{Modern Code Review}
 \subsection{Text Mining Techniques}
-\subsubsection{TF-IDF}
-\subsubsection{Euclidian Distance}
+\subsubsection{tf--idf}
+\subsubsection{Similarity Measure}
 \subsection{Evaluation Techniques}
 \subsubsection{Precision and Recall}
 \subsubsection{F-measure}
+
+
 \section{Classification Method}
-%â€” Overview (No need for subsection)
-%\subsection{Data Preparation}
+
+Blah.
+
+
+\subsection{Data Preparation}
+
+% where we got the data
+We used the review data sets of the Qt project collected by Hamasaki et al.
+Only reviews in the master branch of \texttt{qtbase} project are considered,
+as it is the most active branch.
+
+% quick structure
+Each change includes a \emph{commit message}, which describes what is changed.
+After a change is submitted to Gerrit, reviewers can give scores to it, which will decide if the change will be accepted or not.
+Reviewers can also add comments to the change.
+Comments may optionally be added to a specific line of code inside a changed file.
+
+% conversion into vector, wow
+The commit messages and all comment texts are converted into vectors as follows.
+Firstly, we extracted words from the text, removed the stop words, and put the remaining words through Porter stemming algorithm.
+Secondly, we combined all the remaining tokens to form a corpus of all words from all documents.
+Finally, we used tf--idf to convert each document into a vector.
+
+
+\subsection{Training Data}
+
+We sampled 320 comments from the historical data of code reviews in the Qt project.
+We then classified the samples as either useful (that is, technically contributing to the code) or not useful.
+This task is carried out by three people who worked independently.
+
+
+%€” Overview (No need for subsection)
 %\subsection{Classifying useful discussion using text similarity and dissimilarity}
 %Need a better section name - -.
 %\subsection{Validation}
