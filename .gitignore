@@ -97,4 +97,4 @@ Icon
 *.xdy
 
 # the resulting pdf
-*.pdf
+/*.pdf
