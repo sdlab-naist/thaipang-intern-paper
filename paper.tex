@@ -199,7 +199,6 @@ After the 320 sample comments have been labeled,
 they are scored based on the number of ``yes'' given to the sample.
 The table below shows the distribution of scores for the training data.
 
-
 \begin{center}
 \begin{tabular}{|r|r|}
 \hline
@@ -210,15 +209,34 @@ The table below shows the distribution of scores for the training data.
 \end{tabular}
 \end{center}
 
+After the similarity and distance metrics have been calculated,
+these metrics appear to be able to separate the useful comments from the non-useful ones,
+as can be seen in Fig.\ref{fig:scatter}.
+Note that many comments have a cosine similarity metric of 0.
+This is because the comment text and the corresponding commit message has no word in comment.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=3in]{scatter}
+\caption{The similarity and distance plot of the training data.
+The symbol represents the score, which ranges from 0 to 3.}
+\label{fig:scatter}
+\end{figure}
 
 
-% corpus size and other statistics
+
+\subsection{Model Generation and Validation}
+
+From our training data,
+the following criteria have been found:
+
+For ``yes'' result:
+\begin{gather*} similarity \geq 0.015528969196702956 \text{ and}\\ distance \leq 2.4949438168165483 \end{gather*}
+
+For ``no'' result:
+\begin{gather*} similarity \leq 0.08752176628812282 \text{ and}\\ distance \geq 2.26567908457803 \end{gather*}
 
 
-
-\subsection{Studied Project and Data set}
-\subsection{RQ1: Can we identify useful and useless discussion in code review?}
-\subsection{RQ2: How impact of useless discussion impact to the software quality?}
 
 
 \section{Discussion}
