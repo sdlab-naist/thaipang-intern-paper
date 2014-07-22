@@ -19,6 +19,26 @@
 \begin{document}
 \title{Title}
 
+\author{
+\IEEEauthorblockN{Thai Pangsakulyanont\IEEEauthorrefmark{1}, Patanamon Thongtanunam\IEEEauthorrefmark{2},  Daniel Port\IEEEauthorrefmark{3}, Hajimu Iida\IEEEauthorrefmark{2}}
+\\
+\IEEEauthorblockA{
+\IEEEauthorrefmark{1} Kasetsart University, Thailand\\
+@ku.ac.th
+}
+
+\IEEEauthorblockA{
+\IEEEauthorrefmark{2} Nara Institute of Science and Technology, Japan\\
+patanamon-t@is.naist.jp, iida@itc.naist.jp\\
+}
+
+\IEEEauthorblockA{
+\IEEEauthorrefmark{3} University of Hawaii at Manoa, USA\\
+dport@hawaii.edu \\
+}
+}
+
+
 \maketitle
 \newboolean{showcomments}
 \setboolean{showcomments}{true} % toggle to show or hide comments
@@ -51,11 +71,11 @@ Peer Code Review, Software Inspection, Reviewer Recommendation, Reviewer Assignm
 
 \section{Introduction}
 Software code review is an established method regarded as a best practice in Software Engineering to achieve a sufficient quality in software project. This method mainly intend to early identify defect before integrating changes. The formal inspection\cite{Fagan:1976:DCI:1661010.1661012} is a traditional technique for code review with well-defined structure.
-However, with cumbersome process mandating a well-preparation and in-person meetings of formal inspection, Modern Code Review (MCR)\cite{Bacchelli2013a}, tool-based code reviews have received much attention nowadays and  put into software development regularly in both industrial and OSS projects. A major difference between MCR and inspection is the in-person meeting is not required in MCR. Reviewers can discuss to find defects through comments on code review tool. Then, developers will fix their changes following those comments.
+Due to cumbersome process mandating a well-preparation and in-person meetings of the formal inspection, Modern Code Review (MCR)\cite{Bacchelli2013a}, less formal and lightweight code reviews have received much attention nowadays and  put into software development regularly in both industrial and OSS projects. A major difference between MCR and inspection is the in-person meeting is not required in MCR. Reviewers can discuss to find defects by comments through code review tool or mailing list. Then, developers will fix their changes following those comments.
 
-As the performance of code review straight forward to the quality of software project, many studies investigated the influencing factors in both formal inspection\cite{Porter1998} \pick{and other papers}and MCR\cite{Mcintosh,Beller,Rigby,Hamasaki2013,Baysal2001}. This would in
+As the performance of code review straight forward to the quality of software project, many studies investigated the influencing factors in both formal inspection\cite{Porter1998,Kemerer2009} and MCR\cite{Baysal2001,Mcintosh,Beller,Hamasaki2013}. However, very little research investigate that in MCR, how does a discussion for a change impact to the quality. Since MCR is a lightweight code review, reviewers are not required to strictly examine the proposed code changes as in the formal inspection. As studies found that reviewers of MCR in Microsoft only focus on minor logic error rather than discussing deeper \cite{Bacchelli2013a}. McIntosh et. al. \cite{Mcintosh} also found that components which were reviewed without discussion are likely to contain bugs. 
 
- 
+
 
 %Software Inspection is basically composed of a three-step procedure: preparation, inspection meeting, and repair.
 
