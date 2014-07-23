@@ -58,7 +58,7 @@ dport@hawaii.edu \\
 
 
 \begin{abstract}
-
+Software code review is an established method regarded as a best practice in Software Engineering to achieve a sufficient quality in software project. This method mainly intend to early identify defect before integrating changes. Nowadays, Modern Code Review (MCR)\cite{Bacchelli2013a}, less formal and lightweight code reviews have received much attention and  put into software development regularly in both industrial and OSS projects. A main benefit of MCR is the in-person meeting is not required as the formal inspection \cite{Fagan:1976:DCI:1661010.1661012}. Reviewers can discuss to find defects by comments through code review tool or mailing list. Then, developers will fix their changes following those comments. 
 % the freeform style of modern code review
 
 % some comments are not technically contributing
@@ -107,7 +107,7 @@ In this section, we describe MCR process based on Gerrit system. Then, we descri
 \end{figure}
 Figure \ref{fig:process} shows an overview of MCR process based on Gerrit system. The grey box shows the review process of the system which composed of four main steps. (1) an author creating a patch and submitting a set of new or modified files as a review request to Gerrit system. (2) reviewers examine the proposed code changes whether it contains defects or not. (3) reviewers will give comments where should the author improve the code change. The author will create a new change according to the comments then re-submit a new patch again. Then, reviewers will examine the new change. If there is still a needed improvement, reviewers will give comments to fix again. The steps (1)-(3) will be iterated until reviewers can determine that this changes can be merge to the project or should not be merge (reject the change). 
 
-According to this process, reviewers' comment is the most important for the software quality. McIntosh et. al. \cite{Mcintosh} also found that components which were reviewed without discussion are likely to contain bugs. However, as tool supporting MCR allows reviewers freely write a message to the author, it is often seen that some comments are not clearly identify defects and ineffective. Microsoft developers reported that they only focus on minor logic errors rather than discussing deeper in design\cite{Bacchelli2013a}. Our observation in Qt project also correspond this finding. We found some comments is superficial as shown in Fig. \ref{fig:example}(a), some comments only discuss about Version Control System (e.g. Git) used in the project. 
+According to this process, reviewers' comment is the most important for the software quality. McIntosh et. al. \cite{Mcintosh} also found that components which were reviewed without discussion are likely to contain bugs. However, as tool supporting MCR allows reviewers freely write a message to the author, it is often seen that some comments are not clearly identify defects and ineffective. Microsoft developers reported that they only focus on minor logic errors rather than discussing deeper in design\cite{Bacchelli2013a}. Our observation in Qt project also correspond this finding. We found some comments are superficial and unrelated to the proposed changes. For example, a superficial and unconfident reviewer as shown in Fig. \ref{fig:example}(a), a comment for rule of using Version Control System (e.g. Git) in the project Fig. \ref{fig:example}(b). 
 
 \begin{figure}[!t]
 \centering
@@ -116,13 +116,38 @@ According to this process, reviewers' comment is the most important for the soft
 \label{fig:example}
 \end{figure}
 
-\subsection{Text Mining Techniques}
-\subsubsection{tf--idf}
-\subsubsection{Similarity Measure}
-\subsection{Evaluation Techniques}
+\subsection{Text Mining Technique: Vector Space Model}
+Vector Space Model (VSM) is well-known technique for information retrieval where documents written in unstructured natural language. In Software Engineering, VSM has been widely use to find relationship among documents in software issue tracking system\cite{Davies2012}. 
+
+\noindent\textbf{VSM} is a model for representing text documents as vectors. Thus, for a set of documents ($D$), each document ($d$) is represented as $\overrightarrow{V_d} = <w_{1,d},w_{2,d},w_{3,d},...w_{n,d}>$, where $n$ is the total number of unique terms occur in the set of documents; and $w_{t,d}$ is TF-IDF weighting of term $t$ calculated from term occurrence frequency. The weight of $w_{t,d}$   can be calculated following Equation \ref{eq:tf-idf} where $tf_{t,d}$ is frequency of term $t$ occurs in document $d$; and $|\{d' \in D | t \in d'\}|$ is the number of other documents $d'$ that also contain term $t$.  
+
+\begin{equation}
+w_{t,d} = tf_{t,d} \times \log\frac{|D|}{1+|\{d' \in D | t \in d'\}|}
+\label{eq:tf-idf}
+\end{equation}
+\pick{Equation need to be check.}
+
+To calculate the similarity between two document vectors $\overrightarrow{V_c}$ and $\overrightarrow{V_d}$, we use Cosine similarity and Euclidian distance. 
+\pick{Why we need two measurements?}
+
+\noindent\textbf{Cosine similarity} measures similarity between two vectors using inner product as described in Equation \ref{eq:cosine}. The similarity value is ranging $[0,1]$ where 0 means there is no similarity and 1 means two vectors are textually similar.  
+
+\begin{equation}
+\cos\theta(\overrightarrow{V_c},\overrightarrow{V_d}) = \frac{\sum_{i=1}^{|D|} w_{i,c} \times w_{i,d}}{\sqrt{\sum_{i=1}^{|D|} w^2_{i,c} \times \sum_{i=1}^{|D|} w^2_{i,d}}}
+\label{eq:cosine}
+\end{equation}
+
+\noindent\textbf{Euclidian distance} measures ordinary distance between each element of two vectors using Equation \ref{eq:euclid}. The distance value is ranging $[0,\infty)$ where 0 means these vectors is same vector and a more distance means less similar vectors. This can be used to determine how dissimilarity between two vectors.
+
+\begin{equation}
+d(\overrightarrow{V_c},\overrightarrow{V_d}) = \sqrt{\sum_{i=1}^{|D|}(w_{i,c} - w_{i,d})^2}
+\label{eq:euclid}
+\end{equation}
+
+\subsection{Estimating Similarity and Dissimilarity Criteria}
+In our approach, we build our classification model by selecting similarity and dissimilarity that best discriminate comments. To do so, we use three traditional measurements: Precision, Recall, and F-measure.
 \subsubsection{Precision and Recall}
 \subsubsection{F-measure}
-
 
 
 \section{Classification Method}
@@ -133,6 +158,8 @@ According to this process, reviewers' comment is the most important for the soft
 \caption{Overview of our classification method.}
 \label{fig:overview}
 \end{figure*}
+
+
 
 % where we got the data
 We used the review data sets of the Qt project collected by Hamasaki et al TODO(cite properly).
