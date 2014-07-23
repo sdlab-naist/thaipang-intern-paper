@@ -1,5 +1,5 @@
 \documentclass[conference]{IEEEtran}
-\usepackage{microtype,mathtools,amsmath,multibib,amsfonts,multicol,array,multirow,place ins,cite,makecell,algorithm,algorithmic,subfigure,paralist,graphicx}
+\usepackage{microtype,mathtools,amsmath,multibib,amsfonts,multicol,array,multirow,place ins,cite,makecell,algorithm,algorithmic,subfig,paralist,graphicx}
 %\usepackage{flushend}
 
 \usepackage[font=small,labelfont=bf]{caption}
@@ -70,13 +70,11 @@ Modern Code Review, Software Quality, Text Mining
 \end{abstract}
 
 \section{Introduction}
-Software code review is an established method regarded as a best practice in Software Engineering to achieve a sufficient quality in software project. This method mainly intend to early identify defect before integrating changes. The formal inspection\cite{Fagan:1976:DCI:1661010.1661012} is a traditional technique for code review with well-defined structure.
-Due to cumbersome process mandating a well-preparation and in-person meetings of the formal inspection, Modern Code Review (MCR)\cite{Bacchelli2013a}, less formal and lightweight code reviews have received much attention nowadays and  put into software development regularly in both industrial and OSS projects. A major difference between MCR and inspection is the in-person meeting is not required in MCR. Reviewers can discuss to find defects by comments through code review tool or mailing list. Then, developers will fix their changes following those comments.
+Software code review is an established method regarded as a best practice in Software Engineering to achieve a sufficient quality in software project. This method mainly intend to early identify defect before integrating changes. Nowadays, Modern Code Review (MCR)\cite{Bacchelli2013a}, less formal and lightweight code reviews have received much attention and  put into software development regularly in both industrial and OSS projects. A main benefit of MCR is the in-person meeting is not required as the formal inspection \cite{Fagan:1976:DCI:1661010.1661012}. Reviewers can discuss to find defects by comments through code review tool or mailing list. Then, developers will fix their changes following those comments.
 
-As the performance of code review straight forward to the quality of software project, many studies investigated the influencing factors in both formal inspection\cite{Porter1998,Kemerer2009} and MCR\cite{Baysal2001,Mcintosh,Beller,Hamasaki2013}. However, very little research investigate that in MCR, how does a discussion for a proposed change impact to the software quality. Since most of the proposed change improvements are triggered from reviewer comments \cite{Beller}. McIntosh et. al. \cite{Mcintosh} also found that components which were reviewed without discussion are likely to contain bugs. However, there is a study found that reviewers of MCR in Microsoft only focus on minor logic error rather than discussing deeper \cite{Bacchelli2013a}. As MCR is a lightweight code review, reviewers are not required to strictly examine the proposed code changes as in the formal inspection. 
-From prior works, we conjecture that comments of reviewers can be either positively contribute the proposed changes or a discussion which is out of scope.
-
-To understand the impact of discussion in MCR, a manual classification is required as study of Beller et. al. \cite{Beller}. As a massive amount of changes and comments in MCR history\cite{Balachandran2013}, it is painstaking and time consuming to classify data sets to perform quantitative analysis. Moreover, the comments in MCR is unstructured natural text unlike a checklist in the formal inspection. 
+As the performance of code review straight forward to the quality of software project, many studies investigated the influencing factors in MCR\cite{Baysal2001,Mcintosh,Beller,Hamasaki2013}. However, very little research investigate that in MCR, how does a discussion for a proposed change impact to the software quality. Since most of the proposed change improvements are triggered from reviewer comments \cite{Beller}. 
+It is possible that comments of reviewers can be either positively contribute the proposed changes or a discussion which is out of scope.
+To determine the impact of discussion in MCR, a manual classification is required as study of Beller et. al. \cite{Beller}. As a massive amount of changes and comments in MCR history\cite{Balachandran2013,Thongtanunam2014}, it is painstaking and time consuming to classify data sets to perform quantitative analysis. Moreover, the comments in MCR is unstructured natural text unlike a checklist in the formal inspection. 
 %\pick{Need some connection. Says that Massive amount of commits and comment it would be expensive to manually identify. It's natural language }
 
 In this paper, we present an approach to automatically classify the usefulness of comments. We define that the usefulness is a comment that contribute to improve the proposed changes. In our approach, we analyze the similarity between commit message of the proposed changes and their comments. Our key idea is that useful comments are likely to contain similar topic as the proposed changes. To do so, we use text mining techniques, Vector Space Model (VSM) to calculate similarity and use euclidian distance to calculate dissimilarity. 
@@ -99,13 +97,32 @@ For our empirical study, we used a review history of Gerrit\footnote{https://cod
 
 
 \section{Background}
-\subsection{Modern Code Review}
+In this section, we describe MCR process based on Gerrit system. Then, we describe the background behind our approach composed of text mining techniques using VSM and euclidian distance and prediction evaluation techniques. 
+\subsection{Modern Code Review Process}
+\begin{figure}[!t]
+\centering
+\includegraphics[scale=0.35, trim= 100 110 50 80, clip=true]{review_process}
+\caption{An simplified version of MCR Process based on Gerrit system}
+\label{fig:process}
+\end{figure}
+Figure \ref{fig:process} shows an overview of MCR process based on Gerrit system. The grey box shows the review process of the system which composed of four main steps. (1) an author creating a patch and submitting a set of new or modified files as a review request to Gerrit system. (2) reviewers examine the proposed code changes whether it contains defects or not. (3) reviewers will give comments where should the author improve the code change. The author will create a new change according to the comments then re-submit a new patch again. Then, reviewers will examine the new change. If there is still a needed improvement, reviewers will give comments to fix again. The steps (1)-(3) will be iterated until reviewers can determine that this changes can be merge to the project or should not be merge (reject the change). 
+
+According to this process, reviewers' comment is the most important for the software quality. McIntosh et. al. \cite{Mcintosh} also found that components which were reviewed without discussion are likely to contain bugs. However, as tool supporting MCR allows reviewers freely write a message to the author, it is often seen that some comments are not clearly identify defects and ineffective. Microsoft developers reported that they only focus on minor logic errors rather than discussing deeper in design\cite{Bacchelli2013a}. Our observation in Qt project also correspond this finding. We found some comments is superficial as shown in Fig. \ref{fig:example}(a), some comments only discuss about Version Control System (e.g. Git) used in the project. 
+
+\begin{figure}[!t]
+\centering
+\includegraphics[scale=0.4, trim= 100 250 0 0, clip=true]{comment_examples}
+\caption{Examples of comment in code reviews of Qt project.}
+\label{fig:example}
+\end{figure}
+
 \subsection{Text Mining Techniques}
 \subsubsection{tf--idf}
 \subsubsection{Similarity Measure}
 \subsection{Evaluation Techniques}
 \subsubsection{Precision and Recall}
 \subsubsection{F-measure}
+
 
 
 \section{Classification Method}
