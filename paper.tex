@@ -199,6 +199,13 @@ For each comment, we computed similarity and dissimilarity metrics
 between the comment text and the corresponding commit message.
 We chose cosine similarity and euclidean distance as the metrics to use in model generation.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=3in]{vector}
+\caption{The similarity and distance metric that is being used.}
+\label{fig:vector}
+\end{figure}
+
 % assumptions in categorization
 The model is based on two assumptions: that useful comments will have a $similarity \geq A \text{ and } distance \leq B$,
 and that comments that are not useful will have a $ similarity \leq C \text{ and } distance \geq D$,
@@ -239,31 +246,68 @@ This means that each document will be converted into a vector of 20,025 dimensio
 
 After the 320 sample comments have been labeled,
 they are scored based on the number of ``yes'' given to the sample.
-The table below shows the distribution of scores for the training data.
+There were 87, 60, 51, and 122 comments with scores of 0, 1, 2, and 3, respectively.
 
+After the similarity and distance metrics have been calculated,
+these metrics appear to be able to separate the useful comments from the non-useful ones,
+as can be seen in Fig.\ref{fig:scatter}.
+Note that many comments have a cosine similarity metric of 0.
+This is because the comment text and the corresponding commit message has no word in comment.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=3in]{scatter}
+\caption{The similarity and distance plot of the training data.
+The symbol represents the score, which ranges from 0 to 3.}
+\label{fig:scatter}
+\end{figure}
+
+
+
+\subsection{Model Generation and Validation}
+
+% the criteria that were found
+From our training data,
+the following criteria have been obtained that maximizes the F$_1$ score:
+
+Criteria to find samples with score of 3 (``positive''):
+\begin{gather*} similarity \geq 0.015528 \text{ and } distance \leq 2.494944
+\\ \text{(F$_1$-score: 0.741313)} \end{gather*}
+
+Criteria to find samples with score of 0 (``negative''):
+\begin{gather*} similarity \leq 0.087522 \text{ and } distance \geq 2.265679
+\\ \text{(F$_1$-score: 0.725389)}\end{gather*}
+
+Note that these constant values can vary from project to project, and thus is not a universal constant.
+
+% run result
+
+Running our model against the training data gives us the result displayed in the following table.
+In the table, \emph{Neither} means that the comment did not meet either criteria, while \emph{Overlap} means that the comment  met both ``positive'' and ``negative'' criteria.
 
 \begin{center}
-\begin{tabular}{|r|r|}
+\begin{tabular}{|r|rrrr|}
 \hline
-\bfseries Score & \bfseries Count \\
+& \bfseries 0 & \bfseries 1 & \bfseries 2 & \bfseries 3 \\
 \hline
-0 & 87 \\ 1 & 60 \\ 2 & 51 \\ 3 & 122 \\
+Negative & 69 & 23 & 7 & 6 \\
+Neither & 12 & 24 & 20 & 20 \\
+Overlap & 1 & 1 & 0 & 1 \\
+Positive & 4 & 13 & 24 & 95 \\
 \hline
 \end{tabular}
 \end{center}
 
+As expected, most comments classified as \emph{negative} have score of 0 and 1,
+while most \emph{positive} comments have score of 2 and 3.
+However, some comments in every score were lost and classified as \emph{neither}.
 
-
-% corpus size and other statistics
-
-
-
-\subsection{Studied Project and Data set}
-\subsection{RQ1: Can we identify useful and useless discussion in code review?}
-\subsection{RQ2: How impact of useless discussion impact to the software quality?}
+% cross validation result
 
 
 \section{Discussion}
+
+
 
 
 
