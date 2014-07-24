@@ -308,7 +308,9 @@ This is possible because the set of $similarity$ and $distance$ values are discr
 Each possible value of $A$, $B$, $C$, and $D$ are evaluated to find the constant that returns the maximum F$_1$ score.
 
 % validation
-To validate our model, 10-fold cross validation is performed.
+To validate our model, we randomly split the data into 10 parts.
+9 parts are used for training, and 1 part for validation.
+This process is repeated 300 times. % while I sleep
 The values of precision, recall, F$_1$ score, and accuracy are recorded and then averaged
 to give the overall performance of our model.
 
@@ -355,7 +357,7 @@ The symbol represents the score, which ranges from 0 to 3.}
 
 
 
-\subsection{Model Generation and Validation}
+\subsection{Model Generation}
 
 % the criteria that were found
 From our training data,
@@ -391,21 +393,39 @@ Positive & 4 & 13 & 24 & 95 \\
 
 As expected, most comments classified as \emph{negative} have score of 0 and 1,
 while most \emph{positive} comments have score of 2 and 3.
-However, some comments in every score were lost and classified as \emph{neither}.
+However, some comments in every score type were classified as \emph{neither}.
+
+
 
 
 
 % cross validation result
 
+\subsection{Cross Validation}
+
+After we performed cross validation, we obtained the following result:
+for positive and negative classifications,
+we obtained an average F$_1$ score of 0.693 and 0.681,
+with standard deviation of 0.090 and 0.118, respectively.
 
 
 
 
 \section{Discussion}
 
-% stuff
+% noisy data, and binary classification
 
 
+
+% tuning the F score for precision and recall
+
+
+
+% reasons for classification as useful or not useful
+
+
+
+% example of false positive and false negatives
 
 
 
