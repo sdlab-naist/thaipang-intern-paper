@@ -1,5 +1,5 @@
 \documentclass[conference]{IEEEtran}
-\usepackage{microtype,mathtools,amsmath,multibib,amsfonts,multicol,array,multirow,place ins,cite,makecell,algorithm,algorithmic,subfigure,paralist,graphicx}
+\usepackage{microtype,mathtools,amsmath,multibib,amsfonts,multicol,array,multirow,place ins,cite,makecell,algorithm,algorithmic,subfig,paralist,graphicx}
 %\usepackage{flushend}
 
 \usepackage[font=small,labelfont=bf]{caption}
@@ -18,6 +18,26 @@
 
 \begin{document}
 \title{Title}
+
+\author{
+\IEEEauthorblockN{Thai Pangsakulyanont\IEEEauthorrefmark{1}, Patanamon Thongtanunam\IEEEauthorrefmark{2},  Daniel Port\IEEEauthorrefmark{3}, Hajimu Iida\IEEEauthorrefmark{2}}
+\\
+\IEEEauthorblockA{
+\IEEEauthorrefmark{1} Kasetsart University, Thailand\\
+@ku.ac.th
+}
+
+\IEEEauthorblockA{
+\IEEEauthorrefmark{2} Nara Institute of Science and Technology, Japan\\
+patanamon-t@is.naist.jp, iida@itc.naist.jp\\
+}
+
+\IEEEauthorblockA{
+\IEEEauthorrefmark{3} University of Hawaii at Manoa, USA\\
+dport@hawaii.edu \\
+}
+}
+
 
 \maketitle
 \newboolean{showcomments}
@@ -38,42 +58,130 @@
 
 
 \begin{abstract}
-
+Software code review is an established method regarded as a best practice in Software Engineering to achieve a sufficient quality in software project. This method mainly intend to early identify defect before integrating changes. Nowadays, Modern Code Review (MCR)\cite{Bacchelli2013a}, less formal and lightweight code reviews have received much attention and  put into software development regularly in both industrial and OSS projects. A main benefit of MCR is the in-person meeting is not required as the formal inspection \cite{Fagan:1976:DCI:1661010.1661012}. Reviewers can discuss to find defects by comments through code review tool or mailing list. Then, developers will fix their changes following those comments. 
 % the freeform style of modern code review
 
 % some comments are not technically contributing
 
 
 \begin{IEEEkeywords}
-Peer Code Review, Software Inspection, Reviewer Recommendation, Reviewer Assignment
+Modern Code Review, Software Quality, Text Mining
 \end{IEEEkeywords}
 \end{abstract}
 
 \section{Introduction}
-Motivation Example.\thai{Wow}
-\begin{description}
-\item[RQ1:] Can we identify useful and useless discussions in code review?
-\item[RQ2:] How impact of useless discussion impact to the software quality?
-\end{description}
+Software code review is an established method regarded as a best practice in Software Engineering to achieve a sufficient quality in software project. This method mainly intend to early identify defect before integrating changes. Nowadays, Modern Code Review (MCR)\cite{Bacchelli2013a}, less formal and lightweight code reviews have received much attention and  put into software development regularly in both industrial and OSS projects. A main benefit of MCR is the in-person meeting is not required as the formal inspection \cite{Fagan:1976:DCI:1661010.1661012}. Reviewers can discuss to find defects by comments through code review tool or mailing list. Then, developers will fix their changes following those comments.
 
-\section{Background}
-\subsection{Modern Code Review}
-\subsection{Text Mining Techniques}
-\subsubsection{tf--idf}
-\subsubsection{Similarity Measure}
-\subsection{Evaluation Techniques}
-\subsubsection{Precision and Recall}
-\subsubsection{F-measure}
-
-
-\section{Classification Method}
-
-\begin{figure*}
+As the performance of code review straight forward to the quality of software project, many studies investigated the influencing factors in MCR\cite{Baysal2001,Mcintosh,Beller,Hamasaki2013}. However, very little research investigate that in MCR, how does a discussion for a proposed change impact to the software quality. Since most of the proposed change improvements are triggered from reviewer comments \cite{Beller}. 
+It is possible that comments of reviewers can be either positively contribute the proposed changes or a discussion which is out of scope.
+To determine the impact of discussion in MCR, a manual classification is required as study of Beller et. al. \cite{Beller}. As a massive amount of changes and comments in MCR history\cite{Balachandran2013,Thongtanunam2014}, it is painstaking and time consuming to classify data sets to perform quantitative analysis. Moreover, the comments in MCR is unstructured natural text unlike a checklist in the formal inspection. 
+%\pick{Need some connection. Says that Massive amount of commits and comment it would be expensive to manually identify. It's natural language }
+\begin{figure}[!t]
 \centering
-\includegraphics[width=6in]{overview}
-\caption{Overview of our classification method.}
+\includegraphics[scale=0.35, trim= 100 110 50 80, clip=true]{review_process}
+\caption{An simplified version of MCR Process based on Gerrit system}
+\label{fig:process}
+\end{figure}
+
+In this paper, we present an approach to automatically classify the usefulness of comments. We define that the usefulness is a comment that contribute to improve the proposed changes. In our approach, we analyze the similarity between commit message of the proposed changes and their comments. Our key idea is that useful comments are likely to contain similar topic as the proposed changes. To do so, we use text mining techniques, Vector Space Model (VSM) to calculate similarity and use euclidian distance to calculate dissimilarity. 
+We create our predictive model by estimating a set of similarity and dissimilarity values that best discriminate between a useful and useless comments using the prediction evaluations: Precision, Recall and F-measure.
+
+For our empirical study, we used a review history of Gerrit\footnote{https://code.google.com/p/gerrit/} system which is tool for supporting MCR process. Our case study project is Qt\footnote{http://qt-project.org/}, a open source project of a cross-platform application and UI framework supported by Digia corporation. To validate our approach, we manually classify the usefulness for 320 comments and measure its accuracy. We also used our predictive model for the all set of comments to preliminary estimate quality of reviews. According to this, we address the following two research questions:
+
+\noindent \textbf{RQ1:} Can we identify useful and useless discussions in code review?\\
+\noindent \textbf{RQ2:} Do code reviewers intensively discuss on the proposed changes?
+
+\noindent The main contribution of this paper are:
+\begin{itemize}
+\item We propose an approach to mine natural text of comments in code reviews and classify their usefulness.
+\item The experimental results show that our approach can classify comments with XX of F-measure.
+\item We found that XX\% of comments for each review are classified as useful comments, while XX \% of comments are classified as useless comments.
+\end{itemize} 
+%Software Inspection is basically composed of a three-step procedure: preparation, inspection meeting, and repair.
+
+%Motivation Example.\thai{Wow}
+
+
+%\section{Background}
+%In this section, we describe MCR process based on Gerrit system. Then, we describe the background behind our approach composed of text mining techniques using VSM and euclidian distance and prediction evaluation techniques. 
+\section{Modern Code Review Process}
+
+An overview of MCR process based on Gerrit system is shown in Figure \ref{fig:process}. The grey area shows the review process of the system which composed of four main steps. (1) an author creating a patch and submitting a set of new or modified files as a review request to Gerrit system. (2) reviewers examine the proposed code changes whether it contains defects or not. (3) reviewers will give comments where should the author improve the code change. The author will create a new change according to the comments then re-submit a new patch again. Then, reviewers will examine the new change. If there is still a needed improvement, reviewers will give comments to fix again. The steps (1)-(3) will be iterated until reviewers can determine that this changes can be merge to the project or should not be merge (reject the change). 
+
+According to this process, reviewers' comment is the most important for the software quality. McIntosh et. al. \cite{Mcintosh} also found that components which were reviewed without discussion are likely to contain bugs. However, as tool supporting MCR allows reviewers freely write a message to the author, it is often seen that some comments are not clearly identify defects and ineffective. Microsoft developers reported that they only focus on minor logic errors rather than discussing deeper in design\cite{Bacchelli2013a}. Our observation in Qt project also correspond this finding. We found some comments are superficial and unrelated to the proposed changes. For example, a superficial and unconfident reviewer as shown in Fig. \ref{fig:example}(a), a comment for rule of using Version Control System (e.g. Git) in the project Fig. \ref{fig:example}(b). 
+
+\begin{figure}[!t]
+\centering
+\includegraphics[scale=0.4, trim= 100 250 0 0, clip=true]{comment_examples}
+\caption{Examples of comment in code reviews of Qt project.}
+\label{fig:example}
+\end{figure}
+
+
+
+
+\section{Reviewers' Comments Classification Approach}
+\begin{figure}[!t]
+\centering
+\includegraphics[scale=0.35, trim = 50 90 0 30, clip=true]{overview2}
+\caption{Overview of our classification approach.}
 \label{fig:overview}
-\end{figure*}
+\end{figure}
+
+Figure \ref{fig:overview} shows the overview of our proposed approach. We classify usefulness of comments by measuring similarity between commit message of proposed change and its comments. To calculate similarity in Fig. \ref{fig:overview}(a), we use Vector Space Model (VSM) which is well-known technique for retrieving similar documents written in unstructured natural language. We also use euclidian distance to calculate dissimilarity. For our training dataset, we manually identify every pair of comment and commit messages in Fig. \ref{fig:overview}(b). Then, we use the results from Fig. \ref{fig:overview}(a) and from Fig. \ref{fig:overview}(b) to estimate similarity and dissimilarity threshold that can best discriminate useful/useless comments. Using these thresholds, we can classify the usefulness of comments for the rest of comments in review history. 
+
+To classify usefulness of comment using similarity and dissimilarity, we firstly formalize our classification model as follows:
+\begin{itemize}
+\item \textbf{useful}$(c,S_T,D_T)= \mathrm{TRUE}$ if $\mathrm{sim}(m,c) \geq S_T$ and $\mathrm{dist}(m,c) \leq D_T$.
+\item \textbf{useless}$(c,S'_T,D'_T)= \mathrm{TRUE}$  if $\mathrm{sim}(m,c) \leq  S'_T$ and $\mathrm{dist}(m,c) \geq D'_T$.
+\end{itemize}
+where $S_T$ and $D_T$ are similarity and dissimilarity thresholds for useful comments identification; while $S'_T$ and $D'_T$ are similarity and dissimilarity thresholds for useless comments identification. The functions $\mathrm{sim}(m,c)$ and $\mathrm{dist}(m,c)$ calculates similarity and dissimilarity of comment $c$ comparing with commit message of its review. The details our approach is described in the following subsections.
+
+
+\subsection{Similarity and Dissimilarity Calculation based on VSM}
+%Vector Space Model (VSM) is well-known technique for information retrieval where documents written in unstructured natural language. In Software Engineering, VSM has been widely use to find relationship among documents in software issue tracking system\cite{Davies2012}.
+For each review, we compute similarity and dissimilarity of every comments comparing with the commit message which is described the purpose of the change.
+To do so, we use VSM which is a model for representing text documents as vectors. For a set of commit messages and comments ($D$), each document, $d$ (commit message or comment) is represented as $\overrightarrow{V_d} = <w_{1,d},w_{2,d},w_{3,d},...w_{n,d}>$, where $n$ is the total number of unique terms occur in $D$. The $w_{t,d}$ value is TF-IDF weighting of term $t$ calculated from term occurrence frequency using Equation \ref{eq:tf-idf} where $tf_{t,d}$ is frequency of term $t$ occurs in document $d$; and $|\{d' \in D | t \in d'\}|$ is the number of other documents $d'$ that also contain term $t$.  
+
+\begin{equation}
+w_{t,d} = tf_{t,d} \times \log\frac{|D|}{1+|\{d' \in D | t \in d'\}|}
+\label{eq:tf-idf}
+\end{equation}
+\pick{Equation need to be check.}
+
+After transforming commit message and comments to vectors, we calculate similarity using Cosine similarity and Euclidian distance. 
+\pick{Why we need two measurements?}
+
+\noindent\textbf{Cosine similarity} measures similarity between two vectors using inner product. Given a vector commit message $\overrightarrow{V_m}$ and the vector of its comments $\overrightarrow{V_m}$, we can calculate Cosine similarity using Equation \ref{eq:cosine}. The similarity value is ranging $[0,1]$ where 0 means there is no similarity and 1 means two vectors are textually similar.  
+
+\begin{equation}
+\mathrm{sim}(m,c) = \cos\theta(\overrightarrow{V_m},\overrightarrow{V_c}) = \frac{\sum_{i=1}^{|D|} w_{i,m} \times w_{i,c}}{\sqrt{\sum_{i=1}^{|D|} w^2_{i,m} \times \sum_{i=1}^{|D|} w^2_{i,c}}}
+\label{eq:cosine}
+\end{equation}
+
+\noindent\textbf{Euclidian distance} measures ordinary distance between each element of two vectors using Equation \ref{eq:euclid}. We can use this distance as an dissimilarity. Given a vector commit message $\overrightarrow{V_m}$ and the vector of its comments $\overrightarrow{V_m}$, we can calculate Euclidian distance using Equation \ref{eq:cosine}. The distance value is ranging $[0,\infty)$ where 0 means these vectors are the same vectors while a more distance means these vectors are less similar.
+
+\begin{equation}
+\mathrm{dist}(m,c) = \mathrm{euclidian}(\overrightarrow{V_m},\overrightarrow{V_c}) = \sqrt{\sum_{i=1}^{|D|}(w_{i,m} - w_{i,c})^2}
+\label{eq:euclid}
+\end{equation}
+\subsection{Manual useful comments identification}
+
+\subsection{Estimating Similarity and Dissimilarity Threshold}
+To find similarity and dissimilarity thresholds, we iteratively measure an accuracy for values of $S_T$ and $S'_T$ raging $[0,1]$; and values of $D_T$ and $D'_T$ ranging $[0,\infty)$. We define that the best similarity and dissimilarity thresholds are the set of define values can maximize accuracy value. In this study, we use F-measure score for an accuracy measure. The F-measure value can be calculated using Equation \ref{}
+
+\begin{equation}
+\mathrm{F\text{-}measure}_{S_T,D_T} = \frac{2\mathrm{TP}_{S_T,D_T}}{2\mathrm{TP}_{S_T,D_T}+\mathrm{FP}_{S_T,D_T}+\mathrm{FN}_{S_T,D_T}}
+\label{eq:precision}
+\end{equation}
+where $\mathrm{TP}_{S_T,D_T}= |\{ c \in C |  \text{\textbf{useful}}(c,S_T,D_T) = \mathrm{TRUE} \}\cap \{c \in C| \mathrm{vote}(c) = 2\}|$,  $\mathrm{FP}_{S_T,D_T} = |\{ c \in C | \text{\textbf{useful}}(c,S_T,D_T) = \mathrm{FALSE} \}\cap \{\mathrm{vote}(c) = 2\} $, $\mathrm{FN}_{S_T,D_T} = |\{ c | c \in C, \text{\textbf{useful}}(c,S_T,D_T) = \mathrm{TRUE} \}\cap \{\mathrm{vote}(c) < 2\} $
+%According to this, we can formalize as follows:
+
+%\begin{equation}
+%(S_T,D_T) = \max(\{\mathrm{F\text{-}measure} \text{ of \textbf{useful}}(c,s_T,d_T) | s_T\in[0,1] \text{ and } d_T\in [0,\infty) \})
+%\end{equation}
+
+\section{Empirical Study}
 
 % where we got the data
 We used the review data sets of the Qt project collected by Hamasaki et al TODO(cite properly).
@@ -287,7 +395,7 @@ However, some comments in every score were lost and classified as \emph{neither}
 
 \bibliographystyle{IEEEtran}
 
-%\bibliography{references}
+\bibliography{references}
 
 
 
