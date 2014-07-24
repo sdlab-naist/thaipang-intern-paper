@@ -24,7 +24,7 @@
 \\
 \IEEEauthorblockA{
 \IEEEauthorrefmark{1} Kasetsart University, Thailand\\
-@ku.ac.th
+b5410545036@ku.ac.th
 }
 
 \IEEEauthorblockA{
@@ -55,6 +55,7 @@ dport@hawaii.edu \\
 }
 \newcommand\pick[1]{\nbnote{Pick sez}{\textcolor{magenta}{#1}}}
 \newcommand\thai[1]{\nbnote{Thai sez}{\textcolor{blue}{#1}}}
+\newcommand\TODO[1]{\textcolor{red}{\textbf{TODO} #1}}
 
 
 \begin{abstract}
@@ -181,10 +182,15 @@ where $\mathrm{TP}_{S_T,D_T}= |\{ c \in C |  \text{\textbf{useful}}(c,S_T,D_T) =
 %(S_T,D_T) = \max(\{\mathrm{F\text{-}measure} \text{ of \textbf{useful}}(c,s_T,d_T) | s_T\in[0,1] \text{ and } d_T\in [0,\infty) \})
 %\end{equation}
 
+
+
+
+
+
 \section{Empirical Study}
 
 % where we got the data
-We used the review data sets of the Qt project collected by Hamasaki et al TODO(cite properly).
+We used the review data sets of the Qt project collected by Hamasaki et al \TODO{cite properly}.
 Only reviews in the master branch of \texttt{qtbase} project are considered,
 as it is the most active branch.
 
@@ -202,6 +208,9 @@ Few comments are sampled and then classified manually for use in training and va
 A model is created from these training data, from which useful comments can automatically be identified.
 This process is illustrated in Fig.\ref{fig:overview}.
 
+
+
+
 \subsection{Data Preparation}
 
 The commit messages and all comment texts are converted into vectors as part of the preparation step.
@@ -217,6 +226,8 @@ and are converted into a vector.}
 \label{fig:preprocess}
 \end{figure}
 
+
+
 \subsubsection{Removal of automatically generated text}
 
 First, all comments by the Gerrit system, \emph{Qt Sanity Bot}, and \emph{Qt Continuous Integration System} are skipped.
@@ -230,6 +241,8 @@ Next, the lines that appears most frequently are identified.
 From these lines, we then constructed the regular expression patterns,
 and finally, these patterns are used to filter out automatically generated text from our data.
 
+
+
 \subsubsection{Tokenization, stop word removal and stemming}
 
 After the automatically generated messages are removed, we extracted the words in each document into a list of tokens by searching for alphanumeric characters including apostrophes.
@@ -237,9 +250,14 @@ Stop words from the Google stop word list\footnote{Available at \url{http://meta
 The stemming is performed on remaining tokens using Porter stemming algorithm.
 The remaining words are then combined to form a corpus of all used words.
 
+
+
 \subsubsection{Conversion into vector}
 
 Finally, the tf--idf algorithm is used to convert each document into a vector.
+
+
+
 
 
 \subsection{Training Data}
@@ -261,6 +279,9 @@ while a comment with a score of 0 means that none of us marked it as useful.
 %	0 & \text{otherwise.}
 %\end{cases}
 %\end{align*}
+
+
+
 
 \subsection{Model Generation and Validation}
 
@@ -372,7 +393,11 @@ As expected, most comments classified as \emph{negative} have score of 0 and 1,
 while most \emph{positive} comments have score of 2 and 3.
 However, some comments in every score were lost and classified as \emph{neither}.
 
+
+
 % cross validation result
+
+
 
 
 
