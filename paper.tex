@@ -498,7 +498,7 @@ According to the results, we can answer  RQ1 that \textit{we can automatically c
 
 \begin{figure}[!t]
 \centering
-\includegraphics[scale=0.55, trim=0 0 30 50, clip=true]{scatter_log}
+\includegraphics[scale=0.45, trim=0 0 30 50, clip=true]{scatter_log}
 \caption{The similarity and distance plot of the training data.
 The symbol represents the score, which ranges from 0 to 3.}
 \label{fig:scatter}
@@ -563,19 +563,15 @@ The symbol represents the score, which ranges from 0 to 3.}
 \section{Discussion}
 
 % noisy data, and binary classification
-Our training data is very noisy because there are disagreements between our judgment of ``usefulness.''
+Our training data contains much variability because there are disagreements between our judgment of ``usefulness,'' rendering our results unclear.
 These samples cannot be classified as either useful or not useful.
 This impacts the trade-off between the precision and recall for our model, and consequently, the F$_1$ score.
-
-By removing the samples with scores of 1 and 2, leaving with 209 samples without disagreements, and performing 10-fold cross-validation, we received a much better average F$_1$ score of 0.896.
-
 
 % tuning the F score for precision and recall
 Depending on the use case, we can fine-tune the F-score to give more weight to recall or precision.
 For instance, if we wanted to measure the amount of useful comments within a large dataset, we can give more weight to precision, sacrificing some good comments.
 If we wanted to modify a code review software such that it displays useful comments more prominently, we can give more weight to recall.
-
-
+%\subsection{Reasons of Classification}
 % reasons for classification as useful or not useful
 During the training process, reasons for the judgment are recorded. Examples of reasons for positive comments include:
 
@@ -596,7 +592,22 @@ Examples of reasons for negative comments include:
 \end{itemize}
 
 
-% example of false positive and false negatives
+
+%\subsection{Binary Classification}
+
+By removing the samples with scores of 1 and 2 from our data set, leaving with 209 samples without disagreements, we can perform a binary classification, in which all comments will receive either a positive or negative score.
+By cross-validation using only samples in total agreement, we obtained a much better F$_1$ score of 0.896.
+
+We could not objectively measure the F$_1$ score for all samples, because giving positive or negative classification to 1 and 2-scored samples introduces a bias.
+However, the results seen in Fig.\ref{fig:binary} suggests that the binary classifier tends to gives positive classification to samples with score of 2 more than samples with score of 1, and the \emph{vice versa} for negative classification.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=3in]{binary}
+\caption{The amount of comments by score classified by the binary classifier.}
+\label{fig:binary}
+\end{figure}
+
 
 
 
