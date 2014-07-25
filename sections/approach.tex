@@ -1,3 +1,4 @@
+% !TEX root = ../paper.tex
 
 \section{Reviewers' Comments Classification Approach}
 \begin{figure}[!t]
@@ -7,24 +8,36 @@
 \label{fig:overview}
 \end{figure}
 
-Fig. \ref{fig:overview} shows the overview of our proposed approach. We classify usefulness of comments by measuring similarity between commit message of proposed change and its comments. To calculate similarity in Fig. \ref{fig:overview}(a), we use Vector Space Model (VSM) which is well-known technique for retrieving similar documents written in unstructured natural language. We also use euclidian distance to calculate dissimilarity. For our training dataset, we manually identify every pair of comment and commit messages in Fig. \ref{fig:overview}(b). Then, we use the results from Fig. \ref{fig:overview}(a) and from Fig. \ref{fig:overview}(b) to estimate similarity and dissimilarity threshold that can best discriminate useful/useless comments. Using these thresholds, we can classify the usefulness of comments for the rest of comments in review history. 
+Fig. \ref{fig:overview} shows the overview of our proposed approach.
+We classified the usefulness of comments by measuring similarity between commit message of proposed change and its comments.
+To calculate similarity in Fig. \ref{fig:overview}(a), we used Vector Space Model (VSM) which is a well-known technique for retrieving similar documents written in unstructured natural language.
+Euclidian distance is also used to calculate dissimilarity.
+For our training dataset, we manually identified 320 randomly-selected pairs of comments and corresponding commit messages in Fig. \ref{fig:overview}(b). \thai{The overview figure does not have (a) and (b)...}
+The results from Fig. \ref{fig:overview}(a) and from Fig. \ref{fig:overview}(b) are then used to estimate the similarity and dissimilarity threshold that can best discriminate useful/useless comments. Using these thresholds, we can classify the usefulness of comments for the rest of comments in review history. 
 
-To classify usefulness of comment using similarity and dissimilarity, we firstly formalize our classification model as follows:
+To classify usefulness of comment using similarity and dissimilarity, we first formalize our classification model as follows:
 \begin{itemize}
-\item $\Theta(c,S_T,D_T)$ predict as \textbf{useful} if $\mathrm{sim}(m,c) \geq S_T$ and $\mathrm{dist}(m,c) \leq D_T$.
-\item $\Omega(c,S'_T,D'_T)$ predict as \textbf{useles} if $\mathrm{sim}(m,c) \leq  S'_T$ and $\mathrm{dist}(m,c) \geq D'_T$.
+\item \textbf{useful}: $\Theta(c,S_T,D_T) = \True$ iff $\Sim(m,c) \geq S_T$ and $\Dist(m,c) \leq D_T$.
+\item \textbf{useless}: $\Omega(c,S'_T,D'_T) = \True$ iff $\Sim(m,c) \leq  S'_T$ and $\Dist(m,c) \geq D'_T$.
 \end{itemize}
-where $S_T$ and $D_T$ are similarity and dissimilarity thresholds for useful comments identification; while $S'_T$ and $D'_T$ are similarity and dissimilarity thresholds for useless comments identification. The functions $\mathrm{sim}(m,c)$ and $\mathrm{dist}(m,c)$ calculates similarity and dissimilarity of comment $c$ comparing with commit message of its review. The details our approach is described in the following subsections.
-\pick{Why we need two measurements?}
-\pick{What happen in model for otherwise?}
+where $S_T$ and $D_T$ are similarity and dissimilarity thresholds for useful comments identification; and $S'_T$ and $D'_T$ are similarity and dissimilarity thresholds for useless comments identification.
+
+The functions $\Sim(m,c)$ and $\Dist(m,c)$ represents the similarity and dissimilarity of the text of the comment $c$, compared to the corresponding change's commit message $m$.
+Two metrics are used because they are independently generated and thus provides more dimensions for classification.
+We also found experimentally that using two metrics gives better performance than just one. 
+
+The details our approach is described in the following subsections.
+
 
 \subsection{Similarity and Dissimilarity Calculation based on VSM}
 %Vector Space Model (VSM) is well-known technique for information retrieval where documents written in unstructured natural language. In Software Engineering, VSM has been widely use to find relationship among documents in software issue tracking system\cite{Davies2012}.
 For each review, we compute similarity and dissimilarity of every comments comparing with the commit message which is described the purpose of the change.
-To do so, we use VSM which is a model for representing text documents as vectors. For a set of commit messages and comments ($D$), each document, $d$ (commit message or comment) is represented as $\overrightarrow{V_d} = <w_{1,d},w_{2,d},w_{3,d},...w_{n,d}>$, where $n$ is the total number of unique terms occur in $D$. The $w_{t,d}$ value is TF-IDF weighting of term $t$ calculated from term occurrence frequency using Equation \ref{eq:tf-idf} where $tf_{t,d}$ is frequency of term $t$ occurs in document $d$; and $|\{d' \in D | t \in d'\}|$ is the number of other documents $d'$ that also contain term $t$.  
+To do so, we use VSM which is a model for representing text documents as vectors.
+For a set of commit messages and comments ($D$), each document, $d$ (commit message or comment) is represented as $\overrightarrow{V_d} = <w_{1,d},w_{2,d},w_{3,d},...w_{n,d}>$, where $n$ is the total number of unique terms occur in $D$.
+The $w_{t,d}$ value is tf-idf weighting of term $t$ calculated from term occurrence frequency using Equation \ref{eq:tf-idf} where $\operatorname{tf}_{t,d}$ is frequency of term $t$ occurs in document $d$; and $|\{d' \in D | t \in d'\}|$ is the number of other documents $d'$ that also contain term $t$.  
 
 \begin{equation}
-w_{t,d} = tf_{t,d} \times \log\frac{|D|}{1+|\{d' \in D | t \in d'\}|}
+w_{t,d} = \operatorname{tf}_{t,d} \times \log\frac{|D|}{|\{d' \in D \:|\: t \in d'\}|}
 \label{eq:tf-idf}
 \end{equation}
 
@@ -34,14 +47,14 @@ After transforming commit message and comments to vectors, we calculate similari
 \noindent\textbf{Cosine similarity} measures similarity between two vectors using inner product. Given a vector commit message $\overrightarrow{V_m}$ and the vector of its comments $\overrightarrow{V_m}$, we can calculate Cosine similarity using Equation \ref{eq:cosine}. The similarity value is ranging $[0,1]$ where 0 means there is no similarity and 1 means two vectors are textually similar.  
 
 \begin{equation}
-\mathrm{sim}(m,c) = \cos\theta(\overrightarrow{V_m},\overrightarrow{V_c}) = \frac{\sum_{i=1}^{|D|} w_{i,m} \times w_{i,c}}{\sqrt{\sum_{i=1}^{|D|} w^2_{i,m} \times \sum_{i=1}^{|D|} w^2_{i,c}}}
+\Sim(c) = \cos\theta(\overrightarrow{V_m},\overrightarrow{V_c}) = \frac{\sum_{i=1}^{|D|} w_{i,m} \times w_{i,c}}{\sqrt{\sum_{i=1}^{|D|} w^2_{i,m} \times \sum_{i=1}^{|D|} w^2_{i,c}}}
 \label{eq:cosine}
 \end{equation}
 
 \noindent\textbf{Euclidian distance} measures ordinary distance between each element of two vectors using Equation \ref{eq:euclid}. We can use this distance as an dissimilarity. Given a vector commit message $\overrightarrow{V_m}$ and the vector of its comments $\overrightarrow{V_m}$, we can calculate Euclidian distance using Equation \ref{eq:cosine}. The distance value is ranging $[0,\infty)$ where 0 means these vectors are the same vectors while a more distance means these vectors are less similar.
 
 \begin{equation}
-\mathrm{dist}(m,c) = \mathrm{euclidian}(\overrightarrow{V_m},\overrightarrow{V_c}) = \sqrt{\sum_{i=1}^{|D|}(w_{i,m} - w_{i,c})^2}
+\Dist(m,c) = \|\overrightarrow{V_m} - \overrightarrow{V_c}\| = \sqrt{\sum_{i=1}^{|D|}(w_{i,m} - w_{i,c})^2}
 \label{eq:euclid}
 \end{equation}
 
