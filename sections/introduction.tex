@@ -1,16 +1,17 @@
 % !TEX root = ../paper.tex
 
 \section{Introduction}
-Software code review is an established method regarded as a best practice in Software Engineering to achieve a sufficient quality in software project.
-Its main intention is to early identify defects before integrating changes.
-Nowadays, Modern Code Review (MCR)\cite{Bacchelli2013a}, less formal and lightweight code reviews have received much attention and put into software development regularly in both industrial and OSS projects.
-The main benefit of MCR is that in-person meetings are not required, unlike formal inspections \cite{Fagan:1976:DCI:1661010.1661012}.
-Reviewers can find defects and discuss by adding comments through a code review tool or a mailing list.
-Developers will then fix their changes following those comments.
+Software code review is an established cost-effective software quality management practice.
+Its main intent is to  identify  defects early and encourage quality development practices such as adherence to coding standards and improving code readability.
+Nowadays less formal and lightweight code reviews such as Modern Code Review (MCR)\cite{Bacchelli2013a} have received much attention and are commonly used within both industrial and OSS projects.
+One reason for this is that with MCR, unlike formal inspections \cite{Fagan:1976:DCI:1661010.1661012}, in-person meetings are not required,.
+Reviewers can find defects and hold discussions on them by adding comments through a code review tool or a mailing list.
+Developers then propose changes in response to these comments which in turn are reviewed for approval.  Fig. \ref{fig:process} illustrates a typical MCR process. 
 
-As the performance of code review straight forward to the quality of software project, many studies investigated the influencing factors in MCR\cite{Baysal2001,Mcintosh,Beller,Hamasaki2013}. However, very little research investigate that in MCR, how does a discussion for a proposed change impact to the software quality. Since most of the proposed change improvements are triggered from reviewer comments \cite{Beller}. 
-It is possible that comments of reviewers can be either positively contribute the proposed changes or a discussion which is out of scope.
-To determine the impact of discussion in MCR, a manual classification is required as study of Beller et. al. \cite{Beller}. As a massive amount of changes and comments in MCR history\cite{Balachandran2013,Thongtanunam2014}, it is painstaking and time consuming to classify data sets to perform quantitative analysis. Moreover, the comments in MCR is unstructured natural text unlike a checklist in the formal inspection. 
+Because performance of code review has a clear relationship to the quality of software project, many studies have investigated the influencing factors in MCR\cite{Baysal2001,Mcintosh,Beller,Hamasaki2013}. However, little research exists investigating how the discussion for a proposed change impacts software quality. Given that most proposed changes are triggered from reviewer comments \cite{Beller}, 
+it is possible that reviewers comments can either positively contribute to the proposed changes (i.e. "useful"), or be a discussion which is out of scope (i.e. "useless" relative to the proposed changes). Not surprisingly the amount of useless comments appears to increase with project size. Yet notably so too does the ratio of useless to useful comments. 
+%\dan{Do you think we can find a reference for this?}
+This is a concern because a high-degree of useless comments not only fails to contribute to improving quality, but also degrades the cost-effectiveness and perceived utility of MCR. Current research has focused mostly on the relation between number of comments and quality. To the best of our knowledge the connection between degree of useful and useless comments and quality has not been studied. One reason for this may be that to assess the impact of discussion in MCR, a manual classification is required as in the study of Beller et. al. \cite{Beller}. MCR can produce a massive amount of changes and comments\cite{Balachandran2013,Thongtanunam2014} and it is painstaking and time consuming to classify the comments to perform appropriate quantitative analysis. Moreover, unlike a checklist in used formal inspection, the comments in MCR are unstructured natural text, open to subjective judgment, tacit understanding, and possible mis-interpretation.  Fig. \ref{fig:example} show typical MCR comments illustrating these issues.  
 %\pick{Need some connection. Says that Massive amount of commits and comment it would be expensive to manually identify. It's natural language }
 \begin{figure}[!t]
 \centering
@@ -19,16 +20,22 @@ To determine the impact of discussion in MCR, a manual classification is require
 \label{fig:process}
 \end{figure}
 
-In this paper, we present an approach to automatically classify the usefulness of comments. We define that the usefulness is a comment that contribute to improve the proposed changes. In our approach, we analyze the similarity between commit message of the proposed changes and their comments. Our key idea is that useful comments are likely to contain similar topic as the proposed changes. To do so, we use text mining techniques, Vector Space Model (VSM) to calculate similarity and use euclidian distance to calculate dissimilarity. 
-We create our predictive model by estimating a set of similarity and dissimilarity values that best discriminate between a useful and useless comments using the prediction evaluations: Precision, Recall and F-measure.
+%\dan{Much of the following material should be placed in a separate Motivation section} 
+In this paper we present a text mining approach to assisting in classifying the usefulness of comments. The purposed approach is meant to enable classifying the large amounts of MRC comments needed to conduct comment and code quality studies such as those discussed earlier. Manual classification can quickly become an untenable task. Our modest OSS case study has a over 17,000 potentially useful comments. At an optimistic 5 seconds peer comment classification we would expect about 24 person-hours of effort. Furthermore manual classification is subjective and error-prone. By introducing some automation support based on objective empirical criteria, the method we propose here aims to both reduce effort and increase confidence in classification to a degree practical for addressing very large MRC data sets. Because usefulness of a comment is not precisely defined and a subjective qualification, we cannot, and do not intend to fully automate or replace human driven classification.  
 
-For our case study, we used a review history of Gerrit\footnote{\url{https://code.google.com/p/gerrit/}} system which is tool for supporting MCR process. Our case studied project is Qt\footnote{\url{http://qt-project.org/}}, a open source project of a cross-platform application and UI framework supported by Digia corporation. To validate our approach, we manually classify the usefulness for 320 comments and measure its accuracy. We also used our predictive model for the all set of comments to preliminary estimate quality of reviews. According to this, we address the following two research questions:
+We define a \emph{useful} comment as one that \emph{contributes to improving the proposed changes} and a \emph{useful} comment as one that does not. Usefulness is not dichotomous and we must accept a third qualification, \emph{unclear}, to allow for the case where a comment does not directly make a positive contribution but is not clearly out of scope or tangential. In our approach we analyze the similarity between a commit message of the proposed changes and the respective comments that follow. Our key idea is that useful comments are likely to have a strong semantic similarity to the proposed changes, while useless comments are more likely strongly dissimilar. To do determine these semantic relationships we use the Vector Space Model (VSM) and calculate similarity as the cosine distance between the comment and commit message vectors and the euclidian distance between them to calculate dissimilarity. 
+We create our predictive model by estimating pairs of similarity and dissimilarity values that discriminate between useful and useless comments that optimize prediction performance measures such as Precision, Recall and F-measure.
 
-\noindent \textbf{RQ1:} Can we identify useful and useless discussions in code review?\\
+For our case study of the method, we use a review history from the Gerrit\footnote{\url{https://code.google.com/p/gerrit/}} system from Qt\footnote{\url{http://qt-project.org/}}, an open source project for a cross-platform application and UI framework supported by Digia corporation. For training and validation of our approach, three experts manually classified the usefulness for 320 comments. We also apply our predictive model to the full set of 
+17,000 
+%\dan{what's the actual number?}
+comments to obtain a preliminary estimate in the quality of reviews and address the following three research questions:
+
+\noindent \textbf{RQ1:} Is VSM similarity a good indicator of MRC comment usefulness?\\
 \noindent \textbf{RQ2:} Do code reviewers intensively discuss on the proposed changes?\\
-\noindent \textbf{RQ3:} Is this a cost-efficient way to identify useful and useless comments?
-
-\noindent The main contribution of this paper are:
+\noindent \textbf{RQ3:} Is VSM similarity classification cost-efficient, assurable, and scalable?
+%\dan{******** HERE *******}
+\noindent The main contributions of this paper are:
 \begin{itemize}
 \item We propose an approach to mine natural text of comments in code reviews and classify their usefulness.
 \item The experimental results show that our approach can classify comments with an F$_1$ score of 0.681 and 0.693.
