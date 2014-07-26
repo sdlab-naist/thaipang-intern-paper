@@ -83,19 +83,21 @@ In Gerrit, the comments are composed of comment messages from reviewers and auto
 %Finally, the tf--idf algorithm is used to convert each document into a vector.
 
 \subsubsection{Ground-Truth Data Preparation}
-To prepare ground-truth data, a team of three experienced developers independently read comments and manually assessed them useful or useless. The assessors were asked to answer for each comment the question ``Does this comment technically contribute to its proposed change?''. Then, the assessors cast their vote as \texttt{YES} if the comment is likely to useful and \texttt{No} if the comment is likely to useless.  Comments with three \texttt{YES} votes are classified as \textbf{useful} comments and comments with three \texttt{NO} votes are \textbf{useless}. Comments lacking unanimity (i.e. one or two \texttt{YES} votes are deemed \textbf{unclear} and without confident usefulness. 
+To prepare ground-truth data, a team of three experienced developers independently read comments and manually assessed them useful or useless. The assessors were asked to answer for each comment the question ``Does this comment technically contribute to its proposed change?''. Then, the assessors cast their vote as \texttt{YES} if the comment is likely to useful and \texttt{No} if the comment is likely to useless.  Comments with three \texttt{YES} votes are classified as \textbf{useful} comments and comments with three \texttt{NO} votes are \textbf{useless}. Comments lacking unanimity i.e. one or two \texttt{YES} votes are deemed \textbf{unclear} and not confidently useful or useless. 
 
 \subsection{Research Questions}
 To validate our approach, we addressed the following research questions:
 
+\dan{Why is this a separate section? Either the actual results should deb discussed here or this should be integrated into the results section.}
+
 \noindent \textbf{RQ1: Is semantic similarity a good indicator of MCR comment usefulness?}\\
-\indent To answer this question, we randomly sampled 320 comments from our data set and manually identified usefulness as described in previous subsection. Then, we used these comments for both the training and test data set for our approach to determine its effectiveness. We also determined the robustness of our approach using cross validation. We randomly selected 90\% of 320 comments for training set and 10\% for test set.
-The effectiveness was measured using precision, recall and F-measure as described in Equation \ref{eq:fmeasure}. We repeated this validation for 300 times and find average of accuracy.
+\indent To answer this question, we randomly sampled 320 comments from our data set and manually identified usefulness as described in previous subsection. Then, we used these comments for both the training and test data set for our approach to determine its effectiveness. We also determined the effectiveness of our approach using bootstrapping cross validation. We randomly selected 90\% of 320 comments for training set and 10\% for the validation set.
+The performance on the 10\% was measured using precision, recall and F-measure as described in Equation \ref{eq:fmeasure}. We repeated this validation for 300 times to estimate the mean and variance of the performance.
 
 \dan{What what the effort in person-hours for this?}
 
 Since our models do not include unclear type of comments, we defined them as negative condition i.e useless comments in case of useful classification (when using $\Theta(c,S_T,D_T)$ model) and useful comments in case of useless classification (when using $\Omega(c,S'_T,D'_T)$ model).
-
+\dan{I thought we changed this! It would be bad if we didn't. Let me know what the actual situation is here.}
 
 %We sampled 320 comments from the data set.
 %These samples are then classified as either useful (that is, technically contributing to the software) or not useful.
@@ -108,11 +110,11 @@ Since our models do not include unclear type of comments, we defined them as neg
 
 \noindent \textbf{RQ2: Do code reviewers intensively discuss on the proposed changes?}\\
 \indent To answer this question, we estimated similarity and dissimilarity thresholds using comments from RQ1 for training set. We then used these thresholds to classify the rest of comments. A statical analysis was performed to understand the impact of useful discussion to software quality.
+\dan{results?}
 
-\noindent \textbf{RQ3: Does this approach practical and cost-effective for large-scale projects?}\\
+\noindent \textbf{RQ3:  Is semantic similarity classification cost-efficient, assur- able, and scalable?}\\
 \indent
-
-
+\dan{results?}
 
 
 %\subsection{Training Data}
