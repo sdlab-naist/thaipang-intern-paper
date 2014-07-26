@@ -1,34 +1,37 @@
 % !TEX root = ../paper.tex
 
-\section{Reviewers' Comments Classification Approach}
+\section{Semantic Similarity Classification of Comment Usefulness}
 \begin{figure}[!t]
 \centering
-\includegraphics[scale=0.35, trim = 50 90 0 30, clip=true]{overview2}
+\includegraphics[scale=0.34, trim = 50 90 0 30, clip=true]{overview2}
 \caption{Overview of our classification approach.}
 \label{fig:overview}
 \end{figure}
 
-Fig. \ref{fig:overview} shows the overview of our proposed approach.
-We classified the usefulness of comments by measuring similarity between commit message of proposed change and its comments.
-To calculate similarity in Fig. \ref{fig:overview}(a), we used Vector Space Model (VSM) which is a well-known technique for retrieving similar documents written in unstructured natural language.
-Euclidian distance is also used to calculate dissimilarity.
-For our training dataset, we manually identified 320 randomly-selected pairs of comments and corresponding commit messages in Fig. \ref{fig:overview}(b). \thai{The overview figure does not have (a) and (b)...}
-The results from Fig. \ref{fig:overview}(a) and from Fig. \ref{fig:overview}(b) are then used to estimate the similarity and dissimilarity threshold that can best discriminate useful/useless comments. Using these thresholds, we can classify the usefulness of comments for the rest of comments in review history. 
-
-To classify usefulness of comment using similarity and dissimilarity, we first formalize our classification model as follows:
+Our goal is to improve the efficiency and confidence in determining the usefulness of review comments. As discussed previously, this is largely based on relevance the comment has to the proposed change (as documented within a MCR system). According to relevance theory, a primary factor in relevance is similarly, and so it is natural for us to consider classification \emph{similarity conditions}. 
+\dan{can we find a reference for relevance and similarly?}
+That is, we assume that that the more similar a comment is to the proposed change, the more relevant it is and hence more likely useful. Conversely, the more dissimilar\footnote{This can be arbitrarily large, thus not simply the opposite of similarity} , the less relevant, and hence less useful. Given the subjective nature of usefulness, precise classification conditions probably do not exist and so we resort to conditions that indicate a meaningful \emph{likelihood} of classification. That is, for some degree of similarity a comment is most likely useful, and for some degree of dissimilarity it is most likely not useful. The key is determining these degrees in a practical and effective manner. While this representation is straightforward and automatically adjusts ti the quality of the data, it has a few drawbacks. First, we have to accept that some comments cannot be reliably or confidently classified. We denote these as \emph{undetermined} to differentiate them from comments whose usefulness is \emph{unclear} i.e. unable to assess (subjectively) comment usefulness. Again, owing to the subjective assessment of usefulness, this representation fundamentally implies supervised classification requiring nontrivial training data to define representative classification sets. This decreases the cost-effectiveness limiting the practicality of application to projects with a large enough number of comments whee the classification effort saved overcomes the training costs.  
+% empirically driven and automatically adapts to the quality the data
+ Fig. \ref{fig:overview} shows an overview of our proposed classification approach.
+Usefulness of a comment is determined by computing its semantic similarity with the commit message of proposed change and observing if it satisfies \emph{usefulness classification likelihood conditions}. The conditions are simply threshold values of similarity and dissimilarity empirically determined to optimize a desired likelihood objectives. In our case example we chose to maximize the F-measure, but other likelihood functions could be used depending on precision, recall, or risk goals.    
+To calculate semantic similarity Fig. \ref{fig:overview}(a), we used the Vector Space Model (VSM) with the cosine distance measure which is a well-known technique for retrieving similar documents written in unstructured natural language. 
+The Euclidian distance is a well-established measure of dissimilarity and applies analogously.
+%For our case example training dataset, we manually identified 320 randomly-selected pairs of comments and corresponding commit messages in Fig. \ref{fig:overview}(b). \thai{The %overview figure does not have (a) and (b)...}
+%\dan{what was the actual effort (in person-hours) to create the training data?}
+The training data is a small set of randomly-selected pairs of comments and corresponding commit messages are manually assessed for usefulness. For statistical purposes at least 30 useful and 30 useless comments are needed. The similarity and dissimilarities are computed for the data set. These are used to estimate the similarity and dissimilarity thresholds $S_T$ and $D_T$ that can best (relative to some likelihood function such as F-measure) discriminate useful comments and $S'_T$ and $D'_T$ for useless comments. Using these thresholds, we can classify the usefulness of comments for the rest of comments in review history according to the classification model as follows:
 \begin{itemize}
-\item \textbf{useful}: $\Theta(c,S_T,D_T) = \True$ iff $\Sim(m,c) \geq S_T$ and $\Dist(m,c) \leq D_T$.
-\item \textbf{useless}: $\Omega(c,S'_T,D'_T) = \True$ iff $\Sim(m,c) \leq  S'_T$ and $\Dist(m,c) \geq D'_T$.
+\item \textbf{useful}: $\Theta(c,m,S_T,D_T) = \True$ iff $\Sim(m,c) \geq S_T$ and $\Dist(m,c) \leq D_T$.
+\item \textbf{useless}: $\Omega(c,m,S'_T,D'_T) = \True$ iff $\Sim(m,c) \leq  S'_T$ and $\Dist(m,c) \geq D'_T$.
+\item \textbf{undetermined}: Neither of the above conditions are $\True$.
 \end{itemize}
-where $S_T$ and $D_T$ are similarity and dissimilarity thresholds for useful comments identification; and $S'_T$ and $D'_T$ are similarity and dissimilarity thresholds for useless comments identification.
 
-The functions $\Sim(m,c)$ and $\Dist(m,c)$ represents the similarity and dissimilarity of the text of the comment $c$, compared to the corresponding change's commit message $m$.
-Two metrics are used because they are independently generated and thus provides more dimensions for classification.
-We also found experimentally that using two metrics gives better performance than just one. 
+The functions $\Sim(m,c)$ and $\Dist(m,c)$ are the similarity and dissimilarity measures relative to the proposed change commit message $m$ for the text of comment $c$.
+Two metrics are used because they are independently generated and thus provides better discrimination for classification.
+We also found experimentally that using two metrics has higher performance than just one. 
 
-The details our approach is described in the following subsections.
+The details of our approach are elaborated in the following subsections.
 
-
+\dan{**** ALERT **** this entire subsection is not needed! Everything in it is well-known and can simply be referenced. I suggest removing it if we need the space.  I have not edited this section .... }
 \subsection{Similarity and Dissimilarity Calculation based on VSM}
 %Vector Space Model (VSM) is well-known technique for information retrieval where documents written in unstructured natural language. In Software Engineering, VSM has been widely use to find relationship among documents in software issue tracking system\cite{Davies2012}.
 For each review, we compute similarity and dissimilarity of every comments comparing with the commit message which is described the purpose of the change.
@@ -58,9 +61,16 @@ After transforming commit message and comments to vectors, we calculate similari
 \label{eq:euclid}
 \end{equation}
 
-\subsection{Estimating Similarity and Dissimilarity Threshold}
-We find similarity and dissimilarity thresholds by selecting $s_t,d_t$ values that can maximize $\mathrm{F\text{-}measure}_{s_t,d_t}$. This is an accuracy measurement for a binary classification considering an accuracy of prediction (precision) and  a coverage of classification (recall). This can be calculated using Equation \ref{eq:fmeasure}.
+\subsection{Estimating Similarity and Dissimilarity Thresholds}
+Suppose we use $\Theta(c,S_T=s_t,D_T=d_t)$ to classify useful comments and we have the following values:
 
+$\mathrm{TP}_{s_t,d_t}$ is the number of comments that our model classified as \textit{useful} and are \textit{actually useful} i.e. true-positives; 
+
+$\mathrm{FP}_{s_t,d_t}$ is the number of comments that our model classified as \textit{useful} but are \textit{actually useless} i.e. false positives;
+
+$\mathrm{FN}_{\theta_s,\theta_d}$ is the number of comments that our model classifies as \textit{useless} but are \textit{actually useful}. 
+ 
+We can now define the following classification  performance measures: 
 \begin{equation}
 \begin{split}
 \mathrm{F\text{-}measure}_{s_t,d_t} &= 2 \times \frac{\mathrm{precision}_{s_t,d_t} \times \mathrm{recall}_{s_t,d_t}}{\mathrm{precision}_{s_t,d_t} + \mathrm{recall}_{s_t,d_t}}
@@ -72,10 +82,9 @@ We find similarity and dissimilarity thresholds by selecting $s_t,d_t$ values th
 \label{eq:fmeasure}
 \end{equation}
 
+We find similarity and dissimilarity thresholds by selecting $s_t,d_t$ values that maximize $\mathrm{F\text{-}measure}_{s_t,d_t}$ Equation \ref{eq:fmeasure}. This is a performance measurement for a binary classification that compromises trade-offs in accuracy of classification (precision) and coverage of classification (recall). 
 
-
-
-Suppose we use $\Theta(c,S_T=s_t,D_T=d_t)$ as predict model to identify useful comments , $\mathrm{TP}_{s_t,d_t}$ is the number of comments that our model predicted as \textit{useful} and are actually useful; $\mathrm{FP}_{s_t,d_t}$ is the number of comments that our model predicted as \textit{useful} but are actually useless; and $\mathrm{FN}_{\theta_s,\theta_d}$ is the number of comments that our model predict as \textit{useless} but are actually useful. To measuring F-measure for $\Omega(c,S_T=s_t,D_T=d_t)$ model, it uses the same consideration but change the determination to useless comments. For the correctness of prediction, we determine from the useful/useless defined dataset. 
+The F-measure for $\Omega(c,S_T=s_t,D_T=d_t)$ is computed analogously where we change instances of useful to useless and vice-versa in the definitions. The correctness of classification is determined from the useful/useless defined dataset. 
 
 
 %Using this method, we iteratively measure an accuracy for values of $s_t$ and $s'_t$ ranging $[0,1]$; and values of $d_t$ and $d'_t$ ranging $[0,\infty)$. 
