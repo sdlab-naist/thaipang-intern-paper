@@ -84,7 +84,7 @@ Automated Comments & 61,814 & 85\% \\ \hline
 \item[RQ1:] Is semantic similarity a good indicator of MCR comment usefulness?
 \end{ResearchQuestions}
 
-To answer this question, we randomly sampled 320 comments from our data set and manually identified usefulness as described in previous subsection.
+To answer this question, we randomly sampled 318 comments from our data set and manually identified usefulness as described in previous subsection.
 Then, we used these comments for both the training and test data set for our approach to determine its effectiveness.
 We also determined the effectiveness of our approach using bootstrapping cross validation:
 We randomly selected 90\% of 320 comments for training set and used the remaining 10\% for the validation set.
@@ -103,14 +103,16 @@ This validation was repeated for 300 times to estimate the mean and variance of 
 %                - For useful classification, we only look for 3 scored comments.
 %                - For useless classification, we only look for 0 scored comments.
 
-From 320 samples, the number of labeled comments were 87, 60, 51, and 122 for 0, 1, 2, and 3 \texttt{YES} votes, respectively.
-To estimated estimated similarity and dissimilarity thresholds, we iterated $s_t$, $d_t$, $s'_t$, and $d'_t$ values from every unique similarity and dissimilarity values in our data set.
+From 318 samples, the number of labeled comments were 85, 60, 51, and 122 for 0, 1, 2, and 3 \texttt{YES} votes, respectively.
+To estimate similarity and dissimilarity thresholds, we iterated $s_t$, $d_t$, $s'_t$, and $d'_t$ values from every unique similarity and dissimilarity values in our data set.
 % \TODO{.......}. 
 % \pick{We cannot brute force for every floating number. How did we calculate this?} 
 % \dan{I assume Thai used a numerical optimization or root finding routine such as bisection. You iterate until a value is within a given tolerance.}
 % Thai sez: answered.
   
-Table \ref{tb:thresholds} shows 5 sets of thresholds that best classify useful and useless comments based on F-measure score. \pick{I used dummy results. Please change it} \pick{What we got from this table? What information can we interpret? The threshold is slightly different? Is it good or bad? Please describes.} 
+Table \ref{tb:thresholds} shows 5 sets of thresholds that best classify useful and useless comments based on F-measure score.
+% \pick{I used dummy results. Please change it}
+\pick{What we got from this table? What information can we interpret? The threshold is slightly different? Is it good or bad? Please describes.} 
 
 \textbf{Model Effectiveness.} Figure \ref{fig:scatter} shows relationship between comments class and our similarity thresholds. The green area represents useful model $\Theta(c,S_T=0.09028129266684175,D_T= 2.245146382888072)$ and the red area represents useless classification model $\Omega(c,S_T=0.09028129266684175,D_T= 2.245146382888072)$. This figure also shows an example comment that fall in the different area\pick{Didn't put yet}. As shown in the figure, most of comments fall in green area is useful comments and very few useless comments fall in this area. Similarly, most of comments fall in red area is useless comments. However, some comments were not determined (in white area). From the example comment, it shows that these comments discussed on ..... which did not contains any similar words. Moreover, the areas of these two models are overlap. Table \ref{tb:classify_number} summarizes the number of classification from this results. Interestingly, 87\% useless comments classified by our model have \texttt{YES} = 0 and 1 voting scores. This is same as the results of useful class that most of them have \texttt{YES} = 2 and 3 voting scores
 This finding suggests that these unclear comments have something.....
@@ -126,7 +128,7 @@ Our&  Useless  & Unclear  & Unclear & Useful \\
 Classifications&  (\texttt{YES}=0) & (\texttt{YES}=1) & (\texttt{YES}=2) & (\texttt{YES}=3) \\
 \hline \hline
 Useless & 69 & 23 & 7 & 6 \\
-Useful & 4 & 13 & 24 & 95 \\
+Useful & 3 & 12 & 24 & 95 \\
 Overlap & 1 & 1 & 0 & 1 \\
 Undetermined & 12 & 24 & 20 & 20 \\
 \hline
