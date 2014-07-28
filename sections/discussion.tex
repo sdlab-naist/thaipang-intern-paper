@@ -47,7 +47,7 @@ For this, we removed the samples with 1 and 2 \texttt{YES} votes from our data s
 By performing cross-validation using only samples with 0 and 3 \texttt{YES} votes, we obtained a much better F$_1$ score of 0.896.
 
 We could not objectively measure the F$_1$ score for all samples, because giving positive or negative classification to 1 and 2-scored samples introduces a bias.
-However, the results seen in Fig.\ref{fig:binary} suggests that the binary classifier tends to gives positive classification to samples with score of 2 more than samples with score of 1, and the \emph{vice versa} for negative classification.
+However, the results seen in Fig.\ref{fig:binary} suggests that the binary classifier tends to gives positive classification to samples with score of 2 more than samples with score of 1, and the \emph{vice versa} for negative classification. 
 
 \begin{figure}[h]
 \centering
@@ -55,3 +55,8 @@ However, the results seen in Fig.\ref{fig:binary} suggests that the binary class
 \caption{The amount of comments by score classified by the binary classifier.}
 \label{fig:binary}
 \end{figure}
+\subsection*{Can other text mining techniques be used to classify discussions?}
+To find relevance between comments and the corresponding commit message, topic modeling technique can be used as the study of \cite{Barua2012a}. This technique discovers topics for a given collection of documents. However, in MCR context, the documents generally is short descriptions and short discussions. 
+The topic modeling technique would generate topics that include diverse actual topics of documents since the content of documents is insufficient to determine. We have applied Latent Dirichlet allocation (LDA), which is a well-known model of topic modeling techniques, on our data set. We found that the generated topics were diverse and some of them cannot did not have a relation between documents and their topics. Therefore, the topic modeling cannot be used to classify discussions. Others techniques will be investigated in our future work to improve our approach.
+
+\subsection{Threat to Validity}
