@@ -166,7 +166,7 @@ Prediction Models  & Rank & $s_t$ & $d_t$ & F-measure & Precision & Recall \\ \h
 % & \multicolumn{3}{r}{Average} &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
 %& \multicolumn{3}{r}{Min-Max} &   1.00 - 1.00 & 1.00 - 1.00  & 1.00 - 1.00
 \\ \hline \hline
-\multirow{5}{*}{$\Omega(c,S_T=s_t,D_T=d_t)$}
+\multirow{5}{*}{$\Omega(c,S'_T=s_t,D'_T=d_t)$}
 & 1 & 0.087522 & 2.265679 & 0.725 & 0.648 & 0.824 \\ \cline{2-7}
 & 2 & 0.087522 & 2.250422 & 0.722 & 0.642 & 0.824 \\ \cline{2-7}
 & 3 & 0.087522 & 2.324771 & 0.720 & 0.663 & 0.788 \\ \cline{2-7}
@@ -228,7 +228,7 @@ The standard deviation is 45 seconds.
 
 To estimate the total time for us to assess these 318 comments,
 we multiplied the average time by the number of comments and the number of people.
-This results in $\frac{318 \times 28 \times 3}{3600 \text{ seconds/hour}} = 7.42$ person hours.
+This results in 7.42 person hours.
 
 To manually assess all 10,583 comments---even with only one person working at 10 comments per minute---this would take 17.6 person hours.
 By running our model through all 10,583 comments, only 2,487 comments receive undetermined result.
