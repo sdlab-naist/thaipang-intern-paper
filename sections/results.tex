@@ -47,9 +47,12 @@ Automated Comments & 61,814 & 85\% \\ \hline
 \end{tabular}
 \label{tb:datastatistic}
 \end{table}
+\subsection{Manual Comment Usefulness Assessment}
+In this case study, three participants (the first two authors and one student) independently classify comments by giving a question that “Does this comment technically contribute to its change or not?”. Then, the participants gave a vote for \texttt{YES} if the comment is likely to useful and  \texttt{NO}  if the comment is likely to useless. From the voting scores, we regarded that the comments with three  \texttt{YES}  votes are \emph{useful} comments and the comments with no  \texttt{YES}  votes (i.e. three  \texttt{NO}  votes) are \emph{useless} comments. For the comments with one and two YES’ votes, we defined them as unclear comments.
 
 \subsection{Research Questions}
-
+To validate our approach, we addressed two research questions: \textbf{RQ1:} Is semantic similarity a good indicator of MCR comment usefulness? and \textbf{RQ2:} Is semantic similarity classification cost-efficient, assurable, and scalable?.
+\pick{Do we need motivation for these RQs?}
 %\pick{I realize that your figure is better for the presentation :)}
 %\begin{figure}[h]
 %\centering
@@ -75,20 +78,19 @@ Automated Comments & 61,814 & 85\% \\ \hline
 %
 %After the tokenization step, 393,238 tokens are generated in total. They are composed of 20,025 different words.
 %This means that each document will be converted into a vector of 20,025 dimensions, each dimension representing a single word.
-%
+
 
 \begin{ResearchQuestions}
 \item[RQ1:] Is semantic similarity a good indicator of MCR comment usefulness?
 \end{ResearchQuestions}
 
-\textbf{Approach.} To answer this question, we randomly sampled 318 comments from our data set and manually identified usefulness.
+\textbf{Methodology.} To answer this question, we randomly sampled 318 comments from our data set and manually identified usefulness.
 Then, we used these comments for both the training and test data set for our approach to determine its effectiveness.
 We also determined the effectiveness of our approach using bootstrapping cross validation.
 We randomly selected 90\% of 318 comments for training set and used the remaining 10\% for the validation set.
 The performance on the 10\% was measured using precision, recall and F-measure.
 This validation was repeated for 300 times to estimate the mean and variance of the performance.
 
-To manually assess comment usefulness, three participants (the first two authors and one student) independently classify comments by giving a question that “Does this comment technically contribute to its change or not?”. Then, the participants gave a vote for \texttt{YES} if the comment is likely to useful and  \texttt{NO}  if the comment is likely to useless. From the voting scores, we regarded that the comments with three  \texttt{YES}  votes are \emph{useful} comments and the comments with no  \texttt{YES}  votes (i.e. three  \texttt{NO}  votes) are \emph{useless} comments. For the comments with one and two YES’ votes, we defined them as unclear comments.
 % \dan{What what the effort in person-hours for this?}
 % Thai sez:  Average time per comment is 28 seconds.
 %            Since we do a lot of other things while training, it gives us a STDEV of 45 seconds.
@@ -103,15 +105,14 @@ To manually assess comment usefulness, three participants (the first two authors
 
 From 318 samples, the number of labeled comments were 85, 60, 51, and 122 for 0, 1, 2, and 3 \texttt{YES} votes, respectively.
 To determine similarity and dissimilarity thresholds for useful and useless model, we iterated $s_t$ and $d_t$ values from every unique similarity and dissimilarity values in our data set.
-Table \ref{tb:thresholds} shows 5 sets of thresholds that best classify useful and useless comments based on F$_1$ score. We selected the first rank of thresholds for the further analysis and applied models, i.e. useful: $\Theta(c,S_T=0.015529,D_T=2.494944)$ and useless: $\Omega(c,S_T=0.087522,D_T=2.265679)$ on the samples.
+Table \ref{tb:thresholds} shows 5 sets of thresholds that best classify useful and useless comments based on F$_1$ score. We selected the first rank of thresholds and applied models, i.e. useful: $\Theta(c,S_T=0.015529,D_T=2.494944)$ and useless: $\Omega(c,S_T=0.087522,D_T=2.265679)$ on the samples. The precision and Recall of these models are 0.701 and 0.787 for useful model and 0.648 and 0.824 for useless model.
 
-\textbf{Classification Result:}  We summarizes the number of classification from result described in Table \ref{tb:classify_number}.  We also show the results and relationship between comments class that manually classified and the similarity thresholds in Fig  \ref{fig:scatter}. The green area represents the \emph{useful} classification model and the red area represents the \emph{useless} model. Thus, the comments drawn in the green area are those satisfied condition of useful model and the comments drawn in the red area are those satisfied condition of useless. While, the comments drawn in the white area are those not satisfied any condition (i.e. undetermined). 
+\textbf{Classification Results:}  We summarizes the number of classification from result described in Table \ref{tb:classify_number}.  We also show the results and relationship between comments class that manually classified and the similarity thresholds in Fig  \ref{fig:scatter}. The green area represents the \emph{useful} classification model and the red area represents the \emph{useless} model. Thus, the comments drawn in the green area are those satisfied condition of useful model and the comments drawn in the red area are those satisfied condition of useless. While, the comments drawn in the white area are those not satisfied any condition (i.e. undetermined). 
 %This figure also shows an example comment that fall in the different area\pick{Didn't put yet}.
 
 
 %%Interpret: comments & model%%%%
-As shown in the figure, most comments drawn in green area are useful and very few useless comments drawn in this area. Similarly, most comments in the red area are useless. The unclear comments are drawn in both area. Between these areas, there is an overlap section. This is because the similarity and dissimilarity values between useful and useless are vague. Both models tend to maximize coverage of classification. Thus, it is possible that there is overlap between these two models. However, from the results, there are few comments drawn in this overlap section. This shows that error of our model is low.
-For comments that were undetermined (drawn in white area), we investigate characteristics of these comments. The findings are described in our discussion section.
+As shown in the figure, most comments drawn in green area are useful and very few useless comments drawn in this area. Similarly, most comments in the red area are useless. The unclear comments are drawn in both area. Between these areas, there is an overlap section. This is because the similarity and dissimilarity values between useful and useless are vague. Both models tend to maximize coverage of classification. Thus, it is possible that there is overlap between these two models. However, from the results in Table \ref{tb:classify_number}, only three comments were classified overlap section. This shows that error of our models is low. Furthermore, there are 12 useless comments  (14\%) and  21 useful comments (17\%) still are undetermined (drawn in white area). We investigate characteristics of these comments. The findings are described in our discussion section.
 %From the example comment, it shows that these comments discussed on \TODO{insert topic}, but did not contain any word in common.
 
 %%Interpret: comments & similarity values%%%%
@@ -129,25 +130,6 @@ The symbol represents the score, which ranges from 0 to 3.}
 
 From Table \ref{tb:classify_number}, Interestingly, 88\% of useless comments classified by our model have \texttt{YES} = 0 and 1 voting scores.
 The similar proportion is obtained for useful comments classified by our model i.e. most useful comments have \texttt{YES} = 2 and 3 voting scores.
-
-\begin{table}[h]
-\centering
-\small
-\caption{Number of comments classified by our approach against ground truth data}
-\begin{tabular}{ccccc}
-\hline
-& \multicolumn{4}{c}{Class from Manual Assessment} \\ \cline{2-5}
-Our&  Useless  & Unclear  & Unclear & Useful \\
-Classifications&  (\texttt{YES}=0) & (\texttt{YES}=1) & (\texttt{YES}=2) & (\texttt{YES}=3) \\
-\hline \hline
-Useless & 69 & 23 & 7 & 6 \\
-Useful & 3 & 12 & 24 & 94 \\
-Overlap & 1 & 1 & 0 & 1 \\
-Undetermined & 12 & 24 & 20 & 21 \\
-\hline
-\end{tabular}
-\label{tb:classify_number}
-\end{table}
 
 
 \begin{table*}[!t]
@@ -181,6 +163,25 @@ Prediction Models  & Rank & $s_t$ & $d_t$ & F-measure & Precision & Recall \\ \h
 \end{tabular}
 \label{tb:thresholds}
 \end{table*}
+
+\begin{table}[h]
+\centering
+\small
+\caption{Number of comments classified by our approach against ground truth data}
+\begin{tabular}{ccccc}
+\hline
+& \multicolumn{4}{c}{Class from Manual Assessment} \\ \cline{2-5}
+Our&  Useless  & Unclear  & Unclear & Useful \\
+Classifications&  (\texttt{YES}=0) & (\texttt{YES}=1) & (\texttt{YES}=2) & (\texttt{YES}=3) \\
+\hline \hline
+Useful & 3 & 12 & 24 & 94 \\
+Useless & 69 & 23 & 7 & 6 \\
+Overlap & 1 & 1 & 0 & 1 \\
+Undetermined & 12 & 24 & 20 & 21 \\
+\hline
+\end{tabular}
+\label{tb:classify_number}
+\end{table}
 
 \textbf{Validation} After we performed cross validation, we obtained the following result:
 for useful and useless classifications,
