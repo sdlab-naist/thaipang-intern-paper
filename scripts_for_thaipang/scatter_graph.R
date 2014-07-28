@@ -1,11 +1,11 @@
 dat <- read.csv("scatter_value.csv")
 dat$Similarity[which(dat$Similarity == 0)] = 0.000000001 
-St1 = 0.015528
-Dt1 = 2.494944
-St2 = 0.087522
-Dt2 = 2.265679 
+St1 = 0.015528969196702956
+Dt1 = 2.4949438168165483
+St2 = 0.08752176628812282
+Dt2 = 2.26567908457803
 
-colors = c("red","darkorange","blue","darkgreen")
+colors = c("red","magenta","blue","darkgreen")
 pch = c(4,2,3,16)
 
 #Print Graph with Log

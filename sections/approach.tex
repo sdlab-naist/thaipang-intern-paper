@@ -1,47 +1,55 @@
 % !TEX root = ../paper.tex
 
 \section{Semantic Similarity Classification of Comment Usefulness}
-\begin{figure}[!t]
-\centering
-\includegraphics[scale=0.34, trim = 50 90 0 30, clip=true]{overview2}
-\caption{Overview of our classification approach.}
-\label{fig:overview}
-\end{figure}
+
+
 
 Our goal is to improve the efficiency and confidence in determining the usefulness of review comments.
-As discussed previously, this is largely based on relevance the comment has to the proposed change (as documented within a MCR system).
-According to relevance theory, a primary factor in relevance is similarly, and so it is natural for us to consider classification using \emph{similarity conditions}. 
-\dan{can we find a reference for relevance and similarly?}
+We define a \emph{useful} comment as one that contributes to improving the proposed changes and a \emph{useless}\footnote{Although we call these comments \emph{useless}, it might be useful---or sometimes even required---in some other context, such as to facilitate communication.} comment as one that does not.
+Usefulness is not dichotomous and hence we must accept a third qualification, \emph{unclear}, to allow for the case where a comment does not directly make a positive contribution but is not clearly out of scope or tangential.
+Therefore, our approach is largely based on relevance the comment has to the proposed change (as documented within a MCR system).
+A primary factor in relevance is similarly, and so it is natural for us to consider classification using \emph{similarity conditions}\cite{Davies2012}. 
+%\dan{can we find a reference for relevance and similarly?}
+We assume that the more similar a comment is to the proposed change, the more relevant it is and hence more likely useful.
+Conversely, the more dissimilar\footnote{This can be arbitrarily large, thus not simply the opposite of similarity}, the less relevant, and hence less useful.
 
-That is, we assume that that the more similar a comment is to the proposed change, the more relevant it is and hence more likely useful.
-Conversely, the more dissimilar\footnote{This can be arbitrarily large, thus not simply the opposite of similarity.}, the less relevant, and hence less useful.
 
 Given the subjective nature of usefulness, precise classification conditions probably do not exist and so we resort to conditions that indicate a meaningful \emph{likelihood} of classification.
 That is, for some degree of similarity a comment is most likely useful, and for some degree of dissimilarity it is most likely not useful.
 The key is determining these degrees in a practical and effective manner.
 
+
+\begin{figure}[!t]
+\centering
+\includegraphics[scale=0.34, trim = 50 90 0 30, clip=true]{overview2}
+\caption{An overview of classification of comment usefulness using semantic similarity}
+\label{fig:overview}
+\end{figure}
+
+%\textbf{Approach Overview.} 
 Fig. \ref{fig:overview} shows an overview of our proposed classification approach.
-Usefulness of a comment is determined by computing its semantic similarity with the commit message of proposed change and observing if it satisfies \emph{usefulness classification likelihood conditions}.
+Usefulness of a comment is determined by computing its semantic similarity with the commit message of its proposed change and observing if it satisfies \emph{usefulness classification likelihood conditions}.
 The conditions are simply threshold values of similarity and dissimilarity empirically determined to optimize a desired likelihood objectives.
 In our case example we chose to maximize the F-measure, but other likelihood functions could be used depending on precision, recall, or risk goals.
 
 % again, I can't see Fig. \ref{fig:overview}(a)
 % Thai sez: Cosine distance IS NOT cosine similarity. Cosine distance is defined as 1 - cosine similarity, and is not a proper distance metric, lacking triangle equality and stuff [Wikipedia].
-To calculate semantic similarity, we used the Vector Space Model (VSM) with the cosine similarity measure, which is a well-known technique for retrieving similar documents written in unstructured natural language; and the Euclidian distance, which is a well-established measure of dissimilarity and applies analogously.
+To calculate semantic similarity, we used the Vector Space Model (VSM) with the cosine similarity measure, which is a well-known technique for retrieving relevant documents written in unstructured natural language\cite{did}; and the Euclidian distance, which is a well-established measure of dissimilarity and applies analogously\cite{dfdf}.
 %For our case example training dataset, we manually identified 320 randomly-selected pairs of comments and corresponding commit messages in Fig. \ref{fig:overview}(b). \thai{The %overview figure does not have (a) and (b)...}
 %\dan{what was the actual effort (in person-hours) to create the training data?}
 
 Our training data is a small set of randomly-selected pairs of comments and the corresponding commit messages.
 These comments are manually assessed for usefulness.
-Each comment is assessed by three different people independently.
-For each \texttt{YES} vote, a single point is given to that comment.
-This means that a comment will receive a score of 0, 1, 2, or 3.
+%Each comment is assessed by three different people independently.
+%For each \texttt{YES} vote, a single point is given to that comment.
+%This means that a comment will receive a score of 0, 1, 2, or 3.
 For statistical purposes, at least 30 useful and 30 useless comments must be collected.
-
 The similarity and dissimilarity metrics are then computed for the data set.
 These are used to estimate the similarity and dissimilarity thresholds $S_T$ and $D_T$ that can best (relative to some likelihood function such as F-measure) discriminate useful comments and $S'_T$ and $D'_T$ for useless comments.
 
-Using these thresholds, we can classify the usefulness of comments for the rest of comments in review history according to the classification model as follows: given a comment $c$ and a corresponding commit message $m$,
+
+%\textbf{Usefulness Classification Conditions.} 
+Using those thresholds, we can classify the usefulness of comments for the rest of comments (as test data) in review history according to the classification model as follows: given a comment $c$ and a corresponding commit message $m$,
 \begin{itemize}
 \item \textbf{useful}: $\Theta(c,m,S_T,D_T) = \True$ iff $\Sim(m,c) \geq S_T$ and $\Dist(m,c) \leq D_T$.
 \item \textbf{useless}: $\Omega(c,m,S'_T,D'_T) = \True$ iff $\Sim(m,c) \leq  S'_T$ and $\Dist(m,c) \geq D'_T$.
@@ -49,7 +57,7 @@ Using these thresholds, we can classify the usefulness of comments for the rest 
 % We also refer to them as \emph{neither} and \emph{overlap}.
 \end{itemize}
 
-The functions $\Sim(m,c)$ and $\Dist(m,c)$ are the similarity and dissimilarity measures relative to the proposed change commit message $m$ for the text of comment $c$.
+The functions $\Sim(m,c)$ and $\Dist(m,c)$ are the similarity and dissimilarity measures relative to the proposed change commit message $m$ for the text of comment $c$ using cosine similarity and euclidian distance respectively.
 Two metrics are used because they are independently generated and thus provides better discrimination for classification.
 We also found experimentally that using two metrics has higher performance than just one. 
 
