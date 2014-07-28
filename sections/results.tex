@@ -103,11 +103,10 @@ This validation was repeated for 300 times to estimate the mean and variance of 
 %                - For useful classification, we only look for 3 scored comments.
 %                - For useless classification, we only look for 0 scored comments.
 
-From 318 samples, the number of labeled comments were 85, 60, 51, and 122 for 0, 1, 2, and 3 \texttt{YES} votes, respectively.
 To determine similarity and dissimilarity thresholds for useful and useless model, we iterated $s_t$ and $d_t$ values from every unique similarity and dissimilarity values in our data set.
-Table \ref{tb:thresholds} shows 5 sets of thresholds that best classify useful and useless comments based on F$_1$ score. We selected the first rank of thresholds and applied models, i.e. useful: $\Theta(c,S_T=0.015529,D_T=2.494944)$ and useless: $\Omega(c,S_T=0.087522,D_T=2.265679)$ on the samples. The precision and Recall of these models are 0.701 and 0.787 for useful model and 0.648 and 0.824 for useless model.
+Table \ref{tb:thresholds} shows 5 sets of thresholds that best classify useful and useless comments based on F$_1$ score. We selected the first rank of thresholds and applied models, i.e. useful: $\Theta(c,S_T=0.015529,D_T=2.494944)$ and useless: $\Omega(c,S_T=0.087522,D_T=2.265679)$ on the samples. 
 
-\textbf{Classification Results:}  We summarizes the number of classification from result described in Table \ref{tb:classify_number}.  We also show the results and relationship between comments class that manually classified and the similarity thresholds in Fig  \ref{fig:scatter}. The green area represents the \emph{useful} classification model and the red area represents the \emph{useless} model. Thus, the comments drawn in the green area are those satisfied condition of useful model and the comments drawn in the red area are those satisfied condition of useless. While, the comments drawn in the white area are those not satisfied any condition (i.e. undetermined). 
+\textbf{Classification Results:} From 318 samples, the number of labeled comments were 85, 60, 51, and 122 for 0, 1, 2, and 3 \texttt{YES} votes, respectively. The precision and Recall of the models are 0.701 and 0.787 for useful model and 0.648 and 0.824 for useless model. We summarizes the number of classification from result described in Table \ref{tb:classify_number}.  We also show the results and relationship between comments class that manually classified and the similarity thresholds in Fig  \ref{fig:scatter}. The green area represents the \emph{useful} classification model and the red area represents the \emph{useless} model. Thus, the comments drawn in the green area are those satisfied condition of useful model and the comments drawn in the red area are those satisfied condition of useless. While, the comments drawn in the white area are those not satisfied any condition (i.e. undetermined). 
 %This figure also shows an example comment that fall in the different area\pick{Didn't put yet}.
 
 
@@ -128,41 +127,41 @@ The symbol represents the score, which ranges from 0 to 3.}
 \end{figure}
 
 
-From Table \ref{tb:classify_number}, Interestingly, 88\% of useless comments classified by our model have \texttt{YES} = 0 and 1 voting scores.
-The similar proportion is obtained for useful comments classified by our model i.e. most useful comments have \texttt{YES} = 2 and 3 voting scores.
+Interestingly, in Table \ref{tb:classify_number}, there are 88\% of useful comments classified by our model have \texttt{YES} = 2 and 3 voting scores. The classification of useless comments also have similar proportion i.e. having high number of comment with \texttt{YES} = 0 and 1 voting scores. It is possible that the unclear comments with \texttt{YES} = 2 can be useful comments and comments with can be useless comments. Due to subjective and error-prone manual classification, these comments were not received three voting scores. This suggests us to re-examine the comments again. \pick{I'm not sure if comments with vote 2 are highly classified as useful and comments with vote 1 are highly classified as useless, what will we do.} 
 
 
-\begin{table*}[!t]
-\caption{An accuracy of similarity and dissimilarity thresholds for useful and useless comment classifications}
-\small
-\centering
-\def\arraystretch{1.2}
-\begin{tabular}{ccccccc}
-\hline
-Prediction Models  & Rank & $s_t$ & $d_t$ & F-measure & Precision & Recall \\ \hline \hline
-\multirow{5}{*}{\textbf{useful}: $\Theta(c,S_T=s_t,D_T=d_t)$}
-& 1 & 0.015529 & 2.494944 & 0.741 & 0.701 & 0.787 \\ \cline{2-7}
-& 2 & 0.015529 & 3.077129 & 0.740 & 0.693 & 0.795 \\ \cline{2-7}
-& 3 & 0.016713 & 2.494944 & 0.739 & 0.704 & 0.779 \\ \cline{2-7}
-& 4 & 0.015411 & 2.494944 & 0.738 & 0.696 & 0.787 \\ \cline{2-7}
-& 5 & 0.015411 & 3.077129 & 0.738 & 0.688 & 0.795
-% \\ \cline{2-7}
-% & \multicolumn{3}{r}{Average} &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-%& \multicolumn{3}{r}{Min-Max} &   1.00 - 1.00 & 1.00 - 1.00  & 1.00 - 1.00
-\\ \hline \hline
-\multirow{5}{*}{\textbf{useless}: $\Omega(c,S'_T=s_t,D'_T=d_t)$}
-& 1 & 0.087522 & 2.265679 & 0.725 & 0.648 & 0.824 \\ \cline{2-7}
-& 2 & 0.087522 & 2.250422 & 0.722 & 0.642 & 0.824 \\ \cline{2-7}
-& 3 & 0.087522 & 2.324771 & 0.720 & 0.663 & 0.788 \\ \cline{2-7}
-& 4 & 0.052856 & 2.265679 & 0.719 & 0.645 & 0.812 \\ \cline{2-7}
-& 5 & 0.087522 & 2.249675 & 0.718 & 0.636 & 0.824
-% \\ \cline{2-7}
-%& \multicolumn{3}{r}{Average} &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-%& \multicolumn{3}{r}{Min-Max} &   1.00 - 1.00 & 1.00 - 1.00  & 1.00 - 1.00
-\\ \hline
-\end{tabular}
-\label{tb:thresholds}
-\end{table*}
+
+%\begin{table*}[!t]
+%\caption{An accuracy of similarity and dissimilarity thresholds for useful and useless comment classifications}
+%\small
+%\centering
+%\def\arraystretch{1.2}
+%\begin{tabular}{ccccccc}
+%\hline
+%Prediction Models  & Rank & $s_t$ & $d_t$ & F-measure & Precision & Recall \\ \hline \hline
+%\multirow{5}{*}{\textbf{useful}: $\Theta(c,S_T=s_t,D_T=d_t)$}
+%& 1 & 0.015529 & 2.494944 & 0.741 & 0.701 & 0.787 \\ \cline{2-7}
+%& 2 & 0.015529 & 3.077129 & 0.740 & 0.693 & 0.795 \\ \cline{2-7}
+%& 3 & 0.016713 & 2.494944 & 0.739 & 0.704 & 0.779 \\ \cline{2-7}
+%& 4 & 0.015411 & 2.494944 & 0.738 & 0.696 & 0.787 \\ \cline{2-7}
+%& 5 & 0.015411 & 3.077129 & 0.738 & 0.688 & 0.795
+%% \\ \cline{2-7}
+%% & \multicolumn{3}{r}{Average} &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
+%%& \multicolumn{3}{r}{Min-Max} &   1.00 - 1.00 & 1.00 - 1.00  & 1.00 - 1.00
+%\\ \hline \hline
+%\multirow{5}{*}{\textbf{useless}: $\Omega(c,S'_T=s_t,D'_T=d_t)$}
+%& 1 & 0.087522 & 2.265679 & 0.725 & 0.648 & 0.824 \\ \cline{2-7}
+%& 2 & 0.087522 & 2.250422 & 0.722 & 0.642 & 0.824 \\ \cline{2-7}
+%& 3 & 0.087522 & 2.324771 & 0.720 & 0.663 & 0.788 \\ \cline{2-7}
+%& 4 & 0.052856 & 2.265679 & 0.719 & 0.645 & 0.812 \\ \cline{2-7}
+%& 5 & 0.087522 & 2.249675 & 0.718 & 0.636 & 0.824
+%% \\ \cline{2-7}
+%%& \multicolumn{3}{r}{Average} &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
+%%& \multicolumn{3}{r}{Min-Max} &   1.00 - 1.00 & 1.00 - 1.00  & 1.00 - 1.00
+%\\ \hline
+%\end{tabular}
+%\label{tb:thresholds}
+%\end{table*}
 
 \begin{table}[h]
 \centering
@@ -183,12 +182,16 @@ Undetermined & 12 & 24 & 20 & 21 \\
 \label{tb:classify_number}
 \end{table}
 
-\textbf{Validation} After we performed cross validation, we obtained the following result:
-for useful and useless classifications,
-we obtained an average F$_1$ score of 0.693 and 0.681,
-with standard deviation of 0.090 and 0.118, respectively.
-This indicates that we can use our approach to classify with confident of 69.8\%.
-\pick{Precision? Recall?} \thai{This is some confidence interval...}
+\textbf{Validation.} After validating our approach using bootstrapping cross validation with 300 iterations, for the random select test datasets, we obtained the results described in Table \ref{}. 
+
+%the average of F-measure score are 0.6
+%
+%After we performed cross validation, we obtained the following result:
+%for useful and useless classifications,
+%we obtained an average F$_1$ score of 0.693 and 0.681,
+%with standard deviation of 0.090 and 0.118, respectively.
+%This indicates that we can use our approach to classify with confident of 69.8\%.
+%\pick{Precision? Recall?} \thai{This is some confidence interval...}
 
 According to the results, we can answer RQ1 that \emph{we can automatically classify usefulness of comments from similarity and dissimilarity using our approach.}
 
