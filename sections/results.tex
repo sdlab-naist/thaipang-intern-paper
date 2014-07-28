@@ -80,20 +80,35 @@ Automated Comments & 61,814 & 85\% \\ \hline
 %This means that each document will be converted into a vector of 20,025 dimensions, each dimension representing a single word.
 %
 
+\begin{ResearchQuestions}
+\item[RQ1:] Is semantic similarity a good indicator of MCR comment usefulness?
+\end{ResearchQuestions}
 
-\noindent \textbf{RQ1: Is semantic similarity a good indicator of MCR comment usefulness?}\\
-\indent To answer this question, we randomly sampled 320 comments from our data set and manually identified usefulness as described in previous subsection. Then, we used these comments for both the training and test data set for our approach to determine its effectiveness. We also determined the effectiveness of our approach using bootstrapping cross validation. We randomly selected 90\% of 320 comments for training set and 10\% for the validation set.
-The performance on the 10\% was measured using precision, recall and F-measure as described in Equation \ref{eq:fmeasure}. We repeated this validation for 300 times to estimate the mean and variance of the performance.
+To answer this question, we randomly sampled 320 comments from our data set and manually identified usefulness as described in previous subsection.
+Then, we used these comments for both the training and test data set for our approach to determine its effectiveness.
+We also determined the effectiveness of our approach using bootstrapping cross validation:
+We randomly selected 90\% of 320 comments for training set and used the remaining 10\% for the validation set.
+The performance on the 10\% was measured using precision, recall and F-measure as described in Equation \ref{eq:fmeasure}.
+This validation was repeated for 300 times to estimate the mean and variance of the performance.
 
-\dan{What what the effort in person-hours for this?}
+% \dan{What what the effort in person-hours for this?}
+% Thai sez:  Average time per comment is 28 seconds.
+%            Since we do a lot of other things while training, it gives us a STDEV of 45 seconds.
+%            The median, by the way, is just 10 seconds.
 
-Since our models do not include unclear type of comments, we defined them as negative condition i.e useless comments in case of useful classification (when using $\Theta(c,S_T,D_T)$ model) and useful comments in case of useless classification (when using $\Omega(c,S'_T,D'_T)$ model).
-\dan{I thought we changed this! It would be bad if we didn't. Let me know what the actual situation is here.}
+% Since our models do not include unclear type of comments, we defined them as negative condition i.e useless comments in case of useful classification (when using $\Theta(c,S_T,D_T)$ model) and useful comments in case of useless classification (when using $\Omega(c,S'_T,D'_T)$ model).
+%\dan{I thought we changed this! It would be bad if we didn't. Let me know what the actual situation is here.}
+%
+% Thai sez:  We did not. Maybe this is just a matter of wording. I believe what the text says is:
+%                - For useful classification, we only look for 3 scored comments.
+%                - For useless classification, we only look for 0 scored comments.
 
 From 320 samples, the number of labeled comments were 87, 60, 51, and 122 for 0, 1, 2, and 3 \texttt{YES} votes, respectively.
-To estimated estimated similarity and dissimilarity thresholds, we iterated $s_t$, $d_t$, $s'_t$, and $d'_t$ values from \TODO{.......}. 
-\pick{We cannot brute force for every floating number. How did we calculate this?} 
-\dan{I assume Thai used a numerical optimization or root finding routine such as bisection. You iterate until a value is within a given tolerance.}
+To estimated estimated similarity and dissimilarity thresholds, we iterated $s_t$, $d_t$, $s'_t$, and $d'_t$ values from every unique similarity and dissimilarity values in our data set.
+% \TODO{.......}. 
+% \pick{We cannot brute force for every floating number. How did we calculate this?} 
+% \dan{I assume Thai used a numerical optimization or root finding routine such as bisection. You iterate until a value is within a given tolerance.}
+% Thai sez: answered.
   
 Table \ref{tb:thresholds} shows 5 sets of thresholds that best classify useful and useless comments based on F-measure score. \pick{I used dummy results. Please change it} \pick{What we got from this table? What information can we interpret? The threshold is slightly different? Is it good or bad? Please describes.} 
 
