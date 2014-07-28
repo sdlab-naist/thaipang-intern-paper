@@ -87,7 +87,7 @@ Automated Comments & 61,814 & 85\% \\ \hline
 To answer this question, we randomly sampled 318 comments from our data set and manually identified usefulness as described in previous subsection.
 Then, we used these comments for both the training and test data set for our approach to determine its effectiveness.
 We also determined the effectiveness of our approach using bootstrapping cross validation:
-We randomly selected 90\% of 320 comments for training set and used the remaining 10\% for the validation set.
+We randomly selected 90\% of 318 comments for training set and used the remaining 10\% for the validation set.
 The performance on the 10\% was measured using precision, recall and F-measure as described in Equation \ref{eq:fmeasure}.
 This validation was repeated for 300 times to estimate the mean and variance of the performance.
 
@@ -110,7 +110,7 @@ To estimate similarity and dissimilarity thresholds, we iterated $s_t$, $d_t$, $
 % \dan{I assume Thai used a numerical optimization or root finding routine such as bisection. You iterate until a value is within a given tolerance.}
 % Thai sez: answered.
   
-Table \ref{tb:thresholds} shows 5 sets of thresholds that best classify useful and useless comments based on F-measure score.
+Table \ref{tb:thresholds} shows 5 sets of thresholds that best classify useful and useless comments based on F$_1$ score.
 % \pick{I used dummy results. Please change it}
 \pick{What we got from this table? What information can we interpret? The threshold is slightly different? Is it good or bad? Please describes.} 
 
@@ -120,7 +120,7 @@ This finding suggests that these unclear comments have something.....
 \begin{table}[h]
 \centering
 \small
-\caption{Number of comments classified by our approach against ground truth data }
+\caption{Number of comments classified by our approach against ground truth data}
 \begin{tabular}{ccccc}
 \hline
 & \multicolumn{4}{c}{Class from Ground Truth Data} \\ \cline{2-5}
@@ -145,20 +145,26 @@ Undetermined & 12 & 24 & 20 & 20 \\
 \begin{tabular}{ccccccc}
 \hline
 Prediction Models  & Rank & $s_t$ & $d_t$ & F-measure & Precision & Recall \\ \hline \hline
-\multirow{7}{*}{$\Theta(c,S_T=s_t,D_T=d_t)$} & 1 & 0.09028129266684175 & 2.245146382888072 &  1.00000 & 1.00000 & 1.00000 \\ \cline{2-7}
-& 2 & 0.09028129266684175 & 2.245146382888072 &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-& 3 & 0.09028129266684175 & 2.245146382888072 &  1.00 & 1.00& 1.00 \\ \cline{2-7}
-& 4 & 0.09028129266684175 & 2.245146382888072 &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-& 5 & 0.09028129266684175 & 2.245146382888072 &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-& \multicolumn{3}{r}{Average} &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-& \multicolumn{3}{r}{Min-Max} &   1.00 - 1.00 & 1.00 - 1.00  & 1.00 - 1.00  \\ \hline \hline
-\multirow{7}{*}{$\Omega(c,S_T=s_t,D_T=d_t)$} & 1 & 0.09028129266684175 & 2.245146382888072 &  1.00000 & 1.00000 & 1.00000 \\ \cline{2-7}
-& 2 & 0.09028129266684175 & 2.245146382888072 &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-& 3 & 0.09028129266684175 & 2.245146382888072 &  1.00 & 1.00& 1.00 \\ \cline{2-7}
-& 4 & 0.09028129266684175 & 2.245146382888072 &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-& 5 & 0.09028129266684175 & 2.245146382888072 &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-& \multicolumn{3}{r}{Average} &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-& \multicolumn{3}{r}{Min-Max} &   1.00 - 1.00 & 1.00 - 1.00  & 1.00 - 1.00  \\ \hline
+\multirow{5}{*}{$\Theta(c,S_T=s_t,D_T=d_t)$}
+& 1 & 0.015529 & 2.494944 & 0.741 & 0.701 & 0.787 \\ \cline{2-7}
+& 2 & 0.015529 & 3.077129 & 0.740 & 0.693 & 0.795 \\ \cline{2-7}
+& 3 & 0.016713 & 2.494944 & 0.739 & 0.704 & 0.779 \\ \cline{2-7}
+& 4 & 0.015411 & 2.494944 & 0.738 & 0.696 & 0.787 \\ \cline{2-7}
+& 5 & 0.015411 & 3.077129 & 0.738 & 0.688 & 0.795
+% \\ \cline{2-7}
+% & \multicolumn{3}{r}{Average} &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
+%& \multicolumn{3}{r}{Min-Max} &   1.00 - 1.00 & 1.00 - 1.00  & 1.00 - 1.00
+\\ \hline \hline
+\multirow{5}{*}{$\Omega(c,S_T=s_t,D_T=d_t)$}
+& 1 & 0.087522 & 2.265679 & 0.725 & 0.648 & 0.824 \\ \cline{2-7}
+& 2 & 0.087522 & 2.250422 & 0.722 & 0.642 & 0.824 \\ \cline{2-7}
+& 3 & 0.087522 & 2.324771 & 0.720 & 0.663 & 0.788 \\ \cline{2-7}
+& 4 & 0.052856 & 2.265679 & 0.719 & 0.645 & 0.812 \\ \cline{2-7}
+& 5 & 0.087522 & 2.249675 & 0.718 & 0.636 & 0.824
+% \\ \cline{2-7}
+%& \multicolumn{3}{r}{Average} &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
+%& \multicolumn{3}{r}{Min-Max} &   1.00 - 1.00 & 1.00 - 1.00  & 1.00 - 1.00
+\\ \hline
 \end{tabular}
 \label{tb:thresholds}
 \end{table*}
