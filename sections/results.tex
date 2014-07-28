@@ -3,7 +3,7 @@
 \section{Case Study}
 
 Our case study used the Qt project review history from the Gerrit code review tool provided by Hamasaki et. al. \cite{Hamasaki2013}. Qt project is a large open source project composed of numerous small subsystems. We selected the most active subproject, which is called \texttt{qtbase}.
-From this subproject, we used the review history before June 13\textsuperscript{th}, 2012, which contains 6,605 changes and 72,484 comments.
+From this subproject, we used the review history from May 25, 2011 to June 13, 2012, which contains 6,605 changes and 72,484 comments.
 
 
 \subsection{Data Preparation}
@@ -102,6 +102,7 @@ To manually assess comment usefulness, three participants (the first two authors
 %                - For useless classification, we only look for 0 scored comments.
 
 From 318 samples, the number of labeled comments were 85, 60, 51, and 122 for 0, 1, 2, and 3 \texttt{YES} votes, respectively.
+
 To determine similarity and dissimilarity thresholds for useful and useless model, we iterated $s_t$ and $d_t$ values from every unique similarity and dissimilarity values in our data set.
 Table \ref{tb:thresholds} shows 5 sets of thresholds that best classify useful and useless comments based on F$_1$ score. We selected the first rank of thresholds for the further analysis and applied models, i.e. useful: $\Theta(c,S_T=0.015529,D_T=2.494944)$ and useless: $\Omega(c,S_T=0.087522,D_T=2.265679)$ on the samples.
 
@@ -129,6 +130,32 @@ The symbol represents the score, which ranges from 0 to 3.}
 
 From Table \ref{tb:classify_number}, Interestingly, 88\% of useless comments classified by our model have \texttt{YES} = 0 and 1 voting scores.
 The similar proportion is obtained for useful comments classified by our model i.e. most useful comments have \texttt{YES} = 2 and 3 voting scores.
+
+\pick{Thai version}
+To estimate similarity and dissimilarity thresholds, we iterated $s_t$, $d_t$, $s'_t$, and $d'_t$ values from every unique similarity and dissimilarity values in our data set.
+% \TODO{.......}. 
+% \pick{We cannot brute force for every floating number. How did we calculate this?} 
+% \dan{I assume Thai used a numerical optimization or root finding routine such as bisection. You iterate until a value is within a given tolerance.}
+% Thai sez: answered.
+  
+Table \ref{tb:thresholds} shows 5 sets of thresholds that best classify useful and useless comments based on F$_1$ score.
+% \pick{I used dummy results. Please change it}
+\pick{What we got from this table? What information can we interpret? The threshold is slightly different? Is it good or bad? Please describes.} 
+
+\textbf{Model Effectiveness.}
+Figure \ref{fig:scatter} shows relationship between comments class and our similarity thresholds.
+The green area represents the \emph{useful} classification model $\Theta(c,S_T=0.015529,D_T=2.494944)$, and the red area represents the \emph{useless} model $\Omega(c,S_T=0.087522,D_T=2.265679)$.
+This figure also shows an example comment that fall in the different area\pick{Didn't put yet}.
+
+As shown in the figure, most comments falling in green area are useful comments, while very few useless comments fall in this area.
+Similarly, most comments in the red area are considered useless.
+However, some comments were not determined (in white area).
+Some areas of these two models overlap, making results undeterminable.
+
+Table \ref{tb:classify_number} summarizes the number of classification from this results.
+Interestingly, 88\% of useless comments classified by our model have \texttt{YES} = 0 and 1 voting scores.
+From useful class, a similar proportion is obtained---that most useful comments have \texttt{YES} = 2 and 3 voting scores
+
 
 \begin{table}[h]
 \centering
@@ -223,7 +250,7 @@ The standard deviation is 45 seconds.
 
 To estimate the total time for us to assess these 318 comments,
 we multiplied the average time by the number of comments and the number of people.
-This results in $\frac{318 \times 28 \times 3}{3600 \text{ seconds/hour}} = 7.42$ person hours.
+This results in 7.42 person hours.
 
 To manually assess all 10,583 comments---even with only one person working at 10 comments per minute---this would take 17.6 person hours.
 By running our model through all 10,583 comments, only 2,487 comments receive undetermined result.

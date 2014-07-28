@@ -13,7 +13,9 @@ Because performance of code review has a clear relationship to the quality of so
 However, little research exists investigating how the discussion for a proposed change impacts software quality.
 Given that most proposed changes are triggered from reviewer comments \cite{Beller}, 
 it is possible that reviewers comments can either positively contribute to the proposed changes (i.e. ``\emph{useful}''), or be a discussion which is out of scope (i.e. relatively  ``\emph{useless}''  to the proposed changes). 
-Since MCR does not require strict guidelines, checklists, or formal processes, some reviewers tend to look for trivial issues (e.g. coding styles), leaving deeper issues undiscussed \cite{Bacchelli2013a}. This is a concern because a high-degree of useless comments not only fails to contribute to improving quality, but also degrades the cost-effectiveness and perceived utility of MCR.%This is a concern because lack of useful comments can degrade the cost-effectiveness and perceived utility of MCR.
+Since MCR does not require strict guidelines, checklists, or formal processes, some reviewers tend to look for trivial issues (e.g. coding styles), leaving deeper issues undiscussed \cite{Bacchelli2013a}.
+%This is a concern because a high-degree of useless comments not only fails to contribute to improving quality, but also degrades the cost-effectiveness and perceived utility of MCR.
+This is a concern because a low-degree of useful comments can degrade the overall quality and perceived utility of MCR.
 
 Prior research has focused mostly on the relation between number of comments and quality.
 To the best of our knowledge, the connection between degree of useful and useless comments and quality has not been studied.
@@ -42,7 +44,7 @@ Through a case study of Qt project, we address the following research questions:
 
 Our contributions are as follows:
 \begin{itemize}
-\item We propose a practical approach to mine natural text of comments in code reviews and classify their usefulness based on using semantic similarity.
+\item We propose a practical approach to mine natural text of comments in code reviews and classify their usefulness using semantic similarity.
 \item We investigate relationship between usefulness of comments and semantic similarity.
 \item We investigate cost-efficient, assurable and scalable of semantic similarity in large open source project based on actual human effort.
 \end{itemize}
