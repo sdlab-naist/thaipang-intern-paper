@@ -43,7 +43,7 @@ Table \ref{tb:datastatistic} summarizes data set we used for this study after pr
 & Total Number & Percentage \\ \hline \hline
 Commit Messages & 6,605 &  -  \\ \hline
 All Comments & 72,484& - \\ \hline
-Reviewers Comments & 10,670 & 15\% \\ \hline
+Reviewers Comments & 10,583 & 15\% \\ \hline
 Automated Comments & 61,814 & 85\% \\ \hline 
 
 \end{tabular}
@@ -114,8 +114,20 @@ Table \ref{tb:thresholds} shows 5 sets of thresholds that best classify useful a
 % \pick{I used dummy results. Please change it}
 \pick{What we got from this table? What information can we interpret? The threshold is slightly different? Is it good or bad? Please describes.} 
 
-\textbf{Model Effectiveness.} Figure \ref{fig:scatter} shows relationship between comments class and our similarity thresholds. The green area represents useful model $\Theta(c,S_T=0.09028129266684175,D_T= 2.245146382888072)$ and the red area represents useless classification model $\Omega(c,S_T=0.09028129266684175,D_T= 2.245146382888072)$. This figure also shows an example comment that fall in the different area\pick{Didn't put yet}. As shown in the figure, most of comments fall in green area is useful comments and very few useless comments fall in this area. Similarly, most of comments fall in red area is useless comments. However, some comments were not determined (in white area). From the example comment, it shows that these comments discussed on ..... which did not contains any similar words. Moreover, the areas of these two models are overlap. Table \ref{tb:classify_number} summarizes the number of classification from this results. Interestingly, 87\% useless comments classified by our model have \texttt{YES} = 0 and 1 voting scores. This is same as the results of useful class that most of them have \texttt{YES} = 2 and 3 voting scores
-This finding suggests that these unclear comments have something.....
+\textbf{Model Effectiveness.}
+Figure \ref{fig:scatter} shows relationship between comments class and our similarity thresholds.
+The green area represents the \emph{useful} classification model $\Theta(c,S_T=0.015529,D_T=2.494944)$, and the red area represents the \emph{useless} model $\Omega(c,S_T=0.087522,D_T=2.265679)$.
+This figure also shows an example comment that fall in the different area\pick{Didn't put yet}.
+
+As shown in the figure, most comments falling in green area are useful comments, while very few useless comments fall in this area.
+Similarly, most comments in the red area are considered useless.
+However, some comments were not determined (in white area).
+From the example comment, it shows that these comments discussed on \TODO{insert topic}, but did not contain any word in common.
+Some areas of these two models overlap, making results undeterminable.
+
+Table \ref{tb:classify_number} summarizes the number of classification from this results.
+Interestingly, 88\% of useless comments classified by our model have \texttt{YES} = 0 and 1 voting scores.
+From useful class, a similar proportion is obtained---that most useful comments have \texttt{YES} = 2 and 3 voting scores
 
 \begin{table}[h]
 \centering
@@ -128,9 +140,9 @@ Our&  Useless  & Unclear  & Unclear & Useful \\
 Classifications&  (\texttt{YES}=0) & (\texttt{YES}=1) & (\texttt{YES}=2) & (\texttt{YES}=3) \\
 \hline \hline
 Useless & 69 & 23 & 7 & 6 \\
-Useful & 3 & 12 & 24 & 95 \\
+Useful & 3 & 12 & 24 & 94 \\
 Overlap & 1 & 1 & 0 & 1 \\
-Undetermined & 12 & 24 & 20 & 20 \\
+Undetermined & 12 & 24 & 20 & 21 \\
 \hline
 \end{tabular}
 \label{tb:classify_number}
@@ -174,9 +186,9 @@ for useful and useless classifications,
 we obtained an average F$_1$ score of 0.693 and 0.681,
 with standard deviation of 0.090 and 0.118, respectively.
 This indicates that we can use our approach to classify with confident of 69.8\%.
-\pick{Precision? Recall?}
+\pick{Precision? Recall?} \thai{This is some confidence interval...}
 
-According to the results, we can answer  RQ1 that \textit{we can automatically classify usefulness of comments from similarity and dissimilarity using our approach.}
+According to the results, we can answer RQ1 that \emph{we can automatically classify usefulness of comments from similarity and dissimilarity using our approach.}
 
 %After we performed cross validation, we obtained the following result:
 %for positive and negative classifications,
@@ -198,55 +210,44 @@ The symbol represents the score, which ranges from 0 to 3.}
 \label{fig:scatter}
 \end{figure}
 
-\noindent \textbf{RQ2: Do code reviewers intensively discuss on the proposed changes?}\\
-\indent To answer this question, we estimated similarity and dissimilarity thresholds using comments from RQ1 for training set. We then used these thresholds to classify the rest of comments. A statical analysis was performed to understand the impact of useful discussion to software quality.
-\pick{The questions: How many \% automatic / useful/ useless/ unclear messages for each reviews? Does these numbers have a relationship with factor of code review (e.g. reviewing time)?}
-
-\pick{If there is high \% of useless messages, it means ineffective review, isn't it?}
-
-\noindent \textbf{RQ3: Is semantic similarity classification cost-efficient, assur- able, and scalable?}\\
-
-
-%\subsection{Model Generation}
-
-%% the criteria that were found
-%From our training data,
-%the following criteria have been obtained that maximizes the F$_1$ score:
-%
-%Criteria to find samples with score of 3 (``positive''):
-%\begin{gather*} similarity \geq 0.015528 \text{ and } distance \leq 2.494944
-%\\ \text{(F$_1$-score: 0.741313)} \end{gather*}
-%
-%Criteria to find samples with score of 0 (``negative''):
-%\begin{gather*} similarity \leq 0.087522 \text{ and } distance \geq 2.265679
-%\\ \text{(F$_1$-score: 0.725389)}\end{gather*}
-%
-%Note that these constant values can vary from project to project, and thus is not a universal constant.
-%
-%% run result
-%
-%Running our model against the training data gives us the result displayed in the following table.
-%In the table, \emph{Neither} means that the comment did not meet either criteria, while \emph{Overlap} means that the comment  met both ``positive'' and ``negative'' criteria.
-%
-%\begin{center}
-%\begin{tabular}{|r|rrrr|}
-%\hline
-%& \bfseries 0 & \bfseries 1 & \bfseries 2 & \bfseries 3 \\
-%\hline
-%Negative & 69 & 23 & 7 & 6 \\
-%Neither & 12 & 24 & 20 & 20 \\
-%Overlap & 1 & 1 & 0 & 1 \\
-%Positive & 4 & 13 & 24 & 95 \\
-%\hline
-%\end{tabular}
-%\end{center}
-%
-%As expected, most comments classified as \emph{negative} have score of 0 and 1,
-%while most \emph{positive} comments have score of 2 and 3.
-%However, some comments in every score type were classified as \emph{neither}.
-%
-%
 
 
 
-% cross validation result
+
+\begin{ResearchQuestions}
+\item[RQ2:] Is semantic similarity classification cost-efficient, assurable, and scalable?
+\end{ResearchQuestions}
+
+To answer this question, timestamps are recorded as three people assess each comment.
+Since three people work on their leisure time, there is much variability in the time between each vote.
+Therefore, we ignored the time interval between two votes if they are more than 10 minutes apart.
+
+On average, it takes 28 seconds to assess each comment.
+However, the median is 10 seconds, suggesting that most comments take only a little amount of time to assess; only few comments take long time.
+This also suggests that the time to assess each comment is not normally distributed.
+The standard deviation is 45 seconds.
+
+To estimate the total time for us to assess these 318 comments,
+we multiplied the average time by the number of comments and the number of people.
+This results in $\frac{318 \times 28 \times 3}{3600 \text{ seconds/hour}} = 7.42$ person hours.
+
+To manually assess all 10,583 comments---even with only one person working at 10 comments per minute---this would take 17.6 person hours.
+By running our model through all 10,583 comments, only 2,487 comments receive undetermined result.
+That means that about 77\% of the effort is saved.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
