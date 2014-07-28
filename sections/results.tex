@@ -102,7 +102,6 @@ To manually assess comment usefulness, three participants (the first two authors
 %                - For useless classification, we only look for 0 scored comments.
 
 From 318 samples, the number of labeled comments were 85, 60, 51, and 122 for 0, 1, 2, and 3 \texttt{YES} votes, respectively.
-
 To determine similarity and dissimilarity thresholds for useful and useless model, we iterated $s_t$ and $d_t$ values from every unique similarity and dissimilarity values in our data set.
 Table \ref{tb:thresholds} shows 5 sets of thresholds that best classify useful and useless comments based on F$_1$ score. We selected the first rank of thresholds for the further analysis and applied models, i.e. useful: $\Theta(c,S_T=0.015529,D_T=2.494944)$ and useless: $\Omega(c,S_T=0.087522,D_T=2.265679)$ on the samples.
 
@@ -130,32 +129,6 @@ The symbol represents the score, which ranges from 0 to 3.}
 
 From Table \ref{tb:classify_number}, Interestingly, 88\% of useless comments classified by our model have \texttt{YES} = 0 and 1 voting scores.
 The similar proportion is obtained for useful comments classified by our model i.e. most useful comments have \texttt{YES} = 2 and 3 voting scores.
-
-\pick{Thai version}
-To estimate similarity and dissimilarity thresholds, we iterated $s_t$, $d_t$, $s'_t$, and $d'_t$ values from every unique similarity and dissimilarity values in our data set.
-% \TODO{.......}. 
-% \pick{We cannot brute force for every floating number. How did we calculate this?} 
-% \dan{I assume Thai used a numerical optimization or root finding routine such as bisection. You iterate until a value is within a given tolerance.}
-% Thai sez: answered.
-  
-Table \ref{tb:thresholds} shows 5 sets of thresholds that best classify useful and useless comments based on F$_1$ score.
-% \pick{I used dummy results. Please change it}
-\pick{What we got from this table? What information can we interpret? The threshold is slightly different? Is it good or bad? Please describes.} 
-
-\textbf{Model Effectiveness.}
-Figure \ref{fig:scatter} shows relationship between comments class and our similarity thresholds.
-The green area represents the \emph{useful} classification model $\Theta(c,S_T=0.015529,D_T=2.494944)$, and the red area represents the \emph{useless} model $\Omega(c,S_T=0.087522,D_T=2.265679)$.
-This figure also shows an example comment that fall in the different area\pick{Didn't put yet}.
-
-As shown in the figure, most comments falling in green area are useful comments, while very few useless comments fall in this area.
-Similarly, most comments in the red area are considered useless.
-However, some comments were not determined (in white area).
-Some areas of these two models overlap, making results undeterminable.
-
-Table \ref{tb:classify_number} summarizes the number of classification from this results.
-Interestingly, 88\% of useless comments classified by our model have \texttt{YES} = 0 and 1 voting scores.
-From useful class, a similar proportion is obtained---that most useful comments have \texttt{YES} = 2 and 3 voting scores
-
 
 \begin{table}[h]
 \centering
@@ -195,7 +168,7 @@ Prediction Models  & Rank & $s_t$ & $d_t$ & F-measure & Precision & Recall \\ \h
 % & \multicolumn{3}{r}{Average} &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
 %& \multicolumn{3}{r}{Min-Max} &   1.00 - 1.00 & 1.00 - 1.00  & 1.00 - 1.00
 \\ \hline \hline
-\multirow{5}{*}{\textbf{useless}: $\Omega(c,S_T=s_t,D_T=d_t)$}
+\multirow{5}{*}{\textbf{useless}: $\Omega(c,S'_T=s_t,D'_T=d_t)$}
 & 1 & 0.087522 & 2.265679 & 0.725 & 0.648 & 0.824 \\ \cline{2-7}
 & 2 & 0.087522 & 2.250422 & 0.722 & 0.642 & 0.824 \\ \cline{2-7}
 & 3 & 0.087522 & 2.324771 & 0.720 & 0.663 & 0.788 \\ \cline{2-7}
