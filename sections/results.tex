@@ -189,6 +189,7 @@ Interestingly, in Table \ref{tb:classify_number}, there are 88\% of useful comme
 \textbf{Validation:} We validated our approach using bootstrapping cross validation. We randomly selected 90\% of 318 comments for training set and determine thresholds. We then applied the constructed model on the remaining 10\% comments as the validation set.
 The performance on the validation sets was measured using precision, recall and F-measure.
 This validation was repeated for 300 times to estimate the performance of our models.
+To find a baseline where we can assess the performance, a random classifier is added, and is bootstrapped in the same way.
 
 Table \ref{tb:xvalidate} describes the performance of useful and useless classification models including an average and standard deviation of precision, recall, and F-measure. The results show that both of our models can achieve  60\% of precision and  75\% of recall approximately. This is better results than random model which achieved only XX\% of precision and YY\% of recall. \pick{Giving a random model as a base line would be easily to determine the performance of our models.}
 
@@ -218,6 +219,8 @@ Classifcation & \multicolumn{2}{c|}{Precision} & \multicolumn{2}{c|}{Recall} & \
 Models & Avg. & STD. & Avg. & STD. & Avg. & STD. \\ \hline \hline
 $\Theta(c,S_T,D_T)$    &  0.654 & 0.116 &  0.759 & 0.123 & 0.693 & 0.089\\
 $\Omega(c,S'_T,D'_T)$  &  0.636 & 0.144 &  0.755 & 0.148 & 0.681 & 0.118\\
+Random (Positive)      &  0.421 & 0.114 &  0.376 & 0.116 & 0.496 & 0.144\\
+Random (Negative)      &  0.336 & 0.131 &  0.269 & 0.115 & 0.478 & 0.182\\
 \hline
 \end{tabular}
 \label{tb:xvalidate}
