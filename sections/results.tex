@@ -110,9 +110,21 @@ To estimate similarity and dissimilarity thresholds, we iterated $s_t$, $d_t$, $
 % \dan{I assume Thai used a numerical optimization or root finding routine such as bisection. You iterate until a value is within a given tolerance.}
 % Thai sez: answered.
   
-Table \ref{tb:thresholds} shows 5 sets of thresholds that best classify useful and useless comments based on F$_1$ score.
-% \pick{I used dummy results. Please change it}
-\pick{What we got from this table? What information can we interpret? The threshold is slightly different? Is it good or bad? Please describes.} 
+Table \ref{tb:thresholds} shows the thresholds that best classify useful and useless comments based on F-measure.
+
+\begin{table*}[!t]
+\caption{An accuracy of similarity and dissimilarity thresholds for useful and useless comment classifications}
+\small
+\centering
+\def\arraystretch{1.2}
+\begin{tabular}{ccccccc}
+\hline
+Prediction Models & $s_t$ & $d_t$ & F-measure & Precision & Recall \\ \hline \hline
+$\Theta(c,S_T=s_t,D_T=d_t)$   & 0.015529 & 2.494944 & 0.741 & 0.701 & 0.787 \\ \hline
+$\Omega(c,S'_T=s_t,D'_T=d_t)$ & 1 & 0.087522 & 2.265679 & 0.725 & 0.648 & 0.824 \\ \hline
+\end{tabular}
+\label{tb:thresholds}
+\end{table*}
 
 \textbf{Model Effectiveness.}
 Figure \ref{fig:scatter} shows relationship between comments class and our similarity thresholds.
@@ -148,37 +160,6 @@ Undetermined & 12 & 24 & 20 & 21 \\
 \end{table}
 
 
-\begin{table*}[!t]
-\caption{An accuracy of similarity and dissimilarity thresholds for useful and useless comment classifications}
-\small
-\centering
-\def\arraystretch{1.2}
-\begin{tabular}{ccccccc}
-\hline
-Prediction Models  & Rank & $s_t$ & $d_t$ & F-measure & Precision & Recall \\ \hline \hline
-\multirow{5}{*}{$\Theta(c,S_T=s_t,D_T=d_t)$}
-& 1 & 0.015529 & 2.494944 & 0.741 & 0.701 & 0.787 \\ \cline{2-7}
-& 2 & 0.015529 & 3.077129 & 0.740 & 0.693 & 0.795 \\ \cline{2-7}
-& 3 & 0.016713 & 2.494944 & 0.739 & 0.704 & 0.779 \\ \cline{2-7}
-& 4 & 0.015411 & 2.494944 & 0.738 & 0.696 & 0.787 \\ \cline{2-7}
-& 5 & 0.015411 & 3.077129 & 0.738 & 0.688 & 0.795
-% \\ \cline{2-7}
-% & \multicolumn{3}{r}{Average} &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-%& \multicolumn{3}{r}{Min-Max} &   1.00 - 1.00 & 1.00 - 1.00  & 1.00 - 1.00
-\\ \hline \hline
-\multirow{5}{*}{$\Omega(c,S'_T=s_t,D'_T=d_t)$}
-& 1 & 0.087522 & 2.265679 & 0.725 & 0.648 & 0.824 \\ \cline{2-7}
-& 2 & 0.087522 & 2.250422 & 0.722 & 0.642 & 0.824 \\ \cline{2-7}
-& 3 & 0.087522 & 2.324771 & 0.720 & 0.663 & 0.788 \\ \cline{2-7}
-& 4 & 0.052856 & 2.265679 & 0.719 & 0.645 & 0.812 \\ \cline{2-7}
-& 5 & 0.087522 & 2.249675 & 0.718 & 0.636 & 0.824
-% \\ \cline{2-7}
-%& \multicolumn{3}{r}{Average} &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-%& \multicolumn{3}{r}{Min-Max} &   1.00 - 1.00 & 1.00 - 1.00  & 1.00 - 1.00
-\\ \hline
-\end{tabular}
-\label{tb:thresholds}
-\end{table*}
 
 \textbf{Model Robustness.} After we performed cross validation, we obtained the following result:
 for useful and useless classifications,
