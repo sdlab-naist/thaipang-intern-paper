@@ -112,24 +112,12 @@ To estimate similarity and dissimilarity thresholds, we iterated $s_t$, $d_t$, $
   
 Table \ref{tb:thresholds} shows the thresholds that best classify useful and useless comments based on F-measure.
 
-\begin{table*}[!t]
-\caption{An accuracy of similarity and dissimilarity thresholds for useful and useless comment classifications}
-\small
-\centering
-\def\arraystretch{1.2}
-\begin{tabular}{ccccccc}
-\hline
-Prediction Models & $s_t$ & $d_t$ & F-measure & Precision & Recall \\ \hline \hline
-$\Theta(c,S_T=s_t,D_T=d_t)$   & 0.015529 & 2.494944 & 0.741 & 0.701 & 0.787 \\ \hline
-$\Omega(c,S'_T=s_t,D'_T=d_t)$ & 1 & 0.087522 & 2.265679 & 0.725 & 0.648 & 0.824 \\ \hline
-\end{tabular}
-\label{tb:thresholds}
-\end{table*}
-
 \textbf{Model Effectiveness.}
 Figure \ref{fig:scatter} shows relationship between comments class and our similarity thresholds.
-The green area represents the \emph{useful} classification model $\Theta(c,S_T=0.015529,D_T=2.494944)$, and the red area represents the \emph{useless} model $\Omega(c,S_T=0.087522,D_T=2.265679)$.
-This figure also shows an example comment that fall in the different area\pick{Didn't put yet}.
+The green area represents the \emph{useful} classification model $\Theta(c,S_T=0.015529,D_T=2.494944)$, and the red area represents the \emph{useless} model $\Omega(c,S'_T=0.087522,D'_T=2.265679)$.
+% This figure also shows an example comment that fall in the different area\pick{Didn't put yet}.
+% Thai sez: Comment examples are in the discussion.
+
 
 As shown in the figure, most comments falling in green area are useful comments, while very few useless comments fall in this area.
 Similarly, most comments in the red area are considered useless.
@@ -161,12 +149,43 @@ Undetermined & 12 & 24 & 20 & 21 \\
 
 
 
-\textbf{Model Robustness.} After we performed cross validation, we obtained the following result:
-for useful and useless classifications,
-we obtained an average F$_1$ score of 0.693 and 0.681,
-with standard deviation of 0.090 and 0.118, respectively.
-This indicates that we can use our approach to classify with confident of 69.8\%.
-\pick{Precision? Recall?} \thai{This is some confidence interval...}
+\textbf{Model Robustness.} After we performed bootstrapping cross validation, we obtained the result as shown in Table \ref{tb:xvalidate}.
+\thai{How to explain this table? Maybe with some kind of confidence interval? How to calculate it? (I tried the Confidence Interval calculator and the result is plain wrong.) Wow.}
+
+\newcommand{\SampleMean}{$\bar{x}$}
+\newcommand{\SampleSD}{$s$}
+
+
+\begin{table*}[!t]
+\caption{An accuracy of similarity and dissimilarity thresholds for useful and useless comment classifications}
+\small
+\centering
+\def\arraystretch{1.2}
+\begin{tabular}{ccccccc}
+\hline
+Prediction Models & $s_t$ & $d_t$ & F-measure & Precision & Recall \\ \hline \hline
+$\Theta(c,S_T=s_t,D_T=d_t)$   & 0.015529 & 2.494944 & 0.741 & 0.701 & 0.787 \\ \hline
+$\Omega(c,S'_T=s_t,D'_T=d_t)$ & 0.087522 & 2.265679 & 0.725 & 0.648 & 0.824 \\ \hline
+\end{tabular}
+\label{tb:thresholds}
+\end{table*}
+
+\begin{table*}[!t]
+\caption{Bootstrapping cross validation result of our model. For each metric, we included the average and standard deviation.}
+\small
+\centering
+\def\arraystretch{1.2}
+\begin{tabular}{ccccccc}
+\hline
+\multirow{2}{*}{Prediction Models} & \multicolumn{2}{c}{F-measure} & \multicolumn{2}{c}{Precision} & \multicolumn{2}{c}{Recall} \\
+& \SampleMean & \SampleSD & \SampleMean & \SampleSD & \SampleMean & \SampleSD \\ \hline \hline
+$\Theta(c,S_T=s_t,D_T=d_t)$   & 0.693 & 0.089 &  0.654 & 0.116 &  0.759 & 0.123 \\
+$\Omega(c,S'_T=s_t,D'_T=d_t)$ & 0.681 & 0.118 &  0.636 & 0.144 &  0.755 & 0.148 \\
+\hline
+\end{tabular}
+\label{tb:xvalidate}
+\end{table*}
+
 
 According to the results, we can answer RQ1 that \emph{we can automatically classify usefulness of comments from similarity and dissimilarity using our approach.}
 
