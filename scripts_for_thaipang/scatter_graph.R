@@ -5,7 +5,7 @@ Dt1 = 2.4949438168165483
 St2 = 0.08752176628812282
 Dt2 = 2.26567908457803
 
-colors = c("red","darkorange","blue","darkgreen")
+colors = c("red","magenta","blue","darkgreen")
 pch = c(4,2,3,16)
 
 #Print Graph with Log
