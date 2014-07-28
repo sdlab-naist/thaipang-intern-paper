@@ -43,7 +43,7 @@ Table \ref{tb:datastatistic} summarizes data set we used for this study after pr
 & Total Number & Percentage \\ \hline \hline
 Commit Messages & 6,605 &  -  \\ \hline
 All Comments & 72,484& - \\ \hline
-Reviewers Comments & 10,670 & 15\% \\ \hline
+Reviewers Comments & 10,583 & 15\% \\ \hline
 Automated Comments & 61,814 & 85\% \\ \hline 
 
 \end{tabular}
@@ -87,7 +87,7 @@ Automated Comments & 61,814 & 85\% \\ \hline
 To answer this question, we randomly sampled 318 comments from our data set and manually identified usefulness as described in previous subsection.
 Then, we used these comments for both the training and test data set for our approach to determine its effectiveness.
 We also determined the effectiveness of our approach using bootstrapping cross validation:
-We randomly selected 90\% of 320 comments for training set and used the remaining 10\% for the validation set.
+We randomly selected 90\% of 318 comments for training set and used the remaining 10\% for the validation set.
 The performance on the 10\% was measured using precision, recall and F-measure as described in Equation \ref{eq:fmeasure}.
 This validation was repeated for 300 times to estimate the mean and variance of the performance.
 
@@ -110,17 +110,29 @@ To estimate similarity and dissimilarity thresholds, we iterated $s_t$, $d_t$, $
 % \dan{I assume Thai used a numerical optimization or root finding routine such as bisection. You iterate until a value is within a given tolerance.}
 % Thai sez: answered.
   
-Table \ref{tb:thresholds} shows 5 sets of thresholds that best classify useful and useless comments based on F-measure score.
+Table \ref{tb:thresholds} shows 5 sets of thresholds that best classify useful and useless comments based on F$_1$ score.
 % \pick{I used dummy results. Please change it}
 \pick{What we got from this table? What information can we interpret? The threshold is slightly different? Is it good or bad? Please describes.} 
 
-\textbf{Model Effectiveness.} Figure \ref{fig:scatter} shows relationship between comments class and our similarity thresholds. The green area represents useful model $\Theta(c,S_T=0.09028129266684175,D_T= 2.245146382888072)$ and the red area represents useless classification model $\Omega(c,S_T=0.09028129266684175,D_T= 2.245146382888072)$. This figure also shows an example comment that fall in the different area\pick{Didn't put yet}. As shown in the figure, most of comments fall in green area is useful comments and very few useless comments fall in this area. Similarly, most of comments fall in red area is useless comments. However, some comments were not determined (in white area). From the example comment, it shows that these comments discussed on ..... which did not contains any similar words. Moreover, the areas of these two models are overlap. Table \ref{tb:classify_number} summarizes the number of classification from this results. Interestingly, 87\% useless comments classified by our model have \texttt{YES} = 0 and 1 voting scores. This is same as the results of useful class that most of them have \texttt{YES} = 2 and 3 voting scores
-This finding suggests that these unclear comments have something.....
+\textbf{Model Effectiveness.}
+Figure \ref{fig:scatter} shows relationship between comments class and our similarity thresholds.
+The green area represents the \emph{useful} classification model $\Theta(c,S_T=0.015529,D_T=2.494944)$, and the red area represents the \emph{useless} model $\Omega(c,S_T=0.087522,D_T=2.265679)$.
+This figure also shows an example comment that fall in the different area\pick{Didn't put yet}.
+
+As shown in the figure, most comments falling in green area are useful comments, while very few useless comments fall in this area.
+Similarly, most comments in the red area are considered useless.
+However, some comments were not determined (in white area).
+From the example comment, it shows that these comments discussed on \TODO{insert topic}, but did not contain any word in common.
+Some areas of these two models overlap, making results undeterminable.
+
+Table \ref{tb:classify_number} summarizes the number of classification from this results.
+Interestingly, 88\% of useless comments classified by our model have \texttt{YES} = 0 and 1 voting scores.
+From useful class, a similar proportion is obtained---that most useful comments have \texttt{YES} = 2 and 3 voting scores
 
 \begin{table}[h]
 \centering
 \small
-\caption{Number of comments classified by our approach against ground truth data }
+\caption{Number of comments classified by our approach against ground truth data}
 \begin{tabular}{ccccc}
 \hline
 & \multicolumn{4}{c}{Class from Ground Truth Data} \\ \cline{2-5}
@@ -128,9 +140,9 @@ Our&  Useless  & Unclear  & Unclear & Useful \\
 Classifications&  (\texttt{YES}=0) & (\texttt{YES}=1) & (\texttt{YES}=2) & (\texttt{YES}=3) \\
 \hline \hline
 Useless & 69 & 23 & 7 & 6 \\
-Useful & 3 & 12 & 24 & 95 \\
+Useful & 3 & 12 & 24 & 94 \\
 Overlap & 1 & 1 & 0 & 1 \\
-Undetermined & 12 & 24 & 20 & 20 \\
+Undetermined & 12 & 24 & 20 & 21 \\
 \hline
 \end{tabular}
 \label{tb:classify_number}
@@ -145,20 +157,26 @@ Undetermined & 12 & 24 & 20 & 20 \\
 \begin{tabular}{ccccccc}
 \hline
 Prediction Models  & Rank & $s_t$ & $d_t$ & F-measure & Precision & Recall \\ \hline \hline
-\multirow{7}{*}{$\Theta(c,S_T=s_t,D_T=d_t)$} & 1 & 0.09028129266684175 & 2.245146382888072 &  1.00000 & 1.00000 & 1.00000 \\ \cline{2-7}
-& 2 & 0.09028129266684175 & 2.245146382888072 &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-& 3 & 0.09028129266684175 & 2.245146382888072 &  1.00 & 1.00& 1.00 \\ \cline{2-7}
-& 4 & 0.09028129266684175 & 2.245146382888072 &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-& 5 & 0.09028129266684175 & 2.245146382888072 &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-& \multicolumn{3}{r}{Average} &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-& \multicolumn{3}{r}{Min-Max} &   1.00 - 1.00 & 1.00 - 1.00  & 1.00 - 1.00  \\ \hline \hline
-\multirow{7}{*}{$\Omega(c,S_T=s_t,D_T=d_t)$} & 1 & 0.09028129266684175 & 2.245146382888072 &  1.00000 & 1.00000 & 1.00000 \\ \cline{2-7}
-& 2 & 0.09028129266684175 & 2.245146382888072 &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-& 3 & 0.09028129266684175 & 2.245146382888072 &  1.00 & 1.00& 1.00 \\ \cline{2-7}
-& 4 & 0.09028129266684175 & 2.245146382888072 &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-& 5 & 0.09028129266684175 & 2.245146382888072 &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-& \multicolumn{3}{r}{Average} &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
-& \multicolumn{3}{r}{Min-Max} &   1.00 - 1.00 & 1.00 - 1.00  & 1.00 - 1.00  \\ \hline
+\multirow{5}{*}{$\Theta(c,S_T=s_t,D_T=d_t)$}
+& 1 & 0.015529 & 2.494944 & 0.741 & 0.701 & 0.787 \\ \cline{2-7}
+& 2 & 0.015529 & 3.077129 & 0.740 & 0.693 & 0.795 \\ \cline{2-7}
+& 3 & 0.016713 & 2.494944 & 0.739 & 0.704 & 0.779 \\ \cline{2-7}
+& 4 & 0.015411 & 2.494944 & 0.738 & 0.696 & 0.787 \\ \cline{2-7}
+& 5 & 0.015411 & 3.077129 & 0.738 & 0.688 & 0.795
+% \\ \cline{2-7}
+% & \multicolumn{3}{r}{Average} &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
+%& \multicolumn{3}{r}{Min-Max} &   1.00 - 1.00 & 1.00 - 1.00  & 1.00 - 1.00
+\\ \hline \hline
+\multirow{5}{*}{$\Omega(c,S_T=s_t,D_T=d_t)$}
+& 1 & 0.087522 & 2.265679 & 0.725 & 0.648 & 0.824 \\ \cline{2-7}
+& 2 & 0.087522 & 2.250422 & 0.722 & 0.642 & 0.824 \\ \cline{2-7}
+& 3 & 0.087522 & 2.324771 & 0.720 & 0.663 & 0.788 \\ \cline{2-7}
+& 4 & 0.052856 & 2.265679 & 0.719 & 0.645 & 0.812 \\ \cline{2-7}
+& 5 & 0.087522 & 2.249675 & 0.718 & 0.636 & 0.824
+% \\ \cline{2-7}
+%& \multicolumn{3}{r}{Average} &  1.00 & 1.00 & 1.00 \\ \cline{2-7}
+%& \multicolumn{3}{r}{Min-Max} &   1.00 - 1.00 & 1.00 - 1.00  & 1.00 - 1.00
+\\ \hline
 \end{tabular}
 \label{tb:thresholds}
 \end{table*}
@@ -168,9 +186,9 @@ for useful and useless classifications,
 we obtained an average F$_1$ score of 0.693 and 0.681,
 with standard deviation of 0.090 and 0.118, respectively.
 This indicates that we can use our approach to classify with confident of 69.8\%.
-\pick{Precision? Recall?}
+\pick{Precision? Recall?} \thai{This is some confidence interval...}
 
-According to the results, we can answer  RQ1 that \textit{we can automatically classify usefulness of comments from similarity and dissimilarity using our approach.}
+According to the results, we can answer RQ1 that \emph{we can automatically classify usefulness of comments from similarity and dissimilarity using our approach.}
 
 %After we performed cross validation, we obtained the following result:
 %for positive and negative classifications,
@@ -192,55 +210,44 @@ The symbol represents the score, which ranges from 0 to 3.}
 \label{fig:scatter}
 \end{figure}
 
-\noindent \textbf{RQ2: Do code reviewers intensively discuss on the proposed changes?}\\
-\indent To answer this question, we estimated similarity and dissimilarity thresholds using comments from RQ1 for training set. We then used these thresholds to classify the rest of comments. A statical analysis was performed to understand the impact of useful discussion to software quality.
-\pick{The questions: How many \% automatic / useful/ useless/ unclear messages for each reviews? Does these numbers have a relationship with factor of code review (e.g. reviewing time)?}
-
-\pick{If there is high \% of useless messages, it means ineffective review, isn't it?}
-
-\noindent \textbf{RQ3: Is semantic similarity classification cost-efficient, assur- able, and scalable?}\\
-
-
-%\subsection{Model Generation}
-
-%% the criteria that were found
-%From our training data,
-%the following criteria have been obtained that maximizes the F$_1$ score:
-%
-%Criteria to find samples with score of 3 (``positive''):
-%\begin{gather*} similarity \geq 0.015528 \text{ and } distance \leq 2.494944
-%\\ \text{(F$_1$-score: 0.741313)} \end{gather*}
-%
-%Criteria to find samples with score of 0 (``negative''):
-%\begin{gather*} similarity \leq 0.087522 \text{ and } distance \geq 2.265679
-%\\ \text{(F$_1$-score: 0.725389)}\end{gather*}
-%
-%Note that these constant values can vary from project to project, and thus is not a universal constant.
-%
-%% run result
-%
-%Running our model against the training data gives us the result displayed in the following table.
-%In the table, \emph{Neither} means that the comment did not meet either criteria, while \emph{Overlap} means that the comment  met both ``positive'' and ``negative'' criteria.
-%
-%\begin{center}
-%\begin{tabular}{|r|rrrr|}
-%\hline
-%& \bfseries 0 & \bfseries 1 & \bfseries 2 & \bfseries 3 \\
-%\hline
-%Negative & 69 & 23 & 7 & 6 \\
-%Neither & 12 & 24 & 20 & 20 \\
-%Overlap & 1 & 1 & 0 & 1 \\
-%Positive & 4 & 13 & 24 & 95 \\
-%\hline
-%\end{tabular}
-%\end{center}
-%
-%As expected, most comments classified as \emph{negative} have score of 0 and 1,
-%while most \emph{positive} comments have score of 2 and 3.
-%However, some comments in every score type were classified as \emph{neither}.
-%
-%
 
 
 
-% cross validation result
+
+\begin{ResearchQuestions}
+\item[RQ2:] Is semantic similarity classification cost-efficient, assurable, and scalable?
+\end{ResearchQuestions}
+
+To answer this question, timestamps are recorded as three people assess each comment.
+Since three people work on their leisure time, there is much variability in the time between each vote.
+Therefore, we ignored the time interval between two votes if they are more than 10 minutes apart.
+
+On average, it takes 28 seconds to assess each comment.
+However, the median is 10 seconds, suggesting that most comments take only a little amount of time to assess; only few comments take long time.
+This also suggests that the time to assess each comment is not normally distributed.
+The standard deviation is 45 seconds.
+
+To estimate the total time for us to assess these 318 comments,
+we multiplied the average time by the number of comments and the number of people.
+This results in $\frac{318 \times 28 \times 3}{3600 \text{ seconds/hour}} = 7.42$ person hours.
+
+To manually assess all 10,583 comments---even with only one person working at 10 comments per minute---this would take 17.6 person hours.
+By running our model through all 10,583 comments, only 2,487 comments receive undetermined result.
+That means that about 77\% of the effort is saved.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
