@@ -29,7 +29,7 @@ Moreover, the comments in MCR are unstructured natural text, open to subjective 
 
 
 
-In this paper, we present a text mining approach to assist in classifying the usefulness of comments.
+In this paper, we present a text mining approach using semantic similarity to assist in classifying the usefulness of comments.
 The proposed approach is meant to enable classifying the large amounts of MRC comments, in order to conduct comment and code quality studies, such as those discussed earlier, as manual classification can quickly become an untenable task.
 By introducing some automation support based on objective empirical criteria,
 our proposed method aims to both reduce effort and increase confidence in classification to a degree that is practical for addressing very large MRC data sets.
@@ -48,12 +48,16 @@ Our contributions are as follows:
 \end{itemize}
 
 %%%%%%%%% TEMP %%%%%%%%%
+%\dan{Much of the following material should be placed in a separate Motivation section} 
+
 %We define a \emph{useful} comment as one that \emph{contributes to improving the proposed changes} and a \emph{useless}\footnote{Although we call these comments \emph{useless}, it might be useful---or sometimes even required---in some other context, such as to facilitate communication.} comment as one that does not.
 %Usefulness is not dichotomous and hence we must accept a third qualification, \emph{unclear}, to allow for the case where a comment does not directly make a positive contribution but is not clearly out of scope or tangential.
-%\dan{Much of the following material should be placed in a separate Motivation section} 
+
 %In our approach, we analyze the similarity between a commit message of the proposed changes and the respective comments that follow.
+
 %Our key idea is that useful comments are likely to have a strong semantic similarity to the proposed changes, while useless comments are more likely strongly dissimilar.
 %To determine these semantic relationships, we use the Vector Space Model (VSM) and calculate similarity (using cosine similarity) and dissimilarity (using euclidean distance) between the comment and commit message vectors. 
+
 %We create our predictive model by estimating pairs of similarity and dissimilarity values that best discriminate between useful and useless comments.
 %This is accomplished by optimizing for prediction performance measures such as Precision and Recall, through F-measure.
 %
