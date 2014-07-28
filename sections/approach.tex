@@ -14,18 +14,11 @@ According to relevance theory, a primary factor in relevance is similarly, and s
 \dan{can we find a reference for relevance and similarly?}
 
 That is, we assume that that the more similar a comment is to the proposed change, the more relevant it is and hence more likely useful.
-Conversely, the more dissimilar\footnote{This can be arbitrarily large, thus not simply the opposite of similarity}, the less relevant, and hence less useful.
+Conversely, the more dissimilar\footnote{This can be arbitrarily large, thus not simply the opposite of similarity.}, the less relevant, and hence less useful.
 
 Given the subjective nature of usefulness, precise classification conditions probably do not exist and so we resort to conditions that indicate a meaningful \emph{likelihood} of classification.
 That is, for some degree of similarity a comment is most likely useful, and for some degree of dissimilarity it is most likely not useful.
 The key is determining these degrees in a practical and effective manner.
-While this representation is straightforward and automatically adjusts to the quality of the data, it has a few drawbacks.
-
-First, we have to accept that some comments cannot be reliably or confidently classified.
-We denote these as \emph{undetermined} to differentiate them from comments whose usefulness is \emph{unclear} (i.e. cannot be assessed subjectively).
-Secondly, owing to the subjective assessment of usefulness, this representation fundamentally implies supervised classification requiring nontrivial training data to define representative classification sets.
-This decreases the cost-effectiveness and limits the practicality of application to projects with a large enough number of comments, where the classification effort saved overcomes the training costs.  
-% empirically driven and automatically adapts to the quality the data
 
 Fig. \ref{fig:overview} shows an overview of our proposed classification approach.
 Usefulness of a comment is determined by computing its semantic similarity with the commit message of proposed change and observing if it satisfies \emph{usefulness classification likelihood conditions}.
@@ -118,6 +111,15 @@ which is a performance measure for a binary classification that compromises trad
 
 In this paper, we used the F$_1$ measure, which gives equal weight to both precision and recall.
 Depending on application, different weights can be given by choosing a different F$_\beta$ measure.
+
+% Our proposed approach is empirically driven and automatically adjusts to the quality the data.
+While our proposed approach is straightforward and automatically adjusts to the quality of the data, it has a few drawbacks.
+First, we have to accept that some comments cannot be reliably or confidently classified.
+We denote these as \emph{undetermined} to differentiate them from comments whose usefulness is \emph{unclear} (i.e. cannot be assessed subjectively).
+Secondly, owing to the subjective assessment of usefulness, this representation fundamentally implies supervised classification requiring nontrivial training data to define representative classification sets.
+This decreases the cost-effectiveness and limits the practicality of application to projects with a large enough number of comments, where the classification effort saved overcomes the training costs.  
+% empirically driven and automatically adapts to the quality the data
+
 
 % Thai sez: We did not mention the F-measure for \Theta, thus suddenly referring to \Omega does not make much sense...
 % The F-measure for $\Omega(c,S_T=s_t,D_T=d_t)$ is computed analogously where we change instances of useful to useless and vice-versa in the definitions. The correctness of classification is determined from the useful/useless defined dataset. 
