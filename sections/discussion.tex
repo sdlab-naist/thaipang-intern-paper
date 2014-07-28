@@ -10,6 +10,13 @@ Depending on the use case, we can fine-tune the F-score to give more weight to r
 For instance, if we wanted to measure the amount of useful comments within a large dataset, more weight can be given to precision, sacrificing some useful comments.
 If we wanted to modify a code review software such that it displays useful comments more prominently, more weight can be given to recall.
 
+% examples.
+In some cases, similarity and dissimilarity failed to measure the usefulness of the comment,
+due to the same word being used in a different context.
+For example, consider this excerpt from the commit message: \emph{``In the no-assert case, make Q\_ASSERT decay to Q\_ASSUME. I can confirm
+better code generation with GCC at least.''}
+This comment, \emph{``I'll study the generated code a bit more,''} is not technically contributing, but is classified as a useful comment, which may be because of the word \emph{generate} appears both documents.
+
 %\subsection{Reasons of Classification}
 % reasons for classification as useful or not useful
 During the training process, reasons for the judgment are recorded. Examples of reasons for positive comments include:
@@ -35,7 +42,7 @@ Examples of reasons for negative comments include:
 %\subsection{Binary Classification}
 
 Another approach we tried is to perform a \emph{binary classification}.
-This means we assume that there are no unclear on undetermined comments; only useful and useless.
+This means we assume that there are no unclear or undetermined comments; only useful and useless.
 For this, we removed the samples with 1 and 2 \texttt{YES} votes from our data set. 209 samples without disagreements are left.
 By performing cross-validation using only samples with 0 and 3 \texttt{YES} votes, we obtained a much better F$_1$ score of 0.896.
 
@@ -44,7 +51,7 @@ However, the results seen in Fig.\ref{fig:binary} suggests that the binary class
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=3in]{posneg}
+\includegraphics[width=2.5in]{posneg}
 \caption{The amount of comments by score classified by the binary classifier.}
 \label{fig:binary}
 \end{figure}
