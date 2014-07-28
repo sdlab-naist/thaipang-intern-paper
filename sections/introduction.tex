@@ -3,24 +3,24 @@
 \section{Introduction}
 Software code review is an established cost-effective software quality management practice.
 Its main intent is to  identify  defects early and encourage quality development practices such as adherence to coding standards and improving code readability.
-Nowadays less formal and lightweight code reviews such as Modern Code Review (MCR)\cite{Bacchelli2013a} have received much attention and are commonly used within both industrial and OSS projects.
+Nowadays less formal and lightweight code reviews such as Modern Code Review (MCR)\cite{Bacchelli2013a} have received much attention and are commonly used within both industry and OSS projects.
 One reason for this is that with MCR, unlike formal inspections \cite{Fagan:1976:DCI:1661010.1661012}, in-person meetings are not required.
-Reviewers can find defects in proposed changes and hold discussions on them by adding comments through a code review tool or a mailing list.
-Developers then improve the changes in response to these comments which in turn are reviewed for approval.  
+Reviewers can find problems in proposed changes and hold discussions on them by adding comments through a code review tool or a mailing list.
+Developers then improve the changes in response to these comments and re-submit for review until the changes are approved.  
 %Fig. \ref{fig:process} illustrates a typical MCR process. 
 
-Because performance of code review has a clear relationship to the quality of software project, many studies have investigated the influencing factors in MCR\cite{Baysal2001,Mcintosh,Beller,Hamasaki2013}.
-However, little research exists investigating how the discussion for a proposed change impacts software quality.
+Because performance of code review has a clear relationship to the quality of the software, many studies have investigated factors that influence MCR\cite{Baysal2001,Mcintosh,Beller,Hamasaki2013}.
+However, little research exists investigating how review discussion for a proposed change impacts software quality.
 Given that most proposed changes are triggered from reviewer comments \cite{Beller}, 
-it is possible that reviewers comments can either positively contribute to the proposed changes (i.e. ``\emph{useful}''), or be a discussion which is out of scope (i.e. relatively  ``\emph{useless}''  to the proposed changes). 
+it is possible that they can either positively contribute to the proposed changes (i.e. are ``\emph{useful}''), or be a discussion which contributes little directly to the proposed changes (i.e. relatively ``\emph{useless}'' ). 
 Since MCR does not require strict guidelines, checklists, or formal processes, some reviewers tend to look for trivial issues (e.g. coding styles), leaving deeper issues undiscussed \cite{Bacchelli2013a}.
 %This is a concern because a high-degree of useless comments not only fails to contribute to improving quality, but also degrades the cost-effectiveness and perceived utility of MCR.
 This is a concern because a low-degree of useful comments can degrade the overall quality and perceived utility of MCR.
 
 Prior research has focused mostly on the relation between number of comments and quality.
 To the best of our knowledge, the connection between degree of useful and useless comments and quality has not been studied.
-One reason for this may be that to assess the impact of discussion in MCR, a manual classification is required as in the study of Beller et. al. \cite{Beller}.
-MCR can produce a massive amount of changes and comments\cite{Balachandran2013,Thongtanunam2014}, and it is painstaking and time consuming to classify the comments in order to perform appropriate quantitative analysis.
+One reason for this may be that to assess the impact of discussion in MCR, effort intensive manual classification is required as in the study of Beller et. al. \cite{Beller}.
+MCR can produce a massive amounts of changes requests and comments\cite{Balachandran2013,Thongtanunam2014} and it is painstaking and time consuming to classify comments usefulness.
 Moreover, the comments in MCR are unstructured natural text, open to subjective judgment, tacit understanding, and possible mis-interpretation. 
 
 
@@ -32,8 +32,8 @@ Moreover, the comments in MCR are unstructured natural text, open to subjective 
 
 
 In this paper, we present a text mining approach using semantic similarity to assist in classifying the usefulness of comments.
-The proposed approach is meant to enable classifying the large amounts of MRC comments, in order to conduct comment and code quality studies, such as those discussed earlier, as manual classification can quickly become an untenable task.
-By introducing some automation support based on objective empirical criteria,
+The proposed approach is meant to better enable classifying large amounts of MRC comments in order to conduct comment and code quality studies, such as those discussed earlier, as manual classification can quickly become an untenable task.
+By introducing automation support based on objective empirical criteria,
 our proposed method aims to both reduce effort and increase confidence in classification to a degree that is practical for addressing very large MRC data sets.
 %Because usefulness of a comment is not precisely defined and is a subjective qualification, we cannot, and do not intend to fully automate or replace human driven classification.  
 Through a case study of Qt project, we address the following research questions:
