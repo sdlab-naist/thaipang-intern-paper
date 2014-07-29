@@ -27,11 +27,12 @@ This impacts the trade-off between the precision and recall for our model, and c
 
 Another approach we tried is to perform a \emph{binary classification}.
 This means we assume that there are no unclear or undetermined comments; only useful and useless.
-For this, we removed the samples with 1 and 2 \texttt{YES} votes from our data set. 209 samples without disagreements are left.
-By performing cross-validation using only samples with 0 and 3 \texttt{YES} votes, we obtained a much better F$_1$ score of 0.896.
+For this, we removed the samples with 1 and 2 \texttt{YES} votes from our training set.
+This leaves us with 209 remaining samples, all without a disagreement.
+By performing cross-validation using these samples, we obtained a much better F$_1$ score of 0.896.
 
-We could not objectively measure the F$_1$ score for all samples, because giving positive or negative classification to 1 and 2-scored samples introduces a bias.
-However, the results seen in Fig.\ref{fig:binary} suggests that the binary classifier tends to gives positive classification to samples with score of 2 more than samples with score of 1, and the \emph{vice versa} for negative classification. 
+However, we could not objectively measure the F$_1$ score for all samples, because giving positive or negative classification to 1 and 2-scored samples introduces a bias.
+But interestingly, the results seen in Fig.\ref{fig:binary} suggests that the binary classifier tends to gives positive classification to samples with score of 2 more than samples with score of 1, and the \emph{vice versa} for negative classification. 
 
 \begin{figure}[h]
 \centering
