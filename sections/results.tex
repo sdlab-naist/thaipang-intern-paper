@@ -47,8 +47,11 @@ Automated Comments & 61,814 & 85\% \\ \hline
 \end{tabular}
 \label{tb:datastatistic}
 \end{table}
+
 \subsection{Manual Comment Usefulness Assessment}
-In this case study, three participants (the first two authors and one student) independently classify comments by giving a question that “Does this comment technically contribute to its change or not?”. Then, the participants gave a vote for \texttt{YES} if the comment is likely to useful and  \texttt{NO}  if the comment is likely to useless. From the voting scores, we regarded that the comments with three  \texttt{YES}  votes are \emph{useful} comments and the comments with no  \texttt{YES}  votes (i.e. three  \texttt{NO}  votes) are \emph{useless} comments. For the comments with one and two YES’ votes, we defined them as unclear comments.
+In this case study, three participants (the first two authors and one student) independently classify comments by giving a question, ``does this comment technically contribute to its change or not?''
+Then, the participants gave a vote for \texttt{YES} if the comment is likely to be useful and \texttt{NO} otherwise.
+From the voting scores, we regarded that the comments with three \texttt{YES} votes are \emph{useful} comments and the comments with no \texttt{YES} votes (i.e. three \texttt{NO} votes) are \emph{useless} comments. For the comments with one and two \texttt{YES} votes, we defined them as unclear comments.
 
 \subsection{Research Questions}
 We addressed two research questions: \textbf{RQ1:} Is semantic similarity a good indicator of MCR comment usefulness? and \textbf{RQ2:} Is semantic similarity classification cost-efficient, assurable, and scalable?.
@@ -114,7 +117,7 @@ We selected the thresholds that best classify useful and useless comments based 
 
 
 
-\textbf{Model Effectiveness Results:} From 318 samples, the number of labeled comments were 85, 60, 51, and 122 for 0, 1, 2, and 3 \texttt{YES} votes, respectively. The precision and Recall of the models are 0.701 and 0.787 for useful model and 0.648 and 0.824 for useless model. We summarizes the number of classification from result described in Table \ref{tb:classify_number}.  We also show the results and relationship between comments class that manually classified and the similarity thresholds in Fig  \ref{fig:scatter}. The green area represents the \emph{useful} classification model and the red area represents the \emph{useless} model. Thus, the comments drawn in the green area are those satisfied condition of useful model and the comments drawn in the red area are those satisfied condition of useless. While, the comments drawn in the white area are those not satisfied any condition (i.e. undetermined). 
+\textbf{Model Effectiveness Results:} From 318 samples, the number of labeled comments were 85, 60, 51, and 122 for 0, 1, 2, and 3 \texttt{YES} votes, respectively. The precision and Recall of the models are 0.701 and 0.787 for useful model and 0.648 and 0.824 for useless model. We summarizes the number of classification from result described in Table \ref{tb:classify_number}.  We also show the results and relationship between comments class that manually classified and the similarity thresholds in Fig  \ref{fig:scatter}. The green area represents the \emph{useful} classification model and the red area represents the \emph{useless} model. Thus, the comments drawn in the green area are those satisfied condition of useful model and the comments drawn in the red area are those satisfied condition of useless. While, the comments drawn in the white area are those not satisfied any condition (i.e. \emph{undetermined}). 
 %This figure also shows an example comment that fall in the different area\pick{Didn't put yet}.
 
 
