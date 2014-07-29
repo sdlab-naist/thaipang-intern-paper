@@ -9,7 +9,8 @@ Our results have shown that using semantic similarity can classify usefulness of
 
 % examples.
 \subsection{What kind of comments cannot be classified using semantic similarity?}
-From the results of RQ1, we found that some comments were not determined by our models. Specifically, we were interested in comments with useful class (\texttt{YES} = 3) and useless class (\texttt{YES} = 0). To investigate the reason behind this, we examined these comments. We found that .....
+From the results of RQ1, we found that some comments were not determined by our models. Specifically, we were interested in comments with useful class (\texttt{YES} = 3) and useless class (\texttt{YES} = 0). To investigate the reason behind this, we observed these comments and the corresponding commit messages. We found that there were few common keywords between comments and commit messages and their length are relatively unequal. This makes low similarity values and low dissimilarity values as they shown in  bottom left white area in Fig. \ref{fig:scatter} which our models cannot determine.
+
 
 %In some cases, similarity and dissimilarity failed to measure the usefulness of the comment,
 %due to the same word being used in a different context.
@@ -20,6 +21,10 @@ From the results of RQ1, we found that some comments were not determined by our 
 
 %\subsection{Binary Classification}
 \subsection{How much impact of unclear class on model construction?}
+ % noisy data, and binary classification
+Our training data contains much variability because there are disagreements between our judgment of ``usefulness,'' rendering our results unclear; they cannot be classified as either useful or not useful.
+This impacts the trade-off between the precision and recall for our model, and consequently, the F$_1$ score.
+
 Another approach we tried is to perform a \emph{binary classification}.
 This means we assume that there are no unclear or undetermined comments; only useful and useless.
 For this, we removed the samples with 1 and 2 \texttt{YES} votes from our data set. 209 samples without disagreements are left.
@@ -41,26 +46,25 @@ The topic modeling technique would generate topics that include diverse actual t
 %\subsection{Reasons of Classification}
 % reasons for classification as useful or not useful
 \subsection*{What decisions are made during the manual classification?}
-During the training process, reasons for the judgment are recorded. Examples of reasons for positive comments include:
+During manual comment usefulness assessment, we recorded the participants' rationale to verify that the comments are actually technically or little direct contribute to the proposed changes. We can summarize that most of reason for \texttt{YES} voting are: the comments 1) contain new information 2) contain constructive suggestions, 3) discuss directly to the proposed changes, and 4) discuss the technical matters. For \texttt{NO} voting, we can summarize that the comments 1) are chatting (just communication), 2) little direct to the proposed changes, 3) discuss about process workflow and supporting system i.e. Git and Gerrit.
+%During the training process, reasons for the judgment are recorded. Examples of reasons for positive comments include:
+%
+%\begin{itemize}
+%	\item they contain new information;
+%	\item they contain constructive suggestions;
+%	\item they discuss directly about the change; and
+%	\item they discuss technical matters.
+%\end{itemize}
+%
+%Examples of reasons for negative comments include:
+%
+%\begin{itemize}
+%	\item chatting (i.e. no new information, just communication);
+%	\item not discussing directly about the change;
+%	\item discussing about the process workflow; and
+%	\item discussing about Git or Gerrit itself.
+%\end{itemize}
 
-\begin{itemize}
-	\item they contain new information;
-	\item they contain constructive suggestions;
-	\item they discuss directly about the change; and
-	\item they discuss technical matters.
-\end{itemize}
+\subsection{Can the determined thresholds in this study be used to other projects?} 
+In this study, we determined the similarity conditions using training set in Qt project and the results show that the conditions can classify usefulness of comments. However, to apply our approach on other projects, preparing training set is still required and it cost human effort. To fully automate this approach, we will investigate the use of similarity conditions for cross projects. Thus, additional studies are needed to improve our approach. 
 
-Examples of reasons for negative comments include:
-
-\begin{itemize}
-	\item chatting (i.e. no new information, just communication);
-	\item not discussing directly about the change;
-	\item discussing about the process workflow; and
-	\item discussing about Git or Gerrit itself.
-\end{itemize}
-
-\subsection*{Threat to Validity}
-\indent \textbf{Internal Valdity:} % noisy data, and binary classification
-Our training data contains much variability because there are disagreements between our judgment of ``usefulness,'' rendering our results unclear; they cannot be classified as either useful or not useful.
-This impacts the trade-off between the precision and recall for our model, and consequently, the F$_1$ score. \\
-\indent \textbf{External Validity:} \\
