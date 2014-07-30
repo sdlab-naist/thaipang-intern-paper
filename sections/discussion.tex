@@ -23,6 +23,12 @@ From the results of RQ1, we found that some comments were not determined by our 
 \subsection{How much impact of unclear class on model construction?}
 \pick{This topic of discuss should be changed....}
  % noisy data, and binary classification
+
+
+
+Interestingly, in Table \ref{tb:classify_number}, there are 88\% of useful comments classified by our model have \texttt{YES} = 2 and 3 voting scores. The classification of useless comments also have similar proportion i.e. having high number of comment with \texttt{YES} = 0 and 1 voting scores. As the manual classification can be subjective, these comments were not received three voting scores.  It is possible that the unclear comments with \texttt{YES} = 2 can be useful comments and comments with can be useless comments. 
+ 
+ 
 Our training data contains much variability because there are disagreements between our judgment of ``usefulness,'' rendering our results unclear; they cannot be classified as either useful or not useful.
 This impacts the trade-off between the precision and recall for our model, and consequently, the F$_1$ score.
 

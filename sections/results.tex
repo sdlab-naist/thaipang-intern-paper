@@ -122,7 +122,7 @@ We selected the thresholds that best classify useful and useless comments based 
 
 
 %%Interpret: comments & model%%%%
-As shown in the figure, most comments drawn in green area are useful and very few useless comments drawn in this area. Similarly, most comments in the red area are useless. The unclear comments are drawn in both area. Between these areas, there is an overlap section. This is because the similarity and dissimilarity values between useful and useless are vague. Both models tend to maximize coverage of classification. Thus, it is possible that there is overlap between these two models. However, from the results in Table \ref{tb:classify_number}, only three comments were classified overlap section. This shows that error of our models is low. Furthermore, there are 12 useless comments  (14\%) and  21 useful comments (17\%) still are undetermined (drawn in white area). We investigate characteristics of these comments. The findings are described in our discussion section.
+As shown in the figure, most comments drawn in green area are useful labels and very few useless labeled comments drawn in this area. Similarly, most comments in the red area are useless labels. The unclear comments are drawn in both area. Between these areas, there is an overlap section. This is because the similarity and dissimilarity values between useful and useless are vague. Both models tend to maximize coverage of classification. Thus, it is possible that there is overlap between these two models. However, from the results in Table \ref{tb:classify_number}, only three comments were classified overlap section. This shows that error of our models is low. Furthermore, there are 12 useless comments  (14\%) and  21 useful comments (17\%) still are undetermined (drawn in white area). We investigate characteristics of these comments. The findings are described in our discussion section.
 %From the example comment, it shows that these comments discussed on \TODO{insert topic}, but did not contain any word in common.
 
 \begin{table}[!t]
@@ -131,9 +131,9 @@ As shown in the figure, most comments drawn in green area are useful and very fe
 \caption{Number of comments classified by our approach against ground truth data}
 \begin{tabular}{ccccc}
 \hline
-& \multicolumn{4}{c}{Class from Manual Assessment} \\ \cline{2-5}
-Our&  Useless  & Unclear  & Unclear & Useful \\
-Classifications&  (\texttt{YES}=0) & (\texttt{YES}=1) & (\texttt{YES}=2) & (\texttt{YES}=3) \\
+Result from & \multicolumn{4}{c}{Label set by manual assessment} \\ \cline{2-5}
+Classification &  Useless  & Unclear  & Unclear & Useful \\
+Models&  (\texttt{YES}=0) & (\texttt{YES}=1) & (\texttt{YES}=2) & (\texttt{YES}=3) \\
 \hline \hline
 Useful & 3 & 12 & 24 & 94 \\
 Useless & 69 & 23 & 7 & 6 \\
@@ -147,12 +147,6 @@ Undetermined & 12 & 24 & 20 & 21 \\
 %%Interpret: comments & similarity values%%%%
 The graph also shows that the useful comments have less distance (not higher than 3 approximately) while most of useless comments have zero similarity. However, the unclear comments are still spread out over the graph which we cannot determine relationship between their similarity.
 Furthermore, it is interesting that comments can be clearly separated into two major groups: comments with high similarity values and comment with zero similarity. This indicates that the comments  in each group have relationship other than similarity. This led us to investigate insight into these comments to find other properties in our future work. 
-
-
-
-
-Interestingly, in Table \ref{tb:classify_number}, there are 88\% of useful comments classified by our model have \texttt{YES} = 2 and 3 voting scores. The classification of useless comments also have similar proportion i.e. having high number of comment with \texttt{YES} = 0 and 1 voting scores. As the manual classification can be subjective, these comments were not received three voting scores.  It is possible that the unclear comments with \texttt{YES} = 2 can be useful comments and comments with can be useless comments. 
-
 
 %\begin{table*}[!t]
 %\caption{An accuracy of similarity and dissimilarity thresholds for useful and useless comment classifications}
