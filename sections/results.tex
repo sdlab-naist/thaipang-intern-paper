@@ -146,8 +146,8 @@ Result from & \multicolumn{4}{c}{Results from manual assessment}  & \multirow{3}
 Classification &  Useless  & Unclear  & Unclear & Useful \\
 Models&  (\texttt{YES}=0) & (\texttt{YES}=1) & (\texttt{YES}=2) & (\texttt{YES}=3) \\
 \hline \hline
-Useful & 3 & 12 & 24 & 95 & 0.709\\
-Useless & 69 & 23 & 7 & 6 &  0.657\\
+Useful Class & 3 & 12 & 24 & 95 & 0.709\\
+Useless Class & 69 & 23 & 7 & 6 &  0.657\\
 Overlap & 1 & 1 & 0 & 1 & - \\
 Undetermined & 12 & 24 & 20 & 20 & - \\
 \hline
@@ -238,7 +238,7 @@ In addition, our models also achieved higher results than the random models twic
 
 
 
-According to the results, we can answer RQ1 that \emph{using semantic similarity values as indicators, our approach successfully classify comment usefulness with precision of 0.6 and recall of 0.7 approximately and this is better than random model as twice.}
+According to the results, we can answer RQ1 that \emph{using semantic similarity values as indicators, our approach successfully classify comment usefulness with precision of 0.6 and recall of 0.7 approximately and this is better than random  classification models as twice.}
 
 %After we performed cross validation, we obtained the following result:
 %for positive and negative classifications,
@@ -261,38 +261,50 @@ According to the results, we can answer RQ1 that \emph{using semantic similarity
 \item[RQ2:] Is semantic similarity classification cost-efficient, assurable, and scalable?
 \end{ResearchQuestions}
 
-To answer this question, timestamps are recorded as three people voted on each comment.
-Since three people work in their leisure time, there is much variability in the time between each vote.
-Therefore, we ignored the time interval between two votes if they are more than 10 minutes apart.
+Automatic system generally known that it can  save human effort  and also reduce erroneous from human. We analyse the results to determine the performance of our models. Moreover, we also consider scalability of our models as it only validated in the small set of comments. \pick{Trying to explain why we considering this}
 
-On average, it takes 28 seconds to assess each comment.
-However, the median is 10 seconds, suggesting that most comments take only a little amount of time to assess, while only few comments take long time.
-This also suggests that the time to assess each comment is not normally distributed.
-The standard deviation is 45 seconds.
+\textbf{Cost Efficiency:} We determined cost efficiency in terms of time use for manual assessment. For 318 comments in RQ1, we found that the manual assessment took \TODO{XX} person hours on average. However, this time can be inaccurate since practitioners did not assess under the controlled environment. To be more precise, we considered only the interval time less ten minutes. The average interval time is 28 seconds. Thus, for 318 comments, the assessment time should be 7.42 person hours. Using the same average interval time for all 10,583 comments, we can imply that the manual assessment time would be 82.3 person hours. When applying our approach to classify these all comments, the models left only 23.5\% of comments for manual assessment (undetermined comments) as shown in Table  \ref{tb:percent}. This means that an additional manual assessment needs only 19.34 person hours for these undermined comments which save human effort 76.5\%.
 
-To estimate the total time for us to assess these 318 comments,
-we multiplied the average time by the number of comments and the number of people.
-This results in 7.42 person hours.
+%To answer this question, timestamps are recorded as three people voted on each comment.
+%Since three people work in their leisure time, there is much variability in the time between each vote.
+%Therefore, we ignored the time interval between two votes if they are more than 10 minutes apart.
+%
+%On average, it takes 28 seconds to assess each comment.
+%However, the median is 10 seconds, suggesting that most comments take only a little amount of time to assess, while only few comments take long time.
+%This also suggests that the time to assess each comment is not normally distributed.
+%The standard deviation is 45 seconds.
+%
+%To estimate the total time for us to assess these 318 comments,
+%we multiplied the average time by the number of comments and the number of people.
+%This results in 7.42 person hours.
+%
+%However, to manually assess all 10,583 comments---even with only one person---this would take 82.3 person hours.
+%By running our model through all 10,583 comments, only 2,487 comments receive undetermined result.
+%That means that about 77\% of the effort is saved.
 
-However, to manually assess all 10,583 comments---even with only one person---this would take 82.3 person hours.
-By running our model through all 10,583 comments, only 2,487 comments receive undetermined result.
-That means that about 77\% of the effort is saved.
+\textbf{Assurance:} In Table \ref{tb:classify_number}, there are 88\% of useful class have comments with \texttt{YES} = 2 and 3 voting scores. The classification of useless class also have similar proportion i.e. having high number of comment with \texttt{YES} = 0 and 1 voting scores. We conjecture that the unclear comments with \texttt{YES} = 2 can be useful comments and comments with \texttt{YES} = 1 can be useless comments. This might be an error prone from the manual assessment. To verify this, we asked practitioners to re-examined the unclear comments. We found that there are \TODO{XX}\% of 66 unclear comments changed an answer. This indicates that ......
 
-Applying our classification model to all comments results in the proportions shown in Table \ref{tb:percent}.
+%As the manual classification can be subjective, these comments were not received three voting scores.  
+
+
+
+\textbf{Scalability:} Applying our classification model to all comments results in the proportions shown in Table \ref{tb:percent}.
 As the table shows, the proportions are very similar in both the training dataset and all dataset,
 which may suggest that our model will have a similar performance in the real data.
 
 \begin{table}[!t]
-\caption{Proportion of classifications when applied to the whole data set.}
+\caption{Percentage of classifications results for all comments in the \texttt{qtbase} project }
 \small
 \centering
 \def\arraystretch{1.2}
-\begin{tabular}{ccccccc}
+\begin{tabular}{c|c|c}
 \hline
-Classification & over all samples & only training data \\ \hline
-useful & 42.8\% & 41.8\% \\
-useless & 33.7\% & 33.1\% \\
-undetermined & 23.5\% & 25.1\% \\ \hline
+
+Result from & Sample Comments   &  All Comments \\ \cline{2-3}
+Classification Models &  318 comments  & 10,583 comments \\ \hline \hline
+Useful Class  & 41.8\% & 42.8\% \\
+Useless Class   & 33.1\%  & 33.7\% \\
+undetermined  & 25.1\% & 23.5\% \\ \hline
 \end{tabular}
 \label{tb:percent}
 \end{table}

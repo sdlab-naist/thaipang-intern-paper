@@ -20,33 +20,30 @@ From the results of RQ1, we found that some comments were not determined by our 
 
 
 %\subsection{Binary Classification}
-\subsection{How much impact of unclear class on model construction?}
-\pick{This topic of discuss should be changed....}
- % noisy data, and binary classification
-
-
-
-Interestingly, in Table \ref{tb:classify_number}, there are 88\% of useful comments classified by our model have \texttt{YES} = 2 and 3 voting scores. The classification of useless comments also have similar proportion i.e. having high number of comment with \texttt{YES} = 0 and 1 voting scores. As the manual classification can be subjective, these comments were not received three voting scores.  It is possible that the unclear comments with \texttt{YES} = 2 can be useful comments and comments with can be useless comments. 
- 
- 
-Our training data contains much variability because there are disagreements between our judgment of ``usefulness,'' rendering our results unclear; they cannot be classified as either useful or not useful.
-This impacts the trade-off between the precision and recall for our model, and consequently, the F$_1$ score.
-
-Another approach we tried is to perform a \emph{binary classification}.
-This means we assume that there are no unclear or undetermined comments; only useful and useless.
-For this, we removed the samples with 1 and 2 \texttt{YES} votes from our training set.
-This leaves us with 209 remaining samples, all without a disagreement.
-By performing cross-validation using these samples, we obtained a much better F$_1$ score of 0.896.
-
-However, we could not objectively measure the F$_1$ score for all samples, because giving positive or negative classification to 1 and 2-scored samples introduces a bias.
-But interestingly, the results seen in Fig.\ref{fig:binary} suggests that the binary classifier tends to gives positive classification to samples with score of 2 more than samples with score of 1, and the \emph{vice versa} for negative classification. 
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=2.5in]{posneg}
-\caption{The amount of comments by score classified by the binary classifier.}
-\label{fig:binary}
-\end{figure}
+%\subsection{How much impact of unclear class on model construction?}
+%\pick{This topic of discuss should be changed....}
+% % noisy data, and binary classification
+%
+% 
+% 
+%Our training data contains much variability because there are disagreements between our judgment of ``usefulness,'' rendering our results unclear; they cannot be classified as either useful or not useful.
+%This impacts the trade-off between the precision and recall for our model, and consequently, the F$_1$ score.
+%
+%Another approach we tried is to perform a \emph{binary classification}.
+%This means we assume that there are no unclear or undetermined comments; only useful and useless.
+%For this, we removed the samples with 1 and 2 \texttt{YES} votes from our training set.
+%This leaves us with 209 remaining samples, all without a disagreement.
+%By performing cross-validation using these samples, we obtained a much better F$_1$ score of 0.896.
+%
+%However, we could not objectively measure the F$_1$ score for all samples, because giving positive or negative classification to 1 and 2-scored samples introduces a bias.
+%But interestingly, the results seen in Fig.\ref{fig:binary} suggests that the binary classifier tends to gives positive classification to samples with score of 2 more than samples with score of 1, and the \emph{vice versa} for negative classification. 
+%
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=2.5in]{posneg}
+%\caption{The amount of comments by score classified by the binary classifier.}
+%\label{fig:binary}
+%\end{figure}
 
 \subsection{Can other text mining techniques be used to classify discussions?}
 To find relevance between comments and the corresponding commit message, topic modeling technique can be used as the study of \cite{Barua2012a}. This technique discovers topics for a given collection of documents. However, in MCR context, the documents generally is short descriptions and short discussions. 
@@ -75,6 +72,7 @@ During manual comment usefulness assessment, we recorded the participants' ratio
 %\end{itemize}
 
 \subsection{Can the determined thresholds in this study be used to other projects?} 
+\pick{need to be revised}
 This limits the practicality of application to projects with a large enough number of comments, where the classification effort saved overcomes the training costs.
 Secondly, owing to the subjective assessment of usefulness, this representation fundamentally implies supervised classification requiring nontrivial training data to define representative classification sets. This decreases the cost-effectiveness and limits the practicality of application to projects with a large enough number of comments, where the classification effort saved overcomes the training costs.
 
