@@ -282,8 +282,8 @@ According to the results, we can answer RQ1 that \emph{there is a relation betwe
 \item[RQ2:] Is semantic similarity classification cost-efficient, assurable, and scalable?
 \end{ResearchQuestions}
 
-To answer this question, timestamps are recorded as three people assess each comment.
-Since three people work on their leisure time, there is much variability in the time between each vote.
+To answer this question, timestamps are recorded as three people voted on each comment.
+Since three people work in their leisure time, there is much variability in the time between each vote.
 Therefore, we ignored the time interval between two votes if they are more than 10 minutes apart.
 
 On average, it takes 28 seconds to assess each comment.
@@ -300,7 +300,8 @@ By running our model through all 10,583 comments, only 2,487 comments receive un
 That means that about 77\% of the effort is saved.
 
 Applying our classification model to all comments results in the proportions shown in Table \ref{tb:percent}.
-As the figure shows, the proportion is similar to the result of .
+As the table shows, the proportions are very similar in both the training dataset and all dataset,
+which may suggest that our model will have a similar performance in the real data.
 
 \begin{table}[!t]
 \caption{Proportion of classifications when applied to the whole data set.}
@@ -309,7 +310,7 @@ As the figure shows, the proportion is similar to the result of .
 \def\arraystretch{1.2}
 \begin{tabular}{ccccccc}
 \hline
-Class &        over all samples & only training data  \\ \hline
+Classification & over all samples & only training data  \\ \hline
 useful &            42.8\%      &      41.8\%         \\
 useless &           33.7\%      &      33.1\%         \\
 undetermined &      23.5\%      &      25.1\%         \\ \hline
