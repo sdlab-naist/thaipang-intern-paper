@@ -149,9 +149,9 @@ Fortunately, this overlapping area is small.
 \caption{Number of comments classified by our approach against ground truth data}
 \begin{tabular}{ccccc}
 \hline
-& \multicolumn{4}{c}{Class from Manual Assessment} \\ \cline{2-5}
-Our&  Useless  & Unclear  & Unclear & Useful \\
-Classifications&  (\texttt{YES}=0) & (\texttt{YES}=1) & (\texttt{YES}=2) & (\texttt{YES}=3) \\
+Result from & \multicolumn{4}{c}{Label set by manual assessment} \\ \cline{2-5}
+Classification &  Useless  & Unclear  & Unclear & Useful \\
+Models&  (\texttt{YES}=0) & (\texttt{YES}=1) & (\texttt{YES}=2) & (\texttt{YES}=3) \\
 \hline \hline
 Useful & 3 & 12 & 24 & 94 \\
 Useless & 69 & 23 & 7 & 6 \\
@@ -168,6 +168,7 @@ while most useless comments have zero similarity.
 However, the unclear comments are spread out over the graph in a way which we cannot classify using our model.
 This suggests that other factors may come into play.
 
+<<<<<<< HEAD
 %Interestingly, comments can be clearly separated into two major groups: comments with high similarity values and comment with zero similarity. This indicates that the comments  in each group have relationship other than similarity. This led us to investigate insight into these comments to find other properties in our future work. 
 
 Interestingly, in Table \ref{tb:classify_number},
@@ -179,6 +180,8 @@ and 88\% of useless-class comments received 0 or 1 \texttt{YES} votes.
 % It is possible that the unclear comments with \texttt{YES} = 2 can be useful comments and comments with can be useless comments. 
 
 
+=======
+>>>>>>> 91d1c77067bf6f57f4a40c5e09101195d1b77779
 %\begin{table*}[!t]
 %\caption{An accuracy of similarity and dissimilarity thresholds for useful and useless comment classifications}
 %\small
