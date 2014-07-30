@@ -170,9 +170,9 @@ This suggests that other factors may come into play.
 
 %Interestingly, comments can be clearly separated into two major groups: comments with high similarity values and comment with zero similarity. This indicates that the comments  in each group have relationship other than similarity. This led us to investigate insight into these comments to find other properties in our future work. 
 
-Interestingly, in Table \ref{tb:classify_number},
-89\% of useful-class comments received 2 or 3 \texttt{YES} votes,
-and 88\% of useless-class comments received 0 or 1 \texttt{YES} votes.
+%Interestingly, in Table \ref{tb:classify_number},
+%89\% of useful-class comments received 2 or 3 \texttt{YES} votes,
+%and 88\% of useless-class comments received 0 or 1 \texttt{YES} votes.
 
 %Probably should be in the discussion?
 % As manual classification can be subjective, these comments were not received three voting scores.
@@ -263,83 +263,4 @@ According to the results, we can answer RQ1 that \emph{there is a relation betwe
 %After we performed cross validation, we obtained the following result:
 %for positive and negative classifications,
 %we obtained an average F$_1$ score of 0.693 and 0.681,
-%with standard deviation of 0.090 and 0.118, respectively.
-%This indicates that we can use our approach to classify with confident of 69.8\%.
-
-%After the similarity and distance metrics have been calculated,
-%these metrics appear to be able to separate the useful comments from the non-useful ones,
-%as can be seen in Fig.\ref{fig:scatter}.
-%Note that many comments have a cosine similarity metric of 0.
-%This is because the comment text and the corresponding commit message has no word in comment.
-
-
-
-
-
-
-\begin{ResearchQuestions}
-\item[RQ2:] Is semantic similarity classification cost-efficient, assurable, and scalable?
-\end{ResearchQuestions}
-
-To answer this question, timestamps are recorded as three people voted on each comment.
-Since three people work in their leisure time, there is much variability in the time between each vote.
-Therefore, we ignored the time interval between two votes if they are more than 10 minutes apart.
-
-On average, it takes 28 seconds to assess each comment.
-However, the median is 10 seconds, suggesting that most comments take only a little amount of time to assess, while only few comments take long time.
-This also suggests that the time to assess each comment is not normally distributed.
-The standard deviation is 45 seconds.
-
-To estimate the total time for us to assess these 318 comments,
-we multiplied the average time by the number of comments and the number of people.
-This results in 7.42 person hours.
-
-However, to manually assess all 10,583 comments---even with only one person---this would take 82.3 person hours.
-By running our model through all 10,583 comments, only 2,487 comments receive undetermined result.
-That means that about 77\% of the effort is saved.
-
-Applying our classification model to all comments results in the proportions shown in Table \ref{tb:percent}.
-As the table shows, the proportions are very similar in both the training dataset and all dataset,
-which may suggest that our model will have a similar performance in the real data.
-
-\begin{table}[!t]
-\caption{Proportion of classifications when applied to the whole data set.}
-\small
-\centering
-\def\arraystretch{1.2}
-\begin{tabular}{ccccccc}
-\hline
-Classification & over all samples & only training data  \\ \hline
-useful &            42.8\%      &      41.8\%         \\
-useless &           33.7\%      &      33.1\%         \\
-undetermined &      23.5\%      &      25.1\%         \\ \hline
-\end{tabular}
-\label{tb:percent}
-\end{table}
-
-%\pick{Note from Dan sensei,}
-%For cpost effectivness we can state the reduction  percentage in the number of comments that much be checked manually.
-% Also point out how much effort manual classification takes and that it is error prone (probably mor so than the automated method!
-%You cannot, but some estimates are possble
-%first, human beings have a fairly well known rate of making errors in classification
-%second, look at the comments in the training set that the method classified differently, especially the unclear.
-%Review these to see if the method suggested a better classification than was originally made by the assessors
-%You can consider these errors. Now look at what wans the percent of errors in the training set
-%This is also an estimate of the human error rate
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+%wit
