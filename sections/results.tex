@@ -191,14 +191,14 @@ Interestingly, in Table \ref{tb:classify_number}, there are 88\% of useful comme
 \small
 \centering
 \def\arraystretch{1.2}
-\begin{tabular}{cccc|cc|cc}
+\begin{tabular}{cccc|cc|cc|cc}
 \hline
-\multicolumn{2}{c}{Classifcation}   & \multicolumn{2}{c|}{Precision} & \multicolumn{2}{c|}{Recall} & \multicolumn{2}{c}{F-measure} \\ \cline{3-8}
-\multicolumn{2}{c}{Models} & Avg. & STD. & Avg. & STD. & Avg. & STD. \\ \hline \hline
-\multirow{2}{*}{Useful} & $\Theta(c,S_T,D_T)$    &  0.654 & 0.116 &  0.759 & 0.123 & 0.693 & 0.089\\ \cline{2-8}
-& Random     &  0.421 & 0.114 &  0.376 & 0.116 & 0.496 & 0.144\\ \hline
-\multirow{2}{*}{Useless}  & $\Omega(c,S'_T,D'_T)$  &  0.636 & 0.144 &  0.755 & 0.148 & 0.681 & 0.118\\ \cline{2-8}
-& Random    &  0.336 & 0.131 &  0.269 & 0.115 & 0.478 & 0.182\\
+\multicolumn{2}{c}{Classifcation}   & \multicolumn{2}{c|}{Precision} & \multicolumn{2}{c|}{Recall} & \multicolumn{2}{c|}{F-measure} & \multicolumn{2}{c}{Accuracy} \\ \cline{3-10}
+\multicolumn{2}{c}{Models} & Avg. & STD. & Avg. & STD. & Avg. & STD. & Avg. & STD. \\ \hline \hline
+\multirow{2}{*}{Useful} & $\Theta(c,S_T,D_T)$    &  0.654 & 0.116 &  0.759 & 0.123 & 0.693 & 0.089 & 0.752 & 0.067 \\ \cline{2-10}
+& Random     &  0.421 & 0.114 &  0.376 & 0.116 & 0.496 & 0.144 & 0.496 & 0.089 \\ \hline
+\multirow{2}{*}{Useless}  & $\Omega(c,S'_T,D'_T)$  &  0.636 & 0.144 &  0.755 & 0.148 & 0.681 & 0.118 & 0.815 & 0.064 \\ \cline{2-10}
+& Random    &  0.336 & 0.131 &  0.269 & 0.115 & 0.478 & 0.182 & 0.500 & 0.089 \\
 \hline
 \end{tabular}
 \label{tb:xvalidate}
@@ -258,7 +258,7 @@ Since three people work on their leisure time, there is much variability in the 
 Therefore, we ignored the time interval between two votes if they are more than 10 minutes apart.
 
 On average, it takes 28 seconds to assess each comment.
-However, the median is 10 seconds, suggesting that most comments take only a little amount of time to assess; only few comments take long time.
+However, the median is 10 seconds, suggesting that most comments take only a little amount of time to assess, while only few comments take long time.
 This also suggests that the time to assess each comment is not normally distributed.
 The standard deviation is 45 seconds.
 
@@ -266,10 +266,37 @@ To estimate the total time for us to assess these 318 comments,
 we multiplied the average time by the number of comments and the number of people.
 This results in 7.42 person hours.
 
-However, to manually assess all 10,583 comments---even with only one person working at 10 comments per minute---this would take 17.6 person hours.
+However, to manually assess all 10,583 comments---even with only one person---this would take 82.3 person hours.
 By running our model through all 10,583 comments, only 2,487 comments receive undetermined result.
 That means that about 77\% of the effort is saved.
 
+Applying our classification model to all comments results in the proportions shown in Table \ref{tb:percent}.
+As the figure shows, the proportion is similar to the result of .
+
+\begin{table}[!t]
+\caption{Proportion of classifications when applied to the whole data set.}
+\small
+\centering
+\def\arraystretch{1.2}
+\begin{tabular}{ccccccc}
+\hline
+Class &        over all samples & only training data  \\ \hline
+useful &            42.8\%      &      41.8\%         \\
+useless &           33.7\%      &      33.1\%         \\
+undetermined &      23.5\%      &      25.1\%         \\ \hline
+\end{tabular}
+\label{tb:percent}
+\end{table}
+
+%\pick{Note from Dan sensei,}
+%For cpost effectivness we can state the reduction  percentage in the number of comments that much be checked manually.
+% Also point out how much effort manual classification takes and that it is error prone (probably mor so than the automated method!
+%You cannot, but some estimates are possble
+%first, human beings have a fairly well known rate of making errors in classification
+%second, look at the comments in the training set that the method classified differently, especially the unclear.
+%Review these to see if the method suggested a better classification than was originally made by the assessors
+%You can consider these errors. Now look at what wans the percent of errors in the training set
+%This is also an estimate of the human error rate
 
 
 
