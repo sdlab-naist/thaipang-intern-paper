@@ -129,10 +129,19 @@ The total number of comments from this classification results is described in Ta
 
 
 %%Interpret: comments & model%%%%
-Corresponding to the precision and recall values, the figure shows that most comments drawn in green area are comments of useful set and very few comments of useless set drawn in this area. Similarly, most comments in the red area are comments of useless set. It also shows that the similarity and dissimilarity values of comments in each set are not different from other comments in the same set. Most of useful set (\texttt{YES} = 3) adhere in the top left of the graph while useless set (\texttt{YES} = 0) adhere in the bottom right of the graph. However, the unclear set still spread out over the graph which we cannot determine relationship between their similarity values.
+Corresponding to the precision and recall values, the figure shows that the majority of comments drawn in green area are comments from the useful set, and very few comments of useless set drawn in this area.
+Similarly, majority of comments drawn in the red area are comments from the useless set.
+It also shows that the similarity and dissimilarity values of comments in each set are not different from other comments in the same set.
+Most comments from the useful set (\texttt{YES} = 3) adhere in the top left of the graph
+while those from the useless set (\texttt{YES} = 0) adhere in the bottom right of the graph.
+However, the unclear set still spread out over the graph.
+Therefore, we cannot determine relationship between their similarity values.
 
-There is an overlap section as shown in Fig. \ref{fig:scatter}. This is a conflict results between our two models where a comment received true outcome from both classification models.  
-This is phenomenon can occur since similarity and dissimilarity values of each group are vague and both  models tend to maximize coverage of classification. However, from the results in Table \ref{tb:classify_number}, only three comments were selected by both models (overlap). This is very small error for our models. Excluding the overlap classification result, we can calculate precision and recall as described in Table \ref{tb:classify_number}. Furthermore, there are 12 useless comments (14\%) and 21 useful comments (17\%) still are undetermined (drawn in white area). These comments were not satisfied our models. This suggests us that other indicators are needed to investigate for usefulness classification.
+There is an overlap section as shown in Fig. \ref{fig:scatter}.
+This is a conflict results between our two models where a comment received true outcome from both classification models.  
+This is phenomenon can occur since similarity and dissimilarity values of each group are vague and both  models tend to maximize coverage of classification.
+However, from the results in Table \ref{tb:classify_number}, only three comments were selected by both models (overlap). This is very small error for our models.
+Excluding the overlap classification result, we can calculate precision and recall as described in Table \ref{tb:classify_number}. Furthermore, there are 12 useless comments (14\%) and 21 useful comments (17\%) still are undetermined (drawn in white area). These comments were not satisfied our models. This suggests us that other indicators are needed to investigate for usefulness classification.
 
 %From the example comment, it shows that these comments discussed on \TODO{insert topic}, but did not contain any word in common.
 
