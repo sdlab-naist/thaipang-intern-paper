@@ -309,7 +309,10 @@ This means that only 19.34 person hours of additional manual assessment of these
 %By running our model through all 10,583 comments, only 2,487 comments receive undetermined result.
 %That means that about 77\% of the effort is saved.
 
-\textbf{Assurance:} In Table \ref{tb:classify_number}, there are 88\% of useful class have comments with \texttt{YES} = 2 and 3 voting scores. The classification of useless class also have similar proportion i.e. having high number of comment with \texttt{YES} = 0 and 1 voting scores. We conjecture that the unclear comments with \texttt{YES} = 2 can be useful comments and comments with \texttt{YES} = 1 can be useless comments. This might be an error prone from the manual assessment. To verify this, we asked practitioners to re-examined the unclear comments. We found that there are \TODO{XX}\% of 66 unclear comments changed an answer. This indicates that ......
+\textbf{Assurance:} In Table \ref{tb:classify_number}, there are 88\% of useful class have comments with \texttt{YES} = 2 and 3 voting scores. The classification of useless class also have similar proportion i.e. having high number of comment with \texttt{YES} = 0 and 1 voting scores. We conjecture that the unclear comments with \texttt{YES} = 2 might actually be useful comments and comments with \texttt{YES} = 1 might actually be useless. The unclear result could be from error of manual assessment caused by human.
+To verify this conjecture, we asked practitioners to re-examine the unclear comments.
+We found that 17\% of these 66 comments became unclear because of human error.
+This shows that our model \thai{what can we say about this model?}
 
 %As the manual classification can be subjective, these comments were not received three voting scores.  
 
