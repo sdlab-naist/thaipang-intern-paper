@@ -1,6 +1,9 @@
 % !TEX root = ../paper.tex
 \section{Discussion}
-Our results have shown that using semantic similarity can classify usefulness of comments and our approach also can reduce human effort ant error prone of manual classification. Besides the results, we also found interesting findings in our case study. We discuss these findings as follows:
+Our results have shown that using semantic similarity can classify the usefulness of comments
+and that our approach can also reduce human effort and error proneness of manual classification.
+Besides the results, we also found interesting findings in our case study.
+We discuss these findings as follows:
 
 % tuning the F score for precision and recall
 %Depending on the use case, we can fine-tune the F-score to give more weight to recall or precision.
@@ -9,7 +12,12 @@ Our results have shown that using semantic similarity can classify usefulness of
 
 % examples.
 \subsection{What kind of comments cannot be classified using semantic similarity?}
-From the results of RQ1, we found that some comments were not determined by our models. Specifically, we were interested in comments with useful class (\texttt{YES} = 3) and useless class (\texttt{YES} = 0). To investigate the reason behind this, we observed these comments and the corresponding commit messages. We found that there were few common keywords between comments and commit messages and their length are relatively unequal. This makes low similarity values and low dissimilarity values as they shown in  bottom left white area in Fig. \ref{fig:scatter} which our models cannot determine.
+
+From the results of RQ1, we found that some comments were not determined by our models.
+Specifically, we were interested in comments with useful class (\texttt{YES} = 3) and useless class (\texttt{YES} = 0).
+To investigate the reason behind this, we observed these comments and the corresponding commit messages.
+We found that there were few common keywords between comments and commit messages and their length are relatively unequal.
+This makes low similarity values and low dissimilarity values as they shown in  bottom left white area in Fig. \ref{fig:scatter} which our models cannot determine.
 
 
 %In some cases, similarity and dissimilarity failed to measure the usefulness of the comment,
@@ -46,8 +54,13 @@ From the results of RQ1, we found that some comments were not determined by our 
 %\end{figure}
 
 \subsection{Can other text mining techniques be used to classify discussions?}
-To find relevance between comments and the corresponding commit message, topic modeling technique can be used as the study of \cite{Barua2012a}. This technique discovers topics for a given collection of documents. However, in MCR context, the documents generally is short descriptions and short discussions. 
-The topic modeling technique would generate topics that include diverse actual topics of documents since the content of documents is insufficient to determine. We have applied Latent Dirichlet allocation (LDA), which is a well-known model of topic modeling techniques, on our data set. We found that the generated topics were diverse and some of them cannot did not have a relation between documents and their topics. Therefore, the topic modeling cannot be used to classify discussions. Others techniques will be investigated in our future work to improve our approach.
+To find relevance between comments and the corresponding commit message,
+topic modeling technique can be used, as the study of \cite{Barua2012a}.
+This technique discovers topics for a given collection of documents.
+However, in MCR context, the documents generally are short descriptions and discussions, which makes it unsuitable for LDA.
+Nevertheless, we have tried applying Latent Dirichlet Allocation (LDA, a well-known topic modeling techniques) model on our data set.
+The topic modeling technique generated ambiguous topics with many unrelated keywords, since the content of the documents too short, and thus is insufficient for LDA to correctly determine the topic.
+Others techniques could be investigated in the future to improve the results.
 
 %\subsection{Reasons of Classification}
 % reasons for classification as useful or not useful
