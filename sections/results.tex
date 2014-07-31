@@ -270,9 +270,27 @@ According to the results, we can answer RQ1 that \emph{using semantic similarity
 \item[RQ2:] Is semantic similarity classification cost-efficient, assurable, and scalable?
 \end{ResearchQuestions}
 
-Automatic system generally known that it can  save human effort  and also reduce erroneous from human. We analyse the results to determine the performance of our models. Moreover, we also consider scalability of our models as it only validated in the small set of comments. \pick{Trying to explain why we considering this}
+Automatic systems are generally known for saving human effort and also reduce human errors.
+We analyze the results to determine the performance of our models.
+In addition, we also consider scalability of our models as it only validated in the small set of comments.
+% \pick{Trying to explain why we considering this}
 
-\textbf{Cost Efficiency:} We determined cost efficiency in terms of time use for manual assessment. For 318 comments in RQ1, we found that the manual assessment took \TODO{XX} person hours on average. However, this time can be inaccurate since practitioners did not assess under the controlled environment. To be more precise, we considered only the interval time less ten minutes. The average interval time is 28 seconds. Thus, for 318 comments, the assessment time should be 7.42 person hours. Using the same average interval time for all 10,583 comments, we can imply that the manual assessment time would be 82.3 person hours. When applying our approach to classify these all comments, the models left only 23.5\% of comments for manual assessment (undetermined comments) as shown in Table  \ref{tb:percent}. This means that an additional manual assessment needs only 19.34 person hours for these undermined comments which save human effort 76.5\%.
+\textbf{Cost Efficiency:}
+% briefly explain
+We determined cost efficiency in terms of time use for manual assessment.
+For 318 comments in RQ1, we found that the manual assessment took 7.42 person hours on average.
+However, this time can be inaccurate since practitioners did not assess under the controlled environment.
+
+% nitty-gritty details
+To be more precise, we considered only the time interval between two votes that are not more than 10 minutes apart.
+The average time interval between votes is 28 seconds.
+Thus, for 318 comments, the assessment time should be 7.42 person hours.
+Using the same average interval time for all 10,583 comments,
+we can imply that the manual assessment time would be 82.3 person hours.
+
+% how our model helps
+When applying our approach to classify these all comments, the models left only 23.5\% of comments for manual assessment (undetermined comments) as shown in Table \ref{tb:percent}.
+This means that only 19.34 person hours of additional manual assessment of these undermined comments are needed, thus saving 76.5\% of human effort.
 
 %To answer this question, timestamps are recorded as three people voted on each comment.
 %Since three people work in their leisure time, there is much variability in the time between each vote.
