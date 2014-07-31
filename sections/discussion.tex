@@ -65,7 +65,7 @@ Others techniques could be investigated in the future to improve the results.
 %\subsection{Reasons of Classification}
 % reasons for classification as useful or not useful
 \subsection{What decisions are made during the manual classification?}
-During manual comment usefulness assessment, we recorded the participants' rationale to verify that the comments are actually technically or little direct contribute to the proposed changes. We can summarize that most of reason for \texttt{YES} voting are: the comments 1) contain new information 2) contain constructive suggestions, 3) discuss directly to the proposed changes, and 4) discuss the technical matters. For \texttt{NO} voting, we can summarize that the comments 1) are chatting (just communication), 2) little direct to the proposed changes, 3) discuss about process workflow and supporting system i.e. Git and Gerrit.
+During manual comment usefulness assessment, we recorded the participants' rationale to verify that the comments are actually technically or little direct contribute to the proposed changes. We can summarize that most of reason for \texttt{YES} voting are: the comments 1) contain new information 2) contain constructive suggestions, 3) discuss directly to the proposed changes, and 4) discuss the technical matters. For \texttt{NO} voting, we can summarize that the comments 1) are chatting (just communication), 2) talking about matters unrelated to the proposed changes, 3) discuss about process workflow and supporting system (e.g. Git and Gerrit).
 %During the training process, reasons for the judgment are recorded. Examples of reasons for positive comments include:
 %
 %\begin{itemize}
@@ -84,10 +84,14 @@ During manual comment usefulness assessment, we recorded the participants' ratio
 %	\item discussing about Git or Gerrit itself.
 %\end{itemize}
 
-\subsection{Can the determined thresholds in this study be used to other projects?} 
-\pick{need to be revised}
-This limits the practicality of application to projects with a large enough number of comments, where the classification effort saved overcomes the training costs.
-Secondly, owing to the subjective assessment of usefulness, this representation fundamentally implies supervised classification requiring nontrivial training data to define representative classification sets. This decreases the cost-effectiveness and limits the practicality of application to projects with a large enough number of comments, where the classification effort saved overcomes the training costs.
+\subsection{Can the determined thresholds in this study be used to other projects?}
 
-In this study, we determined the similarity conditions using training set in Qt project and the results show that the conditions can classify usefulness of comments. However, to apply our approach on other projects, preparing training set is still required and it cost human effort. To fully automate this approach, we will investigate the use of similarity conditions for cross projects. Thus, additional studies are needed to improve our approach. 
+In this study, we determined the similarity conditions using training set in Qt project and the results show that the conditions can classify usefulness of comments.
+However, to apply our approach on other projects, training set preparation is still required and it cost human effort.
+This limits the practicality of application to projects with a large enough number of comments, where the classification effort saved overcomes the training costs.
+To fully automate this approach, we have to investigate the use of similarity conditions for many other different projects. Thus, additional studies are needed to improve our approach. 
+
+%
+%Secondly, owing to the subjective assessment of usefulness, this representation fundamentally implies supervised classification requiring nontrivial training data to define representative classification sets. This decreases the cost-effectiveness and limits the practicality of application to projects with a large enough number of comments, where the classification effort saved overcomes the training costs.
+
 
