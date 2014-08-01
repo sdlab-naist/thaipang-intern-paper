@@ -1,7 +1,16 @@
 % !TEX root = ../paper.tex
 
 \begin{abstract}
-Modern Code Review (MCR) where reviewers virtually discuss proposed changes by adding comments through a code review tool or a mailing list has  received much attention recently due to its perceived cost-effectiveness and popularity with industrial and OSS projects. Recent studies have indicated a positive relationship between the number of review comments and code quality. However little research exists investigating how such discussion impacts software quality. In fact there has been concern that the informality of MCR encourages a focus on trivial, tangential, or unrelated  issues. Indeed we have observed that such comments are quite frequent and may even constitute the majority.  We conjecture that an effective MCR actually depends on having a substantive quantity of comments that directly impact a proposed change (or are "useful"). To investigate this, a necessary step requires distinguishing review comments that are useful to a proposed change from those that are not. For a large OSS project such as our Qt case study, manual assessment of the over 72,000 comments is a daunting task.  We propose that semantic similarity is a practical, cost-efficient, and empirically assurable approach for assisting with such assessments. Our case-study results indicate that our approach can classify comments with significant precision and recall and reduce classification effort by about 77\%.
+Modern Code Review (MCR)---where reviewers virtually discuss proposed changes by adding comments through a code review tool or a mailing list---has received much attention recently due to its perceived cost-effectiveness and popularity with industrial and OSS projects.
+Recent studies have indicated a positive relationship between the number of review comments and code quality.
+However, little research exists investigating how such discussion impacts software quality.
+In fact, there has been concern that the informality of MCR encourages a focus on trivial, tangential, or unrelated issues.
+Indeed, we have observed that such comments are quite frequent and may even constitute the majority.
+We conjecture that an effective MCR actually depends on having a substantive quantity of comments that directly impact a proposed change (or are ``useful'').
+To investigate this, a necessary step requires distinguishing review comments that are useful to a proposed change from those that are not.
+For a large OSS project such as our Qt case study, manual assessment of the over 72,000 comments is a daunting task.
+We propose that semantic similarity is a practical, cost-efficient, and empirically assurable approach for assisting with such assessments.
+Our case-study results indicate that our approach can classify comments with an average F-measure score of 0.73 and reduce classification effort by about 77\%.
 
 
 \begin{IEEEkeywords}
