@@ -123,7 +123,7 @@ The selected models are $\Theta(c,S_T=0.015529,D_T=2.494944)$ for useful comment
 
 
 
-\textbf{Model Effectiveness Results:} From 318 samples, the comment sets from manual assessment were 85, 111, and 122 for useless set (\texttt{YES} = 0), unclear sets (\texttt{YES} = 1 or 2), and useful set (\texttt{YES} = 3), respectively. The precision and Recall of the models were 0.701 and 0.787 for useful model and 0.648 and 0.824 for useless model. 
+\textbf{Model Effectiveness Results:} From 318 samples, the comment sets from manual assessment were 85, 111, and 122 for useless set (\texttt{YES} = 0), unclear sets (\texttt{YES} = 1 or 2), and useful set (\texttt{YES} = 3), respectively. The precision and recall of the models were 0.701 and 0.787 for useful model and 0.648 and 0.824 for useless model. 
 
 Figure \ref{fig:scatter} shows the relationship between usefulness class from our classification model and comment sets from manual assessment. 
 The green area represents the \emph{useful} classification model and the red area represents the \emph{useless} classification model. The comments drawn in the green area are those satisfied condition of useful model, and the comments drawn in the red area are those satisfied condition of useless, while the comments drawn in the white area are those not satisfied any condition (i.e. \emph{undetermined}). 
@@ -132,7 +132,7 @@ The total number of comments from this classification results is described in Ta
 
 
 %%Interpret: comments & model%%%%
-Corresponding to the precision and recall values, the figure shows that the majority of comments drawn in green area are comments from the useful set, and very few comments of useless set drawn in this area.
+Corresponding to the precision and recall values, the figure shows that the majority of comments drawn in green area are comments from the useful set, and very few comments from useless set drawn in this area.
 Similarly, majority of comments drawn in the red area are comments from the useless set.
 It also shows that the similarity and dissimilarity values of comments in each set are not different from other comments in the same set.
 Most comments from the useful set (\texttt{YES} = 3) adhere in the top left of the graph
@@ -143,8 +143,9 @@ Therefore, we cannot determine relationship between their similarity values.
 There is an overlap section as shown in Fig. \ref{fig:scatter}.
 This is a conflict results between our two models where a comment received true outcome from both classification models.  
 This is phenomenon can occur since similarity and dissimilarity values of each group are vague and both  models tend to maximize coverage of classification.
-However, from the results in Table \ref{tb:classify_number}, only three comments were selected by both models (overlap). This is very small error for our models.
-Excluding the overlap classification result, we can calculate precision and recall as described in Table \ref{tb:classify_number}. Furthermore, there are 12 useless comments (14\%) and 21 useful comments (17\%) still are undetermined (drawn in white area). These comments were not satisfied our models. This suggests us that other indicators are needed to investigate for usefulness classification.
+However, from the results in Table \ref{tb:classify_number}, only three comments were selected by both models (overlap).
+This means that the erroneous overlapping section is relatively small.
+Excluding the overlaping classification results, we can calculate precision and recall as described in Table \ref{tb:classify_number}. Furthermore, there are 12 useless comments (14\%) and 21 useful comments (17\%) still are undetermined (drawn in white area). These comments were not satisfied our models. This suggests us that other indicators are needed to investigate for usefulness classification.
 
 %From the example comment, it shows that these comments discussed on \TODO{insert topic}, but did not contain any word in common.
 
@@ -250,7 +251,7 @@ In addition, our models also achieved higher results than the random models twic
 
 
 
-According to the results, we can answer RQ1 that \emph{using semantic similarity values as indicators, our approach successfully classify comment usefulness with precision of 0.6 and recall of 0.7 approximately and this is better than random  classification models as twice.}
+According to the results, we can answer RQ1 that \emph{using semantic similarity values as indicators, our approach can successfully classify comment usefulness with precision of 0.64 and recall of 0.75 approximately, which is significantly better than a random  classifier.}
 
 %After we performed cross validation, we obtained the following result:
 %for positive and negative classifications,
