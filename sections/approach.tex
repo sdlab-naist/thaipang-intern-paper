@@ -2,24 +2,25 @@
 
 \section{Semantic Similarity Classification of Comment Usefulness}
 
-\textbf{Definition:} We define a \emph{useful} comment as one that contributes to improving the proposed change, and a \emph{useless} comment as one that does not\footnote{Although we call these comments \emph{useless} in our study, it might actually be useful---or sometimes even required---in some other contexts, such as to facilitate communication or to enforce guidelines.}.
+\textbf{Definition:} We define a \emph{useful} comment as one that directly contributes to improving a proposed change, and a \emph{useless} comment as one that does not\footnote{Although we call these comments \emph{useless} in our study, it might actually have utility--or sometimes  be required---in some other contexts, such as to facilitate communication or to enforce guidelines or process.}.
 
-Our goal is to improve the efficiency and confidence in determining the usefulness of review comments.
-Usefulness is not dichotomous and hence we must accept a third qualification, \emph{unclear}, to allow for the case where a comment does not directly make a positive contribution but is not clearly out of scope or tangential.
-Therefore, our approach is largely based on relevance the comment has to the proposed change (as documented within a MCR system).
+Our goal here is to improve the efficiency and confidence in the task of determining the usefulness of review comments.
+As with many subjective assessments, usefulness is not dichotomous and hence we must accept a third qualification, \emph{unclear}, to allow for the case where a comment does not directly make a positive contribution but is not clearly out of scope or tangential i.e. it may be useful.
+Our approach is largely based on the assumption that usefulness is determined by the relevance a comment has to the proposed change (as documented within a MCR system).
 A primary factor in relevance is similarly, and so it is natural for us to consider classification using \emph{similarity conditions}\cite{Davies2012}. 
 %\dan{can we find a reference for relevance and similarly?}
-We assume that the more similar a comment is to the proposed change, the more relevant it is and hence more likely useful.
-Conversely, the more dissimilar\footnote{This can be arbitrarily large, thus not simply the opposite of similarity}, the less relevant, and hence less useful.
+We speculate that the more similar a comment is to the proposed change, the more relevant it is and hence more likely useful.
+Conversely, the more dissimilar\footnote{This is technically not simply the opposite of similarity. Unlike similarity, dissimilarity can be arbitrarily large.}, the less relevant, and hence less useful.
 
 \subsection{Approach}
+We seek to develop a model based on similarity criteria to classify (i.e. \emph{determine}) comments as either useful or useless. 
 Given the subjective nature of usefulness, precise classification conditions probably do not exist and so we resort to conditions that indicate a meaningful \emph{likelihood} of classification.
-That is, for some degree of similarity a comment is most likely useful, and for some degree of dissimilarity it is most likely useless.
-The key is to determine these degrees in a practical and effective manner.
+That is, for some degree of similarity a comment is determined to be \emph{most likely useful}, and for some degree of dissimilarity it is \emph{most likely useless}. Because this is a liklihood model, it is possible that a classification cannot be determined (i.e. no classification is likely enough) or determined to be in multiple classifications (i.e. overlap in likelihood conditions). It's important to keep in mind that these last two outcomes are not actual classifications whose interpretation is difficult and perhaps unreliable.     
+The key to our approach is to determine the classification conditions in a practical, assurable manner that also is effective to use for assessing comment usefulness.
 
 Fig. \ref{fig:overview} shows an overview of our proposed classification approach.
 Usefulness of a comment is determined by computing its semantic similarity with the commit message of its proposed change and observing if it satisfies \emph{usefulness classification likelihood conditions}.
-The conditions are simply threshold values of similarity and dissimilarity empirically determined to optimize a desired likelihood objectives.
+The conditions are simply threshold values of similarity and dissimilarity empirically determined to optimize a desired likelihood objectives. While more complex conditions are possible and may perform better, we begin with this simple model and investigate if it is sufficient for our assessment task.
 
 
 \begin{figure}[!t]
@@ -31,37 +32,43 @@ The conditions are simply threshold values of similarity and dissimilarity empir
 
 % again, I can't see Fig. \ref{fig:overview}(a)
 % Thai sez: Cosine distance IS NOT cosine similarity. Cosine distance is defined as 1 - cosine similarity, and is not a proper distance metric, lacking triangle equality and stuff [Wikipedia].
-We calculate semantic similarity using the Vector Space Model (VSM) with the cosine similarity measure, which is a well-known technique for retrieving relevant documents written in unstructured natural language; and the Euclidian distance, which is a well-established measure of dissimilarity and applies analogously.
+We calculate semantic similarity using the Vector Space Model (VSM) 
+\dan{need a reference for this}
+with the cosine similarity measure, which is a well-known technique for retrieving relevant documents written in unstructured natural language. The Euclidian distance, which is a well-established measure of dissimilarity,  applies here analogously for retrieving irrelevant documents.
 %For our case example training dataset, we manually identified 320 randomly-selected pairs of comments and corresponding commit messages in Fig. \ref{fig:overview}(b). \thai{The %overview figure does not have (a) and (b)...}
 %\dan{what was the actual effort (in person-hours) to create the training data?}
 
-Our training data is a small set of randomly-selected pairs of comments and the corresponding commit messages.
+The model is a form of \emph{supervised classification} 
+\dan{need a reference for this}
+where a training set is used to empirically derive similarity and dissimilarity thresholds that optimize meaningful likelihoods e.g. likelihood that a comment is useful given its similarity is greater than some threshold value.    
+The training data is a small set of randomly-selected pairs of comments and the corresponding commit messages.
 These comments are manually assessed for usefulness.
 %Each comment is assessed by three different people independently.
 %For each \texttt{YES} vote, a single point is given to that comment.
 %This means that a comment will receive a score of 0, 1, 2, or 3.
 For statistical purposes, at least 30 useful and 30 useless comments must be collected.
-The similarity and dissimilarity metrics are then computed for the data set.
+The similarity and dissimilarity metrics are then computed for the training data set.
 These are used to estimate the similarity and dissimilarity thresholds $S_T$ and $D_T$ that best discriminate useful comments and $S'_T$ and $D'_T$ for useless comments. 
 %Other likelihood functions could be used depending on precision, recall, or risk goals.
 We find these thresholds by selecting $s_t,d_t$ values that maximize the F-measure,
+\dan{need a reference for this}
 which is a performance measure for a binary classification that compromises trade-offs in accuracy of classification (precision) and coverage of classification (recall).
-In this study, we used the F$_1$-measure, which equally prioritize precision and recall.
-Different weighting can be used by different F$_\beta$ measures depending on an application.
+In this study, we used the F$_1$-measure, which equally prioritizes precision and recall.
+Different weighting can be used by different F$_\beta$ measures depending on error tolerance for precision and recall.
 
 
-\subsection{Usefulness Classification Conditions} 
-Using those thresholds, we can classify the usefulness of comments for the rest of comments (as test data) in review history according to the classification model as follows: given a comment $c$ and a corresponding commit message $m$,
+\subsection{Usefulness Classification Model} 
+Using thresholds derived from the training data as discussed above, we can classify the usefulness of comments for the entire review according to the classification model as follows: given a comment $c$ and a corresponding commit message $m$,
 \begin{itemize}
-\item \textbf{useful}: $\Theta(c,m,S_T,D_T) = \True$ iff $\Sim(m,c) \geq S_T$ and $\Dist(m,c) \leq D_T$.
-\item \textbf{useless}: $\Omega(c,m,S'_T,D'_T) = \True$ iff $\Sim(m,c) \leq  S'_T$ and $\Dist(m,c) \geq D'_T$.
-\item \textbf{undetermined}: neither or both of the above conditions are $\True$.
+\item \textbf{Useful}: $\Theta(c,m,S_T,D_T) = \True$ iff $\Sim(m,c) \geq S_T$ and $\Dist(m,c) \leq D_T$.
+\item \textbf{Useless}: $\Omega(c,m,S'_T,D'_T) = \True$ iff $\Sim(m,c) \leq  S'_T$ and $\Dist(m,c) \geq D'_T$.
+\item \textbf{undetermined}: neither (no condition holds) or both (overlap of conditions) of the above conditions are $\True$.
 % We also refer to them as \emph{neither} and \emph{overlap}.
 \end{itemize}
 
 The functions $\Sim(m,c)$ and $\Dist(m,c)$ are the similarity and dissimilarity measures relative to the proposed change commit message $m$ for the text of comment $c$ using cosine similarity and euclidian distance, respectively.
 Two metrics are used because they are independently generated and thus provides better discrimination for classification.
-We also found experimentally that using two metrics has higher performance than just one. 
+We also found experimentally that using two metrics has higher performance than just one. We note again that ``undetermined" is not a meanigful classification in our model.
 
 % The details of our approach are elaborated in the following subsections.
 
@@ -118,9 +125,9 @@ We also found experimentally that using two metrics has higher performance than 
 
 % Our proposed approach is empirically driven and automatically adjusts to the quality the data.
 While our proposed approach is straightforward, empirically driven, and automatically adjusts to the quality of the data, it has a few drawbacks.
-We have to accept that some comments cannot be reliably or confidently classified.
-We denote these as \emph{undetermined} to differentiate them from comments whose usefulness is \emph{unclear} (i.e. cannot be assessed subjectively).
-Secondly, owing to the subjective assessment of usefulness, this representation fundamentally implies supervised classification requiring nontrivial training data to define representative classification sets.
+First, we must accept that some comments cannot be reliably or confidently classified.
+We denote these as \emph{undetermined} to differentiate them from comments whose usefulness is \emph{unclear} (i.e. cannot be subjectively assessed as useful or useless).
+Secondly, owing to the subjective assessment of usefulness and our need to represent this, not just any classification, this fundamentally implies performing supervised classification requiring nontrivial training data to define representative classification sets.
 
 
 % empirically driven and automatically adapts to the quality the data
