@@ -324,8 +324,9 @@ This shows that some unclear comments are actually useful or useless, thus givin
 
 
 \textbf{Scalability:} Applying our classification model to all comments results in the proportions shown in Table \ref{tb:percent}.
-As the table shows, the proportions are very similar in both the training dataset and all dataset,
-which may suggest that our model will have a similar performance in the real data.
+As the table shows, the proportions are very similar in both the training dataset and all dataset. Indeed experiments for our case study using increasingly large random subsets of comments show the percentage of undetermined and overlap classification comments (and hence the manual effort required) is constant at about 23\%. While the percentage might vary for other projects, this result suggests that our method is scalable to very large numbers of comments. That is, the percentage of unclassified comments does not increase and hence we expect the method will reduce a substantial amount of manual assessment effort. This enables us to assess MCR comments for very large projects that currently are impractical to do without assistance. 
+\dan{can we find a suitable example project to get some numbers for the example below?}
+For example, OSS project XXX currently has YYY comments. Assuming constant effort and error rate (a dubious assumption), manual assessment effort for these would be estimated at ZZZ hours which is fundamentally impractical. However using similarity assessment with an estimated 23\% unclassified comments would reduce this effort to QQQ, a much more tractable effort.  
 
 \begin{table}[!t]
 \caption{Percentage of classifications results for all comments in the \texttt{qtbase} project }
