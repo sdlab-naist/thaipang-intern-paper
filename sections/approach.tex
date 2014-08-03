@@ -32,14 +32,12 @@ The conditions are simply threshold values of similarity and dissimilarity empir
 
 % again, I can't see Fig. \ref{fig:overview}(a)
 % Thai sez: Cosine distance IS NOT cosine similarity. Cosine distance is defined as 1 - cosine similarity, and is not a proper distance metric, lacking triangle equality and stuff [Wikipedia].
-We calculate semantic similarity using the Vector Space Model (VSM) 
-\dan{need a reference for this}
+We calculate semantic similarity using the Vector Space Model (VSM) \cite{wiki:vdm}
 with the cosine similarity measure, which is a well-known technique for retrieving relevant documents written in unstructured natural language. The Euclidian distance, which is a well-established measure of dissimilarity,  applies here analogously for retrieving irrelevant documents.
 %For our case example training dataset, we manually identified 320 randomly-selected pairs of comments and corresponding commit messages in Fig. \ref{fig:overview}(b). \thai{The %overview figure does not have (a) and (b)...}
 %\dan{what was the actual effort (in person-hours) to create the training data?}
 
-The model is a form of \emph{supervised classification} 
-\dan{need a reference for this}
+The model is a form of \emph{supervised classification} \cite{wiki:supervised}
 where a training set is used to empirically derive similarity and dissimilarity thresholds that optimize meaningful likelihoods e.g. likelihood that a comment is useful given its similarity is greater than some threshold value.    
 The training data is a small set of randomly-selected pairs of comments and the corresponding commit messages.
 These comments are manually assessed for usefulness.
@@ -50,8 +48,7 @@ For statistical purposes, at least 30 useful and 30 useless comments must be col
 The similarity and dissimilarity metrics are then computed for the training data set.
 These are used to estimate the similarity and dissimilarity thresholds $S_T$ and $D_T$ that best discriminate useful comments and $S'_T$ and $D'_T$ for useless comments. 
 %Other likelihood functions could be used depending on precision, recall, or risk goals.
-We find these thresholds by selecting $s_t,d_t$ values that maximize the F-measure,
-\dan{need a reference for this}
+We find these thresholds by selecting $s_t,d_t$ values that maximize the F-measure \cite{wiki:f},
 which is a performance measure for a binary classification that compromises trade-offs in accuracy of classification (precision) and coverage of classification (recall).
 In this study, we used the F$_1$-measure, which equally prioritizes precision and recall.
 Different weighting can be used by different F$_\beta$ measures depending on error tolerance for precision and recall.
@@ -68,7 +65,7 @@ Using thresholds derived from the training data as discussed above, we can class
 
 The functions $\Sim(m,c)$ and $\Dist(m,c)$ are the similarity and dissimilarity measures relative to the proposed change commit message $m$ for the text of comment $c$ using cosine similarity and euclidian distance, respectively.
 Two metrics are used because they are independently generated and thus provides better discrimination for classification.
-We also found experimentally that using two metrics has higher performance than just one. We note again that ``undetermined" is not a meanigful classification in our model.
+We also found experimentally that using two metrics has higher performance than just one. We note again that ``undetermined" is not a meaningful classification in our model.
 
 % The details of our approach are elaborated in the following subsections.
 
