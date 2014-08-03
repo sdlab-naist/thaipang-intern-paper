@@ -1,9 +1,7 @@
 % !TEX root = ../paper.tex
 \section{Discussion}
-Our results have shown that using semantic similarity can classify the usefulness of comments
-and that our approach can also reduce human effort and error proneness of manual classification.
-Besides the results, we also found interesting findings in our case study.
-We discuss these findings as follows:
+Our results have shown that our semantic similarity is practical to assist in reducing effort and error proneness of manual assessment of comment usefulness.  
+Besides this result, we also found some noteworthy findings in our case study:
 
 % tuning the F score for precision and recall
 %Depending on the use case, we can fine-tune the F-score to give more weight to recall or precision.
@@ -13,11 +11,11 @@ We discuss these findings as follows:
 % examples.
 \subsection{What kind of comments cannot be classified using semantic similarity?}
 
-From the results of RQ1, we found that some comments were not determined by our models.
-Specifically, we were interested in comments with useful class (\texttt{YES} = 3) and useless class (\texttt{YES} = 0).
-To investigate the reason behind this, we observed these comments and the corresponding commit messages.
-We found that there were few common keywords between comments and commit messages and their length are relatively unequal.
-This makes low similarity values and low dissimilarity values as they shown in  bottom left white area in Fig. \ref{fig:scatter} which our models cannot determine.
+From the results of RQ1, we found that some comments were not determined by our model.
+Specifically, we were interested in why some manually assessed useful comments (\texttt{YES} = 3) and useless comments (\texttt{YES} = 0) were undetermined.
+To investigate the reason behind this, we reviewed these comments and the corresponding commit messages.
+We found that there were few common keywords between the comments and commit messages and their lengths are relatively unequal.
+This makes for low similarity values and low dissimilarity values as shown in bottom left white area in Fig. \ref{fig:scatter}. There simply isn't enough semantic information to determine anything.
 
 
 %In some cases, similarity and dissimilarity failed to measure the usefulness of the comment,
@@ -57,15 +55,14 @@ This makes low similarity values and low dissimilarity values as they shown in  
 To find relevance between comments and the corresponding commit message,
 topic modeling technique can be used, as the study of \cite{Barua2012a}.
 This technique discovers topics for a given collection of documents.
-However, in MCR context, the documents generally are short descriptions and discussions, which makes it unsuitable for LDA.
-Nevertheless, we have tried applying Latent Dirichlet Allocation (LDA, a well-known topic modeling techniques) model on our data set.
-The topic modeling technique generated ambiguous topics with many unrelated keywords, since the content of the documents too short, and thus is insufficient for LDA to correctly determine the topic.
-Others techniques could be investigated in the future to improve the results.
+However, in MCR context, the documents generally are very short statements and discussions, which makes it unsuitable for LDA. 
+Nevertheless, we have tried applying Latent Dirichlet Allocation (LDA, a well-known topic modeling technique) model on our data set.
+As expected, LDA generated ambiguous topics with many unrelated keywords. Again, as discussed above, there is simply not enough information since the content of the documents are too short, and thus is insufficient for LDA to correctly determine the topic. Others techniques could be investigated in the future to improve results.
 
 %\subsection{Reasons of Classification}
 % reasons for classification as useful or not useful
 \subsection{What decisions are made during the manual classification?}
-During manual comment usefulness assessment, we recorded the participants' rationale to verify that the comments are actually technically or little direct contribute to the proposed changes. We can summarize that most of reason for \texttt{YES} voting are: the comments 1) contain new information 2) contain constructive suggestions, 3) discuss directly to the proposed changes, and 4) discuss the technical matters. For \texttt{NO} voting, we can summarize that the comments 1) are chatting (just communication), 2) talking about matters unrelated to the proposed changes, 3) discuss about process workflow and supporting system (e.g. Git and Gerrit).
+During manual comment usefulness assessment, we recorded the participants' rationale to verify that the comments actually direct contribute to the proposed changes. We can summarize that most of reasons for \texttt{YES} voting are: the comments 1) contain new information 2) contain constructive suggestions, 3) discuss directly to the proposed changes, and 4) discuss specific technical matters. For \texttt{NO} voting, we can summarize that the comments 1) are chatting (just communication), 2) talking about matters unrelated to the proposed changes, 3) discuss about process workflow and supporting system (e.g. Git and Gerrit).
 %During the training process, reasons for the judgment are recorded. Examples of reasons for positive comments include:
 %
 %\begin{itemize}
@@ -86,10 +83,10 @@ During manual comment usefulness assessment, we recorded the participants' ratio
 
 \subsection{Can the determined thresholds in this study be used to other projects?}
 
-In this study, we determined the similarity conditions using training set in Qt project and the results show that the conditions can classify usefulness of comments.
-However, to apply our approach on other projects, training set preparation is still required and it cost human effort.
-This limits the practicality of application to projects with a large enough number of comments, where the classification effort saved overcomes the training costs.
-To fully automate this approach, we have to investigate the use of similarity conditions for many other different projects. Thus, additional studies are needed to improve our approach. 
+In this study, we determined the similarity conditions using a training set from the Qt project and the results show that the conditions can indeed classify usefulness of comments.
+However, we have no basis for believing that the threshold values obtained for one project would apply equally well for another project. To apply our approach on other projects, a new training set is still required which implies additional manual assessment.
+This limits the practicality of application our our method to projects with a large enough number of comments, where the classification effort saved overcomes the training costs.
+To fully automate this approach, we have to investigate the use of similarity conditions for many other different projects. Thus, additional studies are needed to improve our approach and potentially identify invariant conditions for similarly and usefulness. 
 
 %
 %Secondly, owing to the subjective assessment of usefulness, this representation fundamentally implies supervised classification requiring nontrivial training data to define representative classification sets. This decreases the cost-effectiveness and limits the practicality of application to projects with a large enough number of comments, where the classification effort saved overcomes the training costs.
