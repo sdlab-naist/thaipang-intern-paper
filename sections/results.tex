@@ -253,7 +253,7 @@ In addition, while we do not present hypothesis test results, it is clear that o
 
 
 
-According to our results, we can answer RQ1 as follows: \emph{using semantic similarity values as indicators, our approach can successfully classify comment usefulness with precision of 0.64 and recall of 0.75 approximately, which is significantly better than a random classifier.}
+%According to our results, we can answer RQ1 as follows: \emph{using semantic similarity values as indicators, our approach can successfully classify comment usefulness with precision of 0.64 and recall of 0.75 approximately, which is significantly better than a random classifier.}
 
 %After we performed cross validation, we obtained the following result:
 %for positive and negative classifications,
@@ -284,16 +284,15 @@ In addition, we also consider scalability of our models as it only validated for
 \textbf{Cost Efficiency:}
 % briefly explain
 We determined cost efficiency in terms of time use for manual assessment.
-For 318 comments in RQ1, we found that the manual assessment took 7.42 person hours on average.
-However, this time may be inaccurate since practitioners did not make assessments under a controlled environment.
-
+%For 318 comments in RQ1, we found that the manual assessment took 7.42 person hours on average.
+%However, this time may be inaccurate since practitioners did not make assessments under a controlled environment.
 % nitty-gritty details
-To be more precise, we considered only the time interval between two votes that are not more than 10 minutes apart.
+%To be more precise, 
+We considered only the time interval between two votes that are not more than 10 minutes apart since  practitioners did not make assessments under a controlled environment.
 The average time interval between votes is 28 seconds.
 Thus, for 318 comments, the assessment time should be 7.42 person hours.
 Using the same average interval time for all 10,583 comments,
 we can imply that the manual assessment time would be 82.3 person hours.
-
 % how our model helps
 When applying our approach to classify these all comments, the models left only 23.5\% of comments for manual assessment (undetermined comments) as shown in Table \ref{tb:percent}.
 This means that only 19.34 person hours of additional manual assessment of these undermined comments are needed, thus saving 76.5\% of human effort.

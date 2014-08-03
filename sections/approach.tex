@@ -7,7 +7,8 @@
 Our goal here is to improve the efficiency and confidence in the task of determining the usefulness of review comments.
 As with many subjective assessments, usefulness is not dichotomous and hence we must accept a third qualification, \emph{unclear}, to allow for the case where a comment does not directly make a positive contribution but is not clearly out of scope or tangential i.e. it may be useful.
 Our approach is largely based on the assumption that usefulness is determined by the relevance a comment has to the proposed change (as documented within a MCR system).
-A primary factor in relevance is similarly, and so it is natural for us to consider classification using \emph{similarity conditions}\cite{Davies2012}. 
+A primary factor in relevance is similarly, and so it is natural for us to consider classification using \emph{similarity conditions}. 
+%\cite{Davies2012}
 %\dan{can we find a reference for relevance and similarly?}
 We speculate that the more similar a comment is to the proposed change, the more relevant it is and hence more likely useful.
 Conversely, the more dissimilar\footnote{This is technically not simply the opposite of similarity. Unlike similarity, dissimilarity can be arbitrarily large.}, the less relevant, and hence less useful.
@@ -32,12 +33,12 @@ The conditions are simply threshold values of similarity and dissimilarity empir
 
 % again, I can't see Fig. \ref{fig:overview}(a)
 % Thai sez: Cosine distance IS NOT cosine similarity. Cosine distance is defined as 1 - cosine similarity, and is not a proper distance metric, lacking triangle equality and stuff [Wikipedia].
-We calculate semantic similarity using the Vector Space Model (VSM) \cite{wiki:vdm}
+We calculate semantic similarity using the Vector Space Model (VSM)% \cite{wiki:vdm}
 with the cosine similarity measure, which is a well-known technique for retrieving relevant documents written in unstructured natural language. The Euclidian distance, which is a well-established measure of dissimilarity,  applies here analogously for retrieving irrelevant documents.
 %For our case example training dataset, we manually identified 320 randomly-selected pairs of comments and corresponding commit messages in Fig. \ref{fig:overview}(b). \thai{The %overview figure does not have (a) and (b)...}
 %\dan{what was the actual effort (in person-hours) to create the training data?}
 
-The model is a form of \emph{supervised classification} \cite{wiki:supervised}
+The model is a form of \emph{supervised classification}% \cite{wiki:supervised}
 where a training set is used to empirically derive similarity and dissimilarity thresholds that optimize meaningful likelihoods e.g. likelihood that a comment is useful given its similarity is greater than some threshold value.    
 The training data is a small set of randomly-selected pairs of comments and the corresponding commit messages.
 These comments are manually assessed for usefulness.
@@ -48,7 +49,7 @@ For statistical purposes, at least 30 useful and 30 useless comments must be col
 The similarity and dissimilarity metrics are then computed for the training data set.
 These are used to estimate the similarity and dissimilarity thresholds $S_T$ and $D_T$ that best discriminate useful comments and $S'_T$ and $D'_T$ for useless comments. 
 %Other likelihood functions could be used depending on precision, recall, or risk goals.
-We find these thresholds by selecting $s_t,d_t$ values that maximize the F-measure \cite{wiki:f},
+We find these thresholds by selecting $s_t,d_t$ values that maximize the F-measure \footnote{\url{http://en.wikipedia.org/w/index.php?title=F1_score&oldid=608940880}},
 which is a performance measure for a binary classification that compromises trade-offs in accuracy of classification (precision) and coverage of classification (recall).
 In this study, we used the F$_1$-measure, which equally prioritizes precision and recall.
 Different weighting can be used by different F$_\beta$ measures depending on error tolerance for precision and recall.
