@@ -26,7 +26,7 @@ The conditions are simply threshold values of similarity and dissimilarity empir
 
 \begin{figure}[!t]
 \centering
-\includegraphics[scale=0.34, trim = 50 90 0 30, clip=true]{overview2}
+\includegraphics[scale=0.32, trim = 50 90 0 30, clip=true]{overview2}
 \caption{An overview of classification of comment usefulness using semantic similarity}
 \label{fig:overview}
 \end{figure}
@@ -45,14 +45,14 @@ These comments are manually assessed for usefulness.
 %Each comment is assessed by three different people independently.
 %For each \texttt{YES} vote, a single point is given to that comment.
 %This means that a comment will receive a score of 0, 1, 2, or 3.
-For statistical purposes, at least 30 useful and 30 useless comments must be collected.
+For statistical purposes, at least 30 useful and 30 useless comments must be collected\cite{Hogg2005}.
 The similarity and dissimilarity metrics are then computed for the training data set.
 These are used to estimate the similarity and dissimilarity thresholds $S_T$ and $D_T$ that best discriminate useful comments and $S'_T$ and $D'_T$ from useless comments. 
 %Other likelihood functions could be used depending on precision, recall, or risk goals.
-We find these thresholds by selecting $s_t,d_t$ values that maximize the F-measure \footnote{\url{http://en.wikipedia.org/w/index.php?title=F1_score&oldid=608940880}},
+We find these thresholds by selecting $s_t,d_t$ values that maximize the F-measure \cite{Prasetyo2012,Gottipati2011}
 which is a performance measure for a binary classification that compromises trade-offs in accuracy of classification (precision) and coverage of classification (recall).
-In this study, we used the F$_1$-measure, which equally prioritizes precision and recall.
-Different weighting can be used by different F$_\beta$ measures depending on error tolerance for precision and recall.
+%In this study, we used the F$_1$-measure, which equally prioritizes precision and recall.
+%Different weighting can be used by different F$_\beta$ measures depending on error tolerance for precision and recall.
 
 
 \subsection{Usefulness Classification Model} 

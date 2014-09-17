@@ -4,7 +4,7 @@
 Software code review is a well-established software quality management practice.
 Fundamentally, the intent is to identify defects early and encourage quality development policy and practices (such as adherence to coding standards and improving code readability).
 Traditionally, code reviews were a highly structured activity, but nowadays, less formal and lightweight code reviews such as Modern Code Review (MCR)\cite{Bacchelli2013a} are commonly used within both industry and OSS projects. 
-One reason for this is that with MCR, unlike formal inspections \cite{Fagan:1976:DCI:1661010.1661012}, in-person meetings are not required.
+One reason for this is that with MCR, unlike formal inspections \cite{Beller}, in-person meetings are not required.
 Reviewers can find problems in proposed changes and hold discussions on them by adding comments through a code review tool or a mailing list.
 Developers then improve the changes in response to these comments and re-submit for review until the changes are approved.  
 %Fig. \ref{fig:process} illustrates a typical MCR process. 
@@ -15,12 +15,12 @@ Given that most proposed changes are triggered from reviewer comments \cite{Bell
 it's possible that comments can either positively contribute to the proposed changes (i.e. are ``\emph{useful}''), or be a discussion which contributes little directly to the proposed changes (i.e. relatively ``\emph{useless}''). 
 Since MCR does not require strict guidelines, checklists, or formal processes, some reviewers tend to focus on trivial issues (e.g. coding styles), leaving deeper and possibly more quality-important issues undiscussed \cite{Bacchelli2013a}.
 %This is a concern because a high-degree of useless comments not only fails to contribute to improving quality, but also degrades the cost-effectiveness and perceived utility of MCR.
-This is a concern because a low-degree of useful comments may degrade the overall effectiveness and perceived utility of MCR.
+This is a concern because a low-degree of useful comments may degrade the overall effectiveness \cite{Prasetyo2012,Gottipati2011} and perceived utility of MCR.
 
 Prior research has focused primarily on the relationship between number of comments and quality.
 To the best of our knowledge, the connection between degree of useful and useless comments and quality has not been studied.
 One reason for this may be that to assess the impact of discussion in MCR, an effort-intensive manual classification is required as in the study of Beller et. al. \cite{Beller}.
-So while the data may be easy to access, MCR can produce a massive amounts of change requests and comments\cite{Balachandran2013,Thongtanunam2014} and it is painstaking and time consuming to manually assess their usefulness.
+So while the data may be easy to access, MCR can produce a massive amounts of change requests and comments\cite{Thongtanunam2014} and it is painstaking and time consuming to manually assess their usefulness.
 Moreover, given that comments in MCR are unstructured natural text, open to subjective judgment, contain tacit understanding, and possible misinterpretation, assessment errors are inevitable. 
 
 
@@ -86,7 +86,7 @@ The contributions in this paper are as follows:
 
 \begin{figure}[!t]
 \centering
-\includegraphics[scale=0.35, trim= 100 110 50 80, clip=true]{review_process}
+\includegraphics[scale=0.28, trim= 100 110 50 80, clip=true]{review_process}
 \caption{A simplified version of MCR Process based on Gerrit system}
 \label{fig:process}
 \end{figure}
